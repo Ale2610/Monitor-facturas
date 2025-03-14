@@ -22,9 +22,10 @@ entity Facturas
 
 entity OrdenCompra
 {
+    key ID : UUID;
     FechaEmision: String(255) @title : 'Fecha de emisión';
     FechaRecepcion: String(255) @title : 'Fecha de recepción';
-    key NumeroOrden: String(255) @title : 'Número de orden';
+    NumeroOrden: String(255) @title : 'Número de orden';
     NumeroFactura: Association to one Facturas @title: 'Número de factura';
     DetalleOrdenCompra: Composition  of many DetalleOrdenCompra on DetalleOrdenCompra.NumeroOrden = $self;
 }
@@ -70,6 +71,7 @@ entity DetalleFactura
 
 entity Proveedores
 {
+    key ID : UUID;
     CodigoSap:String(255) @title:'Código SAP';
     Tratamiento: String(255) @title:'Tratamiento';
     Nombre1: String(255) @title:'Nombre 1';
@@ -80,7 +82,7 @@ entity Proveedores
     DescRegion: String(255) @title:'Descripción de región';
     Municipio: String(255) @title:'Municipio';
     Direccion: String(255) @title:'Dirección';
-    key NIT: String(255) @title:'NIT';
+    NIT: String(255) @title:'NIT';
     TipoNit: String(255) @tilte:'Tipo NIT';
     DescTipoNit: String(255) @title:'Descripción tipo NIT';
     Personanatural: String(255) @title:'Persona natural';

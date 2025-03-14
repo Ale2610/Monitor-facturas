@@ -1,18 +1,18 @@
-###
 POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
 Content-Type: application/json
+
 {
-    "FechaEmision": "FechaEmision1111", 
-    "FechaRecepcion": "Fecha222",
-    "NumeroOrden": "50005184466666",
-    "NumeroFactura": "45001164322222",
+    "FechaEmision": "2025-03-14", 
+    "FechaRecepcion": "2025-03-14",
+    "NumeroOrden": "346346",
+    "NumeroFactura": { "NumeroFactura": "567568" },
     "DetalleOrdenCompra": [
         {
-            "NumeroMaterial": "NumeroMaterial2850",
-            "NombreMaterial": "NombreMaterial9074",
-            "TipoMaterial": "TipoMaterial2194",
-            "Cantidad": "Cantidad5494",
-            "NumeroOrden_NumeroOrden": "NumeroOrden2438",
+            "NumeroMaterial": "Nhhg",
+            "NombreMaterial": "Nhfghd",
+            "TipoMaterial": "dfhdf",
+            "Cantidad": "107",
+            "NumeroOrden": { "ID": "AAAAAAA" },
             "DepartamentoEntrega": "DepartamentoEntrega9852",
             "MunicipioEntrega": "MunicipioEntrega4813",
             "Direccion": "Direccion7454"
@@ -22,10 +22,35 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:4004/service/Monitor_FacturasService/Facturas
+POST http://localhost:4004/service/Monitor_FacturasService/Proveedores
+Content-Type: application/json
 
-
-
+ {
+      "CodigoSap": "CAAAA",
+      "Tratamiento": "TAAAA",
+      "Nombre1": "NoAAAA",
+      "Nombre2": "NoAAA",
+      "Nombre3": "NombrAAAAe39664",
+      "Nombre4": "NombrAAAA49033",
+      "Region": "Region57AAA60",
+      "DescRegion": "DescReAAAAgion3021",
+      "Municipio": "MunicipAAAAio997",
+      "Direccion": "DirecciAAAAon8892",
+      "NIT": "NITAAAA2106",
+      "TipoNit": "TipoNiAAAAt2867",
+      "DescTipoNit": "DescTipoNAAAAit5043",
+      "Personanatural": "PersonAAAAanatural8478",
+      "ConceptoBusqueda": "AAAAA",
+      "Telefono": "AAAA",
+      "ClaseImpuesto": "AAAAA",
+      "DescClaseImpuesto": "AAAA",
+      "ConceptoBusqueda2": "AAAA",
+      "CondicionPago": "Accept-Language: ",
+      "DescCondicionPago": "DescCondAAAAicionPago183",
+      "FechaInicio": "AAAA",
+      "FechaFin": "AAAA",
+      "CorreoElectronico": "AAAAA@AAAA"
+    }
 
 
 

@@ -12,6 +12,44 @@ class Monitor_FacturasService extends LCAPApplicationService {
             return clientes_Logic(request, next);
         });
 
+        // this.on('actualizarOrdenCompra', async (req) => {
+        //     const { ID, FechaEmision, FechaRecepcion, NumeroOrden, NumeroFactura, DetalleOrdenCompra } = req.data;
+        
+        //     if (!NumeroOrden) {
+        //         return req.reject(400, "El campo 'NumeroOrden' es obligatorio.");
+        //     }
+        
+        //     const updateData = {
+        //         FechaEmision: FechaEmision ?? "",
+        //         FechaRecepcion: FechaRecepcion ?? "",
+        //         NumeroOrden,
+        //         NumeroFactura: NumeroFactura ?? ""
+        //     };
+        
+        //     try {
+        //         const tx = cds.tx(req);
+        //         const result = await tx.run(UPDATE(this.entities.OrdenCompra).set(updateData).where({ ID }));
+        
+        //         if (result === 0) {
+        //             return req.reject(404, "No se encontró la orden de compra para actualizar.");
+        //         }
+        
+        //         // Si hay detalles, los actualizamos individualmente
+        //         if (Array.isArray(DetalleOrdenCompra) && DetalleOrdenCompra.length > 0) {
+        //             for (const detalle of DetalleOrdenCompra) {
+        //                 await tx.run(UPDATE(this.entities.DetalleOrdenCompra).set(detalle).where({ NumeroOrden_NumeroOrden: NumeroOrden }));
+        //             }
+        //         }
+        
+        //         await tx.commit();
+        //         return { message: "Orden de compra actualizada con éxito" };
+        
+        //     } catch (error) {
+        //         console.error("Error al actualizar la OrdenCompra:", error);
+        //         return req.reject(500, "Hubo un error al actualizar la orden de compra.");
+        //     }
+        // });
+
         return super.init();
     }
 }
