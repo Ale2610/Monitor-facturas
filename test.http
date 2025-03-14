@@ -1,0 +1,32 @@
+###
+POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
+Content-Type: application/json
+{
+    "FechaEmision": "FechaEmision1111", 
+    "FechaRecepcion": "Fecha222",
+    "NumeroOrden": "50005184466666",
+    "NumeroFactura": "45001164322222",
+    "DetalleOrdenCompra": [
+        {
+            "NumeroMaterial": "NumeroMaterial2850",
+            "NombreMaterial": "NombreMaterial9074",
+            "TipoMaterial": "TipoMaterial2194",
+            "Cantidad": "Cantidad5494",
+            "NumeroOrden_NumeroOrden": "NumeroOrden2438",
+            "DepartamentoEntrega": "DepartamentoEntrega9852",
+            "MunicipioEntrega": "MunicipioEntrega4813",
+            "Direccion": "Direccion7454"
+        }
+    ]
+}
+
+
+###
+GET http://localhost:4004/service/Monitor_FacturasService/Facturas
+
+
+
+
+
+
+
