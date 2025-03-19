@@ -59,6 +59,22 @@ annotate service.Facturas with @(
                 $Type : 'UI.DataField',
                 Value : DescripcionDestinatario,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : Area,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Clasificacion,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Estado,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Urgente,
+            },
         ],
     },
     UI.Facets : [

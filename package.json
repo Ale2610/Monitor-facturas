@@ -9,7 +9,7 @@
     "@cap-js/hana": "^1",
     "@sap-cloud-sdk/http-client": "^4.0.1",
     "@sap-cloud-sdk/util": "^4.0.1",
-    "@sap/cds": "^8",
+    "@sap/cds": "^8.8.2",
     "@sap/low-code-event-handler": "^1.2.5",
     "@sap/xsenv": ">=3.3.2 <3.3.3",
     "@sap/xssec": "^4.4.0",
@@ -29,7 +29,8 @@
     "cds-watch": "cds watch --open",
     "watch-monitor_facturas.monitorfacturas": "cds watch --open monitor_facturas.monitorfacturas/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-monitor_facturas.ordendecompra": "cds watch --open monitor_facturas.ordendecompra/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-monitor_facturas.entradas": "cds watch --open monitor_facturas.entradas/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-monitor_facturas.entradas": "cds watch --open monitor_facturas.entradas/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.facturasxml": "cds watch --open monitor_facturas.facturasxml/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "sql": {
@@ -57,6 +58,7 @@
   "sapux": [
     "app/monitor_facturas.monitorfacturas",
     "app/monitor_facturas.ordendecompra",
-    "app/monitor_facturas.entradas"
+    "app/monitor_facturas.entradas",
+    "app/monitor_facturas.facturasxml"
   ]
 }
