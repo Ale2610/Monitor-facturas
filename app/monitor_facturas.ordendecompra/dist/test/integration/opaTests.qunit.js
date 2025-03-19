@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/ordendecompra/test/integration/FirstJourney","monitorfacturas/ordendecompra/test/integration/pages/OrdenCompraList","monitorfacturas/ordendecompra/test/integration/pages/OrdenCompraObjectPage"],function(r,e,t,n){"use strict";var r=new r({launchUrl:sap.ui.require.toUrl("monitorfacturas/ordendecompra")+"/index.html"});r.run({pages:{onTheOrdenCompraList:t,onTheOrdenCompraObjectPage:n}},e.run)});
+//# sourceMappingURL=opaTests.qunit.js.map
