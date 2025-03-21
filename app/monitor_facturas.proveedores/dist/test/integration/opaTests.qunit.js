@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/proveedores/test/integration/FirstJourney","monitorfacturas/proveedores/test/integration/pages/ProveedoresList","monitorfacturas/proveedores/test/integration/pages/ProveedoresObjectPage"],function(e,r,o,t){"use strict";var e=new e({launchUrl:sap.ui.require.toUrl("monitorfacturas/proveedores")+"/index.html"});e.run({pages:{onTheProveedoresList:o,onTheProveedoresObjectPage:t}},r.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

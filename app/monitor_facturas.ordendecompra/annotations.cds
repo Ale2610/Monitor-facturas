@@ -5,20 +5,19 @@ annotate service.OrdenCompra with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : FechaEmision,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : FechaRecepcion,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : NumeroOrden,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'NumeroFactura_NumeroFactura',
-                Value : NumeroFactura_NumeroFactura,
+                Value : ClasePedido,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : FechaCreacion,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : UsuarioCreador,
             },
         ],
     },
@@ -43,11 +42,15 @@ annotate service.OrdenCompra with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : FechaEmision,
+            Value : FechaCreacion,
         },
         {
             $Type : 'UI.DataField',
-            Value : FechaRecepcion,
+            Value : ClasePedido,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : UsuarioCreador,
         },
     ],
 );
@@ -94,6 +97,14 @@ annotate service.DetalleOrdenCompra with @(
         },
         {
             $Type : 'UI.DataField',
+            Value : GrupoArticulos,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Direccion,
+        },
+        {
+            $Type : 'UI.DataField',
             Value : TipoMaterial,
         },
         {
@@ -102,15 +113,15 @@ annotate service.DetalleOrdenCompra with @(
         },
         {
             $Type : 'UI.DataField',
+            Value : ValorUnitario,
+        },
+        {
+            $Type : 'UI.DataField',
             Value : DepartamentoEntrega,
         },
         {
             $Type : 'UI.DataField',
             Value : MunicipioEntrega,
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : Direccion,
         },
     ]
 );

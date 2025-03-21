@@ -2,17 +2,19 @@ POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
 Content-Type: application/json
 
 {
-    "FechaEmision": "2025-03-14", 
-    "FechaRecepcion": "2025-03-14",
+    "FechaCreacion": "2025-03-14", 
+    "ClasePedido": "2025-03-14",
     "NumeroOrden": "346346",
-    "NumeroFactura": { "NumeroFactura": "567568" },
+    "Proveedor": { "CodigoSap": "567568" },
+    "UsuarioCreador": "Usuarioooo",
     "DetalleOrdenCompra": [
         {
             "NumeroMaterial": "Nhhg",
             "NombreMaterial": "Nhfghd",
+            "GrupoArticulos": "dfhdf",
             "TipoMaterial": "dfhdf",
             "Cantidad": "107",
-            "NumeroOrden": { "ID": "AAAAAAA" },
+            "ValorUnitario": "1090190",
             "DepartamentoEntrega": "DepartamentoEntrega9852",
             "MunicipioEntrega": "MunicipioEntrega4813",
             "Direccion": "Direccion7454"
@@ -25,33 +27,34 @@ Content-Type: application/json
 POST http://localhost:4004/service/Monitor_FacturasService/Proveedores
 Content-Type: application/json
 
- {
-      "CodigoSap": "CAAAA",
-      "Tratamiento": "TAAAA",
-      "Nombre1": "NoAAAA",
-      "Nombre2": "NoAAA",
-      "Nombre3": "NombrAAAAe39664",
-      "Nombre4": "NombrAAAA49033",
-      "Region": "Region57AAA60",
-      "DescRegion": "DescReAAAAgion3021",
-      "Municipio": "MunicipAAAAio997",
-      "Direccion": "DirecciAAAAon8892",
-      "NIT": "NITAAAA2106",
-      "TipoNit": "TipoNiAAAAt2867",
-      "DescTipoNit": "DescTipoNAAAAit5043",
-      "Personanatural": "PersonAAAAanatural8478",
-      "ConceptoBusqueda": "AAAAA",
-      "Telefono": "AAAA",
-      "ClaseImpuesto": "AAAAA",
-      "DescClaseImpuesto": "AAAA",
-      "ConceptoBusqueda2": "AAAA",
-      "CondicionPago": "Accept-Language: ",
-      "DescCondicionPago": "DescCondAAAAicionPago183",
-      "FechaInicio": "AAAA",
-      "FechaFin": "AAAA",
-      "CorreoElectronico": "AAAAA@AAAA"
-    }
+ [
+  {
+    "CodigoSap": "CAAAA",
+    "Tratamiento": "TAAAA",
+    "Nombre1": "NoAAAA",
+    "Nombre2": "NoAAA",
+    "Nombre3": "NombrAAAAe39664",
+    "Nombre4": "NombrAAAA49033",
+    "Region": "Region57AAA60",
+    "DescRegion": "DescReAAAAgion3021",
+    "Municipio": "MunicipAAAAio997",
+    "Direccion": "DirecciAAAAon8892",
+    "NIT": "NITAAAA2106",
+    "TipoNit": "TipoNiAAAAt2867",
+    "DescTipoNit": "DescTipoNAAAAit5043",
+    "Personanatural": "PersonAAAAanatural8478",
+    "ConceptoBusqueda": "AAAAA",
+    "Telefono": "AAAA",
+    "ClaseImpuesto": "AAAAA",
+    "DescClaseImpuesto": "AAAA",
+    "ConceptoBusqueda2": "AAAA",
+    "CondicionPago": "Accept-Language: ",
+    "DescCondicionPago": "DescCondAAAAicionPago183",
+    "FechaInicio": "AAAA",
+    "FechaFin": "AAAA",
+    "CorreoElectronico": "AAAAA@AAAA"
+  }
 
-
+]
 
 

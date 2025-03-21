@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/entradas/test/integration/FirstJourney","monitorfacturas/entradas/test/integration/pages/EntradaList","monitorfacturas/entradas/test/integration/pages/EntradaObjectPage"],function(t,a,r,e){"use strict";var t=new t({launchUrl:sap.ui.require.toUrl("monitorfacturas/entradas")+"/index.html"});t.run({pages:{onTheEntradaList:r,onTheEntradaObjectPage:e}},a.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

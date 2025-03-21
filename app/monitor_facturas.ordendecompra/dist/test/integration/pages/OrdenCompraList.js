@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ListReport"],function(t){"use strict";var e={actions:{},assertions:{}};return new t({appId:"monitorfacturas.ordendecompra",componentId:"OrdenCompraList",contextPath:"/OrdenCompra"},e)});
+//# sourceMappingURL=OrdenCompraList.js.map

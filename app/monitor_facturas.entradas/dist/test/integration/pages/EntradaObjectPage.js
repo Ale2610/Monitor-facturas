@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ObjectPage"],function(t){"use strict";var a={actions:{},assertions:{}};return new t({appId:"monitorfacturas.entradas",componentId:"EntradaObjectPage",contextPath:"/Entrada"},a)});
+//# sourceMappingURL=EntradaObjectPage.js.map

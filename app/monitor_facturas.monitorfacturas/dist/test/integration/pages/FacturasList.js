@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ListReport"],function(t){"use strict";var a={actions:{},assertions:{}};return new t({appId:"monitorfacturas.monitorfacturas",componentId:"FacturasList",contextPath:"/Facturas"},a)});
+//# sourceMappingURL=FacturasList.js.map

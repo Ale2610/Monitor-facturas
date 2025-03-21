@@ -1,6 +1,6 @@
-FechaContabilizacion;FechaFactura;FechaVencimiento;FormaPago;NumeroFactura;Posiciones;TotalFactura;IVA;IndicadorImpuesto;NumeroIndicador;Destinatario;DescripcionDestinatario;Proveedor_ID
-2025-03-14;2025-03-14;2025-03-14;FormaPago8521;NumeroFactura9560;Posiciones6352;TotalFactura1121;IVA9302;IndicadorImpuesto5262;NumeroIndicador185;Destinatario1508;DescripcionDestinatario6136;cd95ca4c-53b3-4637-a4ea-96cb3613cfdb
-2025-03-14;2025-03-14;2025-03-14;FormaPago2453;NumeroFactura5055;Posiciones7589;TotalFactura8472;IVA7259;IndicadorImpuesto3549;NumeroIndicador2501;Destinatario8512;DescripcionDestinatario9204;9a1f3781-303c-4209-a3fc-2c6474340722
-2025-03-14;2025-03-14;2025-03-14;FormaPago7567;NumeroFactura5030;Posiciones7968;TotalFactura6968;IVA706;IndicadorImpuesto2122;NumeroIndicador1466;Destinatario6722;DescripcionDestinatario5137;ae36bdda-3d4b-4481-96c3-d8049ec95825
-2025-03-14;2025-03-14;2025-03-14;FormaPago9376;NumeroFactura1786;Posiciones770;TotalFactura6011;IVA2809;IndicadorImpuesto6335;NumeroIndicador2385;Destinatario4452;DescripcionDestinatario9466;d4ecac2a-8741-496b-bf4e-cb4a95014a9c
-2025-03-14;2025-03-14;2025-03-14;FormaPago2084;NumeroFactura2362;Posiciones4144;TotalFactura714;IVA6705;IndicadorImpuesto9293;NumeroIndicador3258;Destinatario1725;DescripcionDestinatario5563;d6444542-80e1-42af-9186-eb1cae116af0
+FechaContabilizacion;FechaFactura;FechaVencimiento;FormaPago;NumeroFactura;Posiciones;TotalFactura;IVA;IndicadorImpuesto;NumeroIndicador;Destinatario;DescripcionDestinatario;Proveedor_CodigoSap
+2025-03-21;2025-03-21;2025-03-21;FormaPago6427;NumeroFactura9466;Posiciones520;TotalFactura9913;IVA3918;IndicadorImpuesto51;NumeroIndicador3178;Destinatario5889;DescripcionDestinatario6857;CodigoSap1341
+2025-03-21;2025-03-21;2025-03-21;FormaPago1743;NumeroFactura7931;Posiciones3474;TotalFactura1763;IVA3148;IndicadorImpuesto9440;NumeroIndicador4588;Destinatario7328;DescripcionDestinatario8324;CodigoSap16
+2025-03-21;2025-03-21;2025-03-21;FormaPago4120;NumeroFactura4986;Posiciones7902;TotalFactura3319;IVA6295;IndicadorImpuesto7067;NumeroIndicador1379;Destinatario9506;DescripcionDestinatario8204;CodigoSap2575
+2025-03-21;2025-03-21;2025-03-21;FormaPago2930;NumeroFactura3503;Posiciones7290;TotalFactura8834;IVA7239;IndicadorImpuesto2122;NumeroIndicador8277;Destinatario3367;DescripcionDestinatario3308;CodigoSap6759
+2025-03-21;2025-03-21;2025-03-21;FormaPago5335;NumeroFactura3234;Posiciones729;TotalFactura5323;IVA4198;IndicadorImpuesto7278;NumeroIndicador9426;Destinatario6289;DescripcionDestinatario8693;CodigoSap3441
