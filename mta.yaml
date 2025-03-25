@@ -99,6 +99,24 @@ modules:
       _artifactName: monitorfacturasordendecompra.zip
       supported-platforms: []
       build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.proveedores
+    type: html5
+    path: app/monitor_facturas.proveedores
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasproveedores.zip *"
+      _artifactName: monitorfacturasproveedores.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: Monitor_Facturas-db-deployer
     type: hdb
     path: gen/db
@@ -219,6 +237,10 @@ modules:
         - name: Monitor_Facturas-monitorfacturas.ordendecompra
           artifacts:
             - monitorfacturasordendecompra.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.proveedores
+          artifacts:
+            - monitorfacturasproveedores.zip
           target-path: resources
         - name: Monitor_Facturas-launchpad
           artifacts:
