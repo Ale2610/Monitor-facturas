@@ -20,25 +20,29 @@ entity Facturas
     Urgente: Boolean @title : 'Urgente';
     Area:String(255) @title : 'Área';
     DetalleFactura: Composition of many DetalleFactura on DetalleFactura.NumeroFactura = $self;
-    OrdenCompra: Composition of many OrdenCompra on OrdenCompra.NumeroFactura = $self;
     Entrada: Composition of many Entrada on Entrada.NumeroFactura = $self;
 }
 
 entity OrdenCompra
 {
-    FechaEmision: String(255) @title : 'Fecha de emisión';
-    FechaRecepcion: String(255) @title : 'Fecha de recepción';
-    key NumeroOrden: String(255) @title : 'Número de orden';
-    NumeroFactura: Association to one Facturas @title: 'Número de factura';
+    key ID : UUID;
+    FechaCreacion: String(255) @title : 'Fecha de creación';
+    ClasePedido: String(255) @title : 'Clase de pedido';
+    NumeroOrden: String(255) @title : 'Número de orden';
+    Proveedor: Association to one Proveedores @title: 'Proveedor';
+    UsuarioCreador: String(255) @title : 'Usuario creador';
     DetalleOrdenCompra: Composition  of many DetalleOrdenCompra on DetalleOrdenCompra.NumeroOrden = $self;
 }
 
 entity DetalleOrdenCompra
 {
-    key NumeroMaterial: String(255) @title: 'Número de material';  
+    key ID : UUID;
+    NumeroMaterial: String(255) @title: 'Número de material';  
     NombreMaterial:String(255) @title: 'Nombre de material';
+    GrupoArticulos: String(255) @title:'Grupo de articulos';
     TipoMaterial: String(255) @title : 'Tipo de material';
     Cantidad: String(255) @title: 'Cantidad'; 
+    ValorUnitario: String(255) @title: 'Valor unitario';
     NumeroOrden: Association to one OrdenCompra @title: 'Número de orden'; 
     DepartamentoEntrega: String(255) @title: 'Departamento de entrega';
     MunicipioEntrega: String(255) @title: 'Municipio de entrega';
@@ -74,7 +78,8 @@ entity DetalleFactura
 
 entity Proveedores
 {
-    CodigoSap:String(255) @title:'Código SAP';
+   
+    key CodigoSap:String(255) @title:'Código SAP';
     Tratamiento: String(255) @title:'Tratamiento';
     Nombre1: String(255) @title:'Nombre 1';
     Nombre2: String(255) @title:'Nombre 2';
@@ -84,7 +89,8 @@ entity Proveedores
     DescRegion: String(255) @title:'Descripción de región';
     Municipio: String(255) @title:'Municipio';
     Direccion: String(255) @title:'Dirección';
-    key NIT: String(255) @title:'NIT';
+    NIT: String(255) @title:'NIT';
+    OrdenCompra: Composition of many OrdenCompra on OrdenCompra.Proveedor = $self;
     TipoNit: String(255) @tilte:'Tipo NIT';
     DescTipoNit: String(255) @title:'Descripción tipo NIT';
     Personanatural: String(255) @title:'Persona natural';

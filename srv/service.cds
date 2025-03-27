@@ -3,10 +3,10 @@ using { Monitor_Facturas as my } from '../db/schema.cds';
 @path : '/service/Monitor_FacturasService'
 service Monitor_FacturasService
 {
-    @odata.draft.enabled
+    
     entity Facturas as
         projection on my.Facturas;
-
+    @odata.draft.enabled
     entity OrdenCompra as
         projection on my.OrdenCompra;
 
