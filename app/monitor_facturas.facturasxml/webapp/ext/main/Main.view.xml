@@ -1,0 +1,46 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.facturasxml.ext.main.Main">
+    <Page id="Main" title="{i18n>MainTitle}">
+        <content>
+            <Button id="myButton" text="Mi Botón" press=".onButtonPress"/>
+        </content>
+        <macros:Table id="Table" metaPath="/Facturas/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" header="Facturas"/>
+        <!-- Tabla con columnas definidas -->
+        <Table id="myTable" items="{/Facturas}" headerText="Facturas">
+            <!-- Definición de las columnas con IDs -->
+            <columns>
+                <Column id="colNumeroFactura">
+                    <Text id="text4" text="NumeroFactura"/>
+                </Column>
+                <Column id="colFechaFactura">
+                    <Text id="text5" text="FechaFactura"/>
+                </Column>
+                <Column id="colFormaPago">
+                    <Text id="text1" text="FormaPago"/>
+                </Column>
+                <Column id="colProveedorNIT">
+                    <Text id="text2" text="Proveedor NIT"/>
+                </Column>
+                <Column id="colProveedorNombre">
+                    <Text id="text3" text="Proveedor Nombre"/>
+                </Column>
+                <!-- Columna de detalles para navegación -->
+                <Column id="colDetalles">
+                    <Text id="text7" text="Detalles"/>
+                </Column>
+            </columns>
+            <!-- Definición de los datos de la tabla con IDs -->
+            <items>
+                <ColumnListItem id="column">
+                    <cells>
+                        <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
+                        <Text id="cellFechaFactura" text="{FechaFactura}"/>
+                        <Text id="cellFormaPago" text="{FormaPago}"/>
+                        <Text id="cellProveedorNIT" text="{Proveedor/NIT}"/>
+                        <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
+                        <Link id="cellDetalles" text="Detalles" press="onDetallePress"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

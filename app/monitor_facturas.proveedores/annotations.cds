@@ -109,22 +109,18 @@ annotate service.Proveedores with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'Información general',
+            Label : 'General Information',
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
     ],
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Value : CodigoSap,
-        },
-        {
-            $Type : 'UI.DataField',
             Value : NIT,
         },
         {
             $Type : 'UI.DataField',
-            Value : Personanatural,
+            Value : CodigoSap,
         },
         {
             $Type : 'UI.DataField',
@@ -137,6 +133,19 @@ annotate service.Proveedores with @(
         {
             $Type : 'UI.DataField',
             Value : CorreoElectronico,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Personanatural,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : TipoNit,
+            Label : 'TipoNit',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Telefono,
         },
     ],
 );

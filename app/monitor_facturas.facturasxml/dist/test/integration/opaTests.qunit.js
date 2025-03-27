@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/facturasxml/test/integration/FirstJourney","monitorfacturas/facturasxml/test/integration/pages/FacturasMain"],function(a,r,t){"use strict";var a=new a({launchUrl:sap.ui.require.toUrl("monitorfacturas/facturasxml")+"/index.html"});a.run({pages:{onTheFacturasMain:t}},r.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

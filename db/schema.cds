@@ -15,6 +15,10 @@ entity Facturas
     NumeroIndicador: String(255) @title : 'Número indicador';
     Destinatario: String(255) @title : 'Destinatario';
     DescripcionDestinatario: String(255) @title : 'Descripción del destinatario';
+    Clasificacion: String(255) @title : 'Clasificación';
+    Estado: String(255) @title : 'Estado';
+    Urgente: Boolean @title : 'Urgente';
+    Area:String(255) @title : 'Área';
     DetalleFactura: Composition of many DetalleFactura on DetalleFactura.NumeroFactura = $self;
     Entrada: Composition of many Entrada on Entrada.NumeroFactura = $self;
 }

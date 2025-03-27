@@ -45,6 +45,24 @@ modules:
       _artifactName: monitorfacturasentradas.zip
       supported-platforms: []
       build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.facturasxml
+    type: html5
+    path: app/monitor_facturas.facturasxml
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasfacturasxml.zip *"
+      _artifactName: monitorfacturasfacturasxml.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: Monitor_Facturas-monitorfacturas.monitorfacturas
     type: html5
     path: app/monitor_facturas.monitorfacturas
@@ -207,6 +225,10 @@ modules:
         - name: Monitor_Facturas-monitorfacturas.entradas
           artifacts:
             - monitorfacturasentradas.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.facturasxml
+          artifacts:
+            - monitorfacturasfacturasxml.zip
           target-path: resources
         - name: Monitor_Facturas-monitorfacturas.monitorfacturas
           artifacts:

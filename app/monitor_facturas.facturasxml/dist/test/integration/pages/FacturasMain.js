@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/TemplatePage"],function(a){"use strict";var t={actions:{},assertions:{}};return new a("monitorfacturas.facturasxml::FacturasMain",t)});
+//# sourceMappingURL=FacturasMain.js.map
