@@ -19,6 +19,10 @@ annotate service.OrdenCompra with @(
                 $Type : 'UI.DataField',
                 Value : UsuarioCreador,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : Proveedor_CodigoSap,
+            },
         ],
     },
     UI.Facets : [

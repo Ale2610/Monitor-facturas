@@ -27,34 +27,118 @@ Content-Type: application/json
 POST http://localhost:4004/service/Monitor_FacturasService/Proveedores
 Content-Type: application/json
 
- [
-  {
-    "CodigoSap": "CAAAA",
-    "Tratamiento": "TAAAA",
-    "Nombre1": "NoAAAA",
-    "Nombre2": "NoAAA",
-    "Nombre3": "NombrAAAAe39664",
-    "Nombre4": "NombrAAAA49033",
-    "Region": "Region57AAA60",
-    "DescRegion": "DescReAAAAgion3021",
-    "Municipio": "MunicipAAAAio997",
-    "Direccion": "DirecciAAAAon8892",
-    "NIT": "NITAAAA2106",
-    "TipoNit": "TipoNiAAAAt2867",
-    "DescTipoNit": "DescTipoNAAAAit5043",
-    "Personanatural": "PersonAAAAanatural8478",
-    "ConceptoBusqueda": "AAAAA",
-    "Telefono": "AAAA",
-    "ClaseImpuesto": "AAAAA",
-    "DescClaseImpuesto": "AAAA",
-    "ConceptoBusqueda2": "AAAA",
-    "CondicionPago": "Accept-Language: ",
-    "DescCondicionPago": "DescCondAAAAicionPago183",
-    "FechaInicio": "AAAA",
-    "FechaFin": "AAAA",
-    "CorreoElectronico": "AAAAA@AAAA"
-  }
+{    
+"CodigoSap": "000000",    
+"Tratamiento": "Tratamiento",  
+"Nombre1": "No1", 
+"Nombre2": "No2",     
+"Nombre3": "No3",     
+"Nombre4": "No4",    
+"Region": "Region453",     
+"DescRegion": "DescRe34",   
+"Municipio": "Municipio997",    
+"Direccion": "Direccion8892",
+"NIT": "NIT2106",    
+"TipoNit": "TipoNit2867",  
+"DescTipoNit": "DescTipoNiit5043",  
+"Personanatural": "Personanatural8478",    
+"ConceptoBusqueda": "Concepto",    
+"Telefono": "21456336",  
+"ClaseImpuesto": "Iva",    
+"DescClaseImpuesto": "DescClase",    
+"ConceptoBusqueda2": "ConceptoBusq",     
+"CondicionPago": "Condici ",    
+"DescCondicionPago": "DescCondicionPago183",   
+"FechaInicio": "12-79-78", 
+"FechaFin": "24-76-43",
+"CorreoElectronico": "example@example"
+    }
 
-]
+###
+POST http://localhost:4004/service/Monitor_FacturasService/bulkInsertProveedores
+Content-Type: application/json
+
+{
+  "proveedores": [
+    {
+      "CodigoSap": "000003",    
+"Tratamiento": "Tratamiento",  
+"Nombre1": "No1", 
+"Nombre2": "No2",     
+"Nombre3": "No3",     
+"Nombre4": "No4",    
+"Region": "Region453",     
+"DescRegion": "DescRe34",   
+"Municipio": "Municipio997",    
+"Direccion": "Direccion8892",
+"NIT": "NIT2106",    
+"TipoNit": "TipoNit2867",  
+"DescTipoNit": "DescTipoNiit5043",  
+"Personanatural": "Personanatural8478",    
+"ConceptoBusqueda": "Concepto",    
+"Telefono": "21456336",  
+"ClaseImpuesto": "Iva",    
+"DescClaseImpuesto": "DescClase",    
+"ConceptoBusqueda2": "ConceptoBusq",     
+"CondicionPago": "Condici ",    
+"DescCondicionPago": "DescCondicionPago183",   
+"FechaInicio": "12-79-78", 
+"FechaFin": "24-76-43",
+"CorreoElectronico": "example@example"
+    },
+    {
+      "CodigoSap": "000004",    
+"Tratamiento": "Tratamiento",  
+"Nombre1": "No1", 
+"Nombre2": "No2",     
+"Nombre3": "No3",     
+"Nombre4": "No4",    
+"Region": "Region453",     
+"DescRegion": "DescRe34",   
+"Municipio": "Municipio997",    
+"Direccion": "Direccion8892",
+"NIT": "NIT2106",    
+"TipoNit": "TipoNit2867",  
+"DescTipoNit": "DescTipoNiit5043",  
+"Personanatural": "Personanatural8478",    
+"ConceptoBusqueda": "Concepto",    
+"Telefono": "21456336",  
+"ClaseImpuesto": "Iva",    
+"DescClaseImpuesto": "DescClase",    
+"ConceptoBusqueda2": "ConceptoBusq",     
+"CondicionPago": "Condici ",    
+"DescCondicionPago": "DescCondicionPago183",   
+"FechaInicio": "12-79-78", 
+"FechaFin": "24-76-43",
+"CorreoElectronico": "example@example"
+    },
+    {
+      "CodigoSap": "000005",    
+"Tratamiento": "Tratamiento",  
+"Nombre1": "No1", 
+"Nombre2": "No2",     
+"Nombre3": "No3",     
+"Nombre4": "No4",    
+"Region": "Region453",     
+"DescRegion": "DescRe34",   
+"Municipio": "Municipio997",    
+"Direccion": "Direccion8892",
+"NIT": "NIT2106",    
+"TipoNit": "TipoNit2867",  
+"DescTipoNit": "DescTipoNiit5043",  
+"Personanatural": "Personanatural8478",    
+"ConceptoBusqueda": "Concepto",    
+"Telefono": "21456336",  
+"ClaseImpuesto": "Iva",    
+"DescClaseImpuesto": "DescClase",    
+"ConceptoBusqueda2": "ConceptoBusq",     
+"CondicionPago": "Condici ",    
+"DescCondicionPago": "DescCondicionPago183",   
+"FechaInicio": "12-79-78", 
+"FechaFin": "24-76-43",
+"CorreoElectronico": "example@example"
+    }
+  ]
+}
 
 

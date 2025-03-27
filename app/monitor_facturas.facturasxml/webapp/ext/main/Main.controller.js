@@ -259,7 +259,7 @@ sap.ui.define(
                 // Ahora puedes usar facturaId para navegar o realizar otras acciones
                 console.log(facturaId);
                 // Abrir la aplicación de Facturas en una nueva ventana
-                var sUrl = "./monitor_facturas.facturasxml/webapp#/Facturas(NumeroFactura='" + facturaId + "',IsActiveEntity=true)";
+                var sUrl = "#monitorfacturasfacturasxml-display&/Facturas('"+facturaId+"')";
                 
                 // Usar window.open para abrir la URL en una nueva ventana
                 window.open(sUrl, "_blank");

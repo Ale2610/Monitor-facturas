@@ -29,10 +29,6 @@ annotate service.Facturas with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : Proveedor_NIT,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : Proveedor.Nombre1,
             },
             {
@@ -92,12 +88,6 @@ annotate service.Facturas with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
-            Label : 'Ordenes de compra',
-            ID : 'Ordenesdecompra',
-            Target : 'OrdenCompra/@UI.LineItem#Ordenesdecompra',
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
             Label : 'Entrada',
             ID : 'Entrada',
             Target : 'Entrada/@UI.LineItem#Entrada',
@@ -148,23 +138,6 @@ annotate service.DetalleFactura with @(
         {
             $Type : 'UI.DataField',
             Value : ValorTotal,
-        },
-    ]
-);
-
-annotate service.OrdenCompra with @(
-    UI.LineItem #Ordenesdecompra : [
-        {
-            $Type : 'UI.DataField',
-            Value : NumeroOrden,
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : FechaEmision,
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : FechaRecepcion,
         },
     ]
 );
