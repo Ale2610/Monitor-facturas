@@ -1,0 +1,146 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "monitorfacturas.facturaorden",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:fpm",
+      "version": "1.17.1",
+      "toolsId": "0330e588-2a56-4dba-9a67-babb4c0008f6"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/service/Monitor_FacturasService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "monitorfacturasfacturaorden-display": {
+          "semanticObject": "monitorfacturasfacturaorden",
+          "action": "display",
+          "title": "{{monitorfacturasfacturaorden-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.13",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.core": {},
+        "sap.fe.macros": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "monitorfacturas.facturaorden.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "name": "FacturasMain",
+          "pattern": ":?query:",
+          "target": "FacturasMain"
+        },
+        {
+          "name": "DetalleFacturaDetalleCompraPage",
+          "pattern": "DetalleFactura({DetalleFacturaKey}):?query:",
+          "target": "DetalleFacturaDetalleCompraPage"
+        }
+      ],
+      "targets": {
+        "FacturasMain": {
+          "type": "Component",
+          "id": "FacturasMain",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {
+                "DetalleFactura": {
+                  "detail": {
+                    "route": "DetalleFacturaDetalleCompraPage"
+                  }
+                }
+              },
+              "contextPath": "/Facturas",
+              "viewName": "monitorfacturas.facturaorden.ext.main.Main"
+            }
+          }
+        },
+        "DetalleFacturaDetalleCompraPage": {
+          "type": "Component",
+          "id": "DetalleFacturaDetalleCompraPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/DetalleFactura",
+              "viewName": "monitorfacturas.facturaorden.ext.view.DetalleCompra"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {}
+}

@@ -21,6 +21,10 @@ annotate service.OrdenCompra with @(
             },
             {
                 $Type : 'UI.DataField',
+                Value : NumeroFactura_NumeroFactura,
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : Proveedor_CodigoSap,
             },
         ],
@@ -93,10 +97,6 @@ annotate service.DetalleOrdenCompra with @(
     UI.LineItem #Detalleordendecompra : [
         {
             $Type : 'UI.DataField',
-            Value : NumeroMaterial,
-        },
-        {
-            $Type : 'UI.DataField',
             Value : NombreMaterial,
         },
         {
@@ -126,6 +126,11 @@ annotate service.DetalleOrdenCompra with @(
         {
             $Type : 'UI.DataField',
             Value : MunicipioEntrega,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : NumeroMaterial_NumeroMaterial,
+            Label : 'NumeroMaterial_NumeroMaterial',
         },
     ]
 );
