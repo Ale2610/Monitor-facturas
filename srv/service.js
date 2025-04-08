@@ -30,6 +30,25 @@ class Monitor_FacturasService extends LCAPApplicationService {
                 return req.reject(500, `Error al insertar proveedores: ${error.message}`);
             }
         });
+
+        this.on('bulkInsertOrdenCompra', async (req) => {
+            const { OrdenCompra } = req.data;
+        
+            if (!Array.isArray(OrdenCompra) || OrdenCompra.length === 0) {
+                return req.reject(400, 'Debe enviar una lista de ordenes de compra válida.');
+            }
+        
+            try {
+                const tx = cds.transaction(req);
+                await tx.run(INSERT.into(this.entities.OrdenCompra).entries(OrdenCompra));
+        
+                // ✅ Aquí sí se retorna algo
+                return { mensaje: `Se insertaron ${OrdenCompra.length} Ordenes de compra.` };
+            } catch (error) {
+                console.error('Error al insertar ordenes de compra:', error);
+                return req.reject(500, `Error al insertar ordenes de compra: ${error.message}`);
+            }
+        });
         
 
         // this.on('actualizarOrdenCompra', async (req) => {

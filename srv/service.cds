@@ -11,6 +11,17 @@ service Monitor_FacturasService
     entity OrdenCompra as
         projection on my.OrdenCompra;
 
+    type BulkInsertResponseOrden
+    {
+        mensaje : String;
+    }
+
+    action bulkInsertOrdenCompra
+    (
+        OrdenCompra : many OrdenCompra
+    )
+    returns BulkInsertResponseOrden;
+
     entity DetalleOrdenCompra as
         projection on my.DetalleOrdenCompra;
 
@@ -25,13 +36,17 @@ service Monitor_FacturasService
 
     entity Proveedores as
         projection on my.Proveedores;
-    
-    type BulkInsertResponse {
-        mensaje: String;
+
+    type BulkInsertResponse
+    {
+        mensaje : String;
     }
 
-    action bulkInsertProveedores(proveedores: many Proveedores) returns BulkInsertResponse;
-
+    action bulkInsertProveedores
+    (
+        proveedores : many Proveedores
+    )
+    returns BulkInsertResponse;
 }
 
 annotate Monitor_FacturasService with @requires :

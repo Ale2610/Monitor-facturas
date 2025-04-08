@@ -127,6 +127,10 @@ annotate service.DetalleOrdenCompra with @(
             $Type : 'UI.DataField',
             Value : MunicipioEntrega,
         },
+        {
+            $Type : 'UI.DataField',
+            Value : Estado,
+        },
     ]
 );
 

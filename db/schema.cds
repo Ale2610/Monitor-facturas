@@ -47,6 +47,7 @@ entity DetalleOrdenCompra
     DepartamentoEntrega: String(255) @title: 'Departamento de entrega';
     MunicipioEntrega: String(255) @title: 'Municipio de entrega';
     Direccion:String(255) @title: 'Dirección';
+    Estado: Boolean @title : 'Estado'
 }
 
 entity Entrada
