@@ -1,3 +1,13 @@
+### Actualizar una factura existente
+POST http://localhost:4004/service/Monitor_FacturasService/actualizarFactura
+Content-Type: application/json
+
+{
+  "NumeroFactura": "NumeroFactura4255",
+  "data": "{\"NombreProveedor\": \"Nuevo Proveedor S.A.\", \"FechaFactura\": \"2025-04-01\", \"ValorTotal\": 1234567, \"Estado\": \"Aprobada\"}"
+}
+
+###
 POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
 Content-Type: application/json
 
@@ -111,9 +121,9 @@ Content-Type: application/json
 {
   "proveedores": [
     {
-      "CodigoSap": "000003",    
+      "CodigoSap": "CodigoSap8014",    
 "Tratamiento": "Tratamiento",  
-"Nombre1": "No1", 
+"Nombre1": "Nicol", 
 "Nombre2": "No2",     
 "Nombre3": "No3",     
 "Nombre4": "No4",    
@@ -190,5 +200,8 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+GET http://localhost:4004/service/Monitor_FacturasService/noova_documents
 
 

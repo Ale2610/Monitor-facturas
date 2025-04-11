@@ -20,6 +20,7 @@ entity Facturas
     Urgente: Boolean @title : 'Urgente';
     Area:String(255) @title : 'Área';
     DetalleFactura: Composition of many DetalleFactura on DetalleFactura.NumeroFactura = $self;
+    OrdenCompra : Composition of many OrdenCompra on OrdenCompra.NumeroFactura = $self;
     Entrada: Composition of many Entrada on Entrada.NumeroFactura = $self;
 }
 
@@ -32,12 +33,13 @@ entity OrdenCompra
     Proveedor: Association to one Proveedores @title: 'Proveedor';
     UsuarioCreador: String(255) @title : 'Usuario creador';
     DetalleOrdenCompra: Composition  of many DetalleOrdenCompra on DetalleOrdenCompra.NumeroOrden = $self;
+    NumeroFactura : Association to one Facturas @title: 'Número Factura'
 }
 
 entity DetalleOrdenCompra
 {
     key ID : UUID;
-    NumeroMaterial: String(255) @title: 'Número de material';  
+    NumeroMaterial: Association to one DetalleFactura;  
     NombreMaterial:String(255) @title: 'Nombre de material';
     GrupoArticulos: String(255) @title:'Grupo de articulos';
     TipoMaterial: String(255) @title : 'Tipo de material';
@@ -47,7 +49,7 @@ entity DetalleOrdenCompra
     DepartamentoEntrega: String(255) @title: 'Departamento de entrega';
     MunicipioEntrega: String(255) @title: 'Municipio de entrega';
     Direccion:String(255) @title: 'Dirección';
-    Estado: Boolean @title : 'Estado'
+    Estado: Boolean @title: 'Estado'
 }
 
 entity Entrada

@@ -3,7 +3,7 @@
  * @version(2.0)
  */
 const LCAPApplicationService = require('@sap/low-code-event-handler');
-const clientes_Logic = require('./code/clientes-logic');
+const detalleordencompra_Logic = require('./code/detalleordencompra-logic');
 
 class Monitor_FacturasService extends LCAPApplicationService {
     async init() {
@@ -49,6 +49,38 @@ class Monitor_FacturasService extends LCAPApplicationService {
                 return req.reject(500, `Error al insertar ordenes de compra: ${error.message}`);
             }
         });
+
+
+        module.exports = async function (srv) {
+            const { Facturas } = srv.entities;
+        
+            srv.on('actualizarFactura', async (req) => {
+                const { NumeroFactura, data } = req.data;
+        
+                if (!NumeroFactura) {
+                    return req.error(400, 'El campo NumeroFactura es obligatorio');
+                }
+        
+                const tx = srv.tx(req);
+        
+                // Verifica si la factura existe
+                const factura = await tx.run(
+                    SELECT.one.from(Facturas).where({ NumeroFactura })
+                );
+        
+                if (!factura) {
+                    return req.error(404, `Factura ${NumeroFactura} no encontrada`);
+                }
+        
+                // Ejecuta el update con los datos enviados
+                await tx.run(
+                    UPDATE(Facturas).set(data).where({ NumeroFactura })
+                );
+        
+                return `Factura ${NumeroFactura} actualizada correctamente`;
+            });
+        };
+        
         
 
         // this.on('actualizarOrdenCompra', async (req) => {
