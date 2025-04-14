@@ -8,9 +8,118 @@ const detalleordencompra_Logic = require('./code/detalleordencompra-logic');
 class Monitor_FacturasService extends LCAPApplicationService {
     async init() {
 
-        this.before('CREATE', 'DetalleOrdenCompra', async (request) => {
-            await detalleordencompra_Logic(request);
+        this.on(['CREATE', 'UPDATE'], 'Clientes', async (request, next) => {
+            return clientes_Logic(request, next);
         });
+
+        this.on('bulkInsertProveedores', async (req) => {
+            const { proveedores } = req.data;
+        
+            if (!Array.isArray(proveedores) || proveedores.length === 0) {
+                return req.reject(400, 'Debe enviar una lista de proveedores válida.');
+            }
+        
+            try {
+                const tx = cds.transaction(req);
+                await tx.run(INSERT.into(this.entities.Proveedores).entries(proveedores));
+        
+                // ✅ Aquí sí se retorna algo
+                return { mensaje: `Se insertaron ${proveedores.length} proveedores.` };
+            } catch (error) {
+                console.error('Error al insertar proveedores:', error);
+                return req.reject(500, `Error al insertar proveedores: ${error.message}`);
+            }
+        });
+
+        this.on('bulkInsertOrdenCompra', async (req) => {
+            const { OrdenCompra } = req.data;
+        
+            if (!Array.isArray(OrdenCompra) || OrdenCompra.length === 0) {
+                return req.reject(400, 'Debe enviar una lista de ordenes de compra válida.');
+            }
+        
+            try {
+                const tx = cds.transaction(req);
+                await tx.run(INSERT.into(this.entities.OrdenCompra).entries(OrdenCompra));
+        
+                // ✅ Aquí sí se retorna algo
+                return { mensaje: `Se insertaron ${OrdenCompra.length} Ordenes de compra.` };
+            } catch (error) {
+                console.error('Error al insertar ordenes de compra:', error);
+                return req.reject(500, `Error al insertar ordenes de compra: ${error.message}`);
+            }
+        });
+
+
+        module.exports = async function (srv) {
+            const { Facturas } = srv.entities;
+        
+            srv.on('actualizarFactura', async (req) => {
+                const { NumeroFactura, data } = req.data;
+        
+                if (!NumeroFactura) {
+                    return req.error(400, 'El campo NumeroFactura es obligatorio');
+                }
+        
+                const tx = srv.tx(req);
+        
+                // Verifica si la factura existe
+                const factura = await tx.run(
+                    SELECT.one.from(Facturas).where({ NumeroFactura })
+                );
+        
+                if (!factura) {
+                    return req.error(404, `Factura ${NumeroFactura} no encontrada`);
+                }
+        
+                // Ejecuta el update con los datos enviados
+                await tx.run(
+                    UPDATE(Facturas).set(data).where({ NumeroFactura })
+                );
+        
+                return `Factura ${NumeroFactura} actualizada correctamente`;
+            });
+        };
+        
+        
+
+        // this.on('actualizarOrdenCompra', async (req) => {
+        //     const { ID, FechaEmision, FechaRecepcion, NumeroOrden, NumeroFactura, DetalleOrdenCompra } = req.data;
+        
+        //     if (!NumeroOrden) {
+        //         return req.reject(400, "El campo 'NumeroOrden' es obligatorio.");
+        //     }
+        
+        //     const updateData = {
+        //         FechaEmision: FechaEmision ?? "",
+        //         FechaRecepcion: FechaRecepcion ?? "",
+        //         NumeroOrden,
+        //         NumeroFactura: NumeroFactura ?? ""
+        //     };
+        
+        //     try {
+        //         const tx = cds.tx(req);
+        //         const result = await tx.run(UPDATE(this.entities.OrdenCompra).set(updateData).where({ ID }));
+        
+        //         if (result === 0) {
+        //             return req.reject(404, "No se encontró la orden de compra para actualizar.");
+        //         }
+        
+        //         // Si hay detalles, los actualizamos individualmente
+        //         if (Array.isArray(DetalleOrdenCompra) && DetalleOrdenCompra.length > 0) {
+        //             for (const detalle of DetalleOrdenCompra) {
+        //                 await tx.run(UPDATE(this.entities.DetalleOrdenCompra).set(detalle).where({ NumeroOrden_NumeroOrden: NumeroOrden }));
+        //             }
+        //         }
+        
+        //         await tx.commit();
+        //         return { message: "Orden de compra actualizada con éxito" };
+        
+        //     } catch (error) {
+        //         console.error("Error al actualizar la OrdenCompra:", error);
+        //         return req.reject(500, "Hubo un error al actualizar la orden de compra.");
+        //     }
+        // });
 
         return super.init();
     }

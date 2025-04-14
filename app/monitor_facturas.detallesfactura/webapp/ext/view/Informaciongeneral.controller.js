@@ -1,28 +1,50 @@
 sap.ui.define([
     "sap/fe/core/PageController",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
-], function (PageController, Filter, FilterOperator) {
+    "sap/ui/model/FilterOperator",
+    "sap/m/MessageToast"
+], function (PageController, Filter, FilterOperator, MessageToast) {
     "use strict";
 
     return PageController.extend("monitorfacturas.detallesfactura.ext.view.Informaciongeneral", {
-        onDetallePress: function(oEvent) {
+        onInit: function () {
+            var oPdfViewer = this.byId("pdfViewer");
+            var sPath = sap.ui.require.toUrl("monitorfacturas/detallesfactura/pdfPrueba/factura123.pdf");
+            oPdfViewer.setSource(sPath);
+            var oView = this.getView();
 
+            // Esperar a que el contexto esté disponible
+            oView.attachEventOnce("modelContextChange", function () {
+                var oContext = oView.getBindingContext();
+                if (oContext) {
+                    var numeroFactura = oContext.getProperty("NumeroFactura");
+
+                    // Validar si existe número de factura
+                    if (numeroFactura) {
+                        var pdfUrl = "/pdfFactura/" + numeroFactura + ".pdf"; // Puedes ajustar esta ruta
+                        var pdfViewer = oView.byId("pdfViewer");
+
+                        if (pdfViewer) {
+                            pdfViewer.setSource(pdfUrl);
+                            pdfViewer.setTitle("Factura " + numeroFactura);
+                            pdfViewer.downloadPDF = function () {
+                                window.open(pdfUrl, "_blank");
+                            };
+                        }
+                    } else {
+                        MessageToast.show("No se encontró el número de factura.");
+                    }
+                }
+            });
+        },
+
+        onDetallePress: function (oEvent) {
             var oLink = oEvent.getSource();
-
-            // Acceder al contexto del control (por ejemplo, el contexto de la fila en una tabla)
-            var oItem = oLink.getParent(); // En el caso de una tabla, obtiene la fila
-            var oContext = oItem.getBindingContext(); // Obtiene el contexto de la fila seleccionada
-
-            // Obtener un valor específico desde el contexto, como el número de entrada
+            var oItem = oLink.getParent();
+            var oContext = oItem.getBindingContext();
             var entradaId = oContext.getProperty("NumeroEntrada");
 
-            // Ahora puedes usar facturaId para navegar o realizar otras acciones
-            console.log(entradaId);
-            // Abrir la aplicación de Facturas en una nueva ventana
-            var sUrl = "#monitorfacturasentradas-display&/Entrada('"+entradaId+"')";
-            
-            // Usar window.open para abrir la URL en una nueva ventana
+            var sUrl = "#monitorfacturasentradas-display&/Entrada('" + entradaId + "')";
             window.open(sUrl, "_blank");
         },
 
@@ -31,11 +53,10 @@ sap.ui.define([
             var oItem = oLink.getParent();
             var oContext = oItem.getBindingContext();
             var numeroMaterial = oContext.getProperty("NumeroMaterial");
-        
+
             var oModel = this.getView().getModel(); // ODataModel v4
-        
             var sFilter = "NumeroMaterial eq '" + numeroMaterial + "'";
-        
+
             oModel.bindList("/DetalleOrdenCompra", null, null, null, { $filter: sFilter })
                 .requestContexts()
                 .then(function (aContexts) {
@@ -45,13 +66,12 @@ sap.ui.define([
                         var sUrl = "#monitorfacturasdetalleorden-display&/DetalleOrdenCompra(ID=" + id + ",IsActiveEntity=true)";
                         window.open(sUrl, "_blank");
                     } else {
-                        sap.m.MessageToast.show("No se encontró el material.");
+                        MessageToast.show("No se encontró el material.");
                     }
                 })
                 .catch(function () {
-                    sap.m.MessageToast.show("Error al consultar DetalleOrdenCompra.");
+                    MessageToast.show("Error al consultar DetalleOrdenCompra.");
                 });
-        }        
-        
+        }
     });
 });

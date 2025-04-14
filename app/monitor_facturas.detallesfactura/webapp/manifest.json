@@ -93,7 +93,14 @@
       }
     },
     "resources": {
-      "css": []
+      "js": [],
+      "css": [],
+      "others": [
+        {
+          "uri": "pdfPrueba/",
+          "type": "static"
+        }
+      ]
     },
     "routing": {
       "config": {},

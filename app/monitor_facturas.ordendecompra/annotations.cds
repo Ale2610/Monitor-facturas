@@ -132,6 +132,10 @@ annotate service.DetalleOrdenCompra with @(
             Value : NumeroMaterial_NumeroMaterial,
             Label : 'NumeroMaterial_NumeroMaterial',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : Estado,
+        },
     ]
 );
 

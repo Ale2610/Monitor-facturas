@@ -37,6 +37,9 @@
     "watch-monitor_facturas.detalleorden": "cds watch --open monitor_facturas.detalleorden/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
+    "requestLimits": {
+    "maxPayload": "1mb"
+  },
     "sql": {
       "native_hana_associations": false
     },

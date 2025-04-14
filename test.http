@@ -1,8 +1,17 @@
+### Actualizar una factura existente
+POST http://localhost:4004/service/Monitor_FacturasService/actualizarFactura
+Content-Type: application/json
+
+{
+  "NumeroFactura": "NumeroFactura4255",
+  "data": "{\"NombreProveedor\": \"Nuevo Proveedor S.A.\", \"FechaFactura\": \"2025-04-01\", \"ValorTotal\": 1234567, \"Estado\": \"Aprobada\"}"
+}
+
+###
 POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
 Content-Type: application/json
 
 {
-
     "FechaCreacion": "2025-03-14",
     "ClasePedido": "2025-03-14",
     "NumeroOrden": "346346",
@@ -23,6 +32,56 @@ Content-Type: application/json
     ]
 }
 
+###
+POST http://localhost:4004/service/Monitor_FacturasService/bulkInsertOrdenCompra
+Content-Type: application/json
+
+{
+  "OrdenCompra": [
+    {
+    "FechaCreacion": "2025-03-14",
+    "ClasePedido": "2025-03-14",
+    "NumeroOrden": "346346",
+    "Proveedor": { "CodigoSap": "567568" },
+    "UsuarioCreador": "Usuarioooo",
+    "DetalleOrdenCompra": [
+        {
+            "NumeroMaterial": "Nhhg",
+            "NombreMaterial": "Nhfghd",
+            "GrupoArticulos": "dfhdf",
+            "TipoMaterial": "dfhdf",
+            "Cantidad": "107",
+            "ValorUnitario": "1090190",
+            "DepartamentoEntrega": "DepartamentoEntrega9852",
+            "MunicipioEntrega": "MunicipioEntrega4813",
+            "Direccion": "Direccion7454",
+            "Estado": 1
+        }
+    ]
+    },
+    {
+    "FechaCreacion": "2025-03-14",
+    "ClasePedido": "2025-03-14",
+    "NumeroOrden": "1010",
+    "Proveedor": { "CodigoSap": "567568" },
+    "UsuarioCreador": "Prueba",
+    "DetalleOrdenCompra": [
+        {
+            "NumeroMaterial": "Nhhg",
+            "NombreMaterial": "Nhfghd",
+            "GrupoArticulos": "dfhdf",
+            "TipoMaterial": "dfhdf",
+            "Cantidad": "107",
+            "ValorUnitario": "1090190",
+            "DepartamentoEntrega": "DepartamentoEntrega9852",
+            "MunicipioEntrega": "MunicipioEntrega4813",
+            "Direccion": "Direccion7454",
+            "Estado": 0
+        }
+    ]
+    }
+  ]
+}
 
 ###
 POST http://localhost:4004/service/Monitor_FacturasService/Proveedores
