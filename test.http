@@ -2,7 +2,8 @@ POST http://localhost:4004/service/Monitor_FacturasService/OrdenCompra
 Content-Type: application/json
 
 {
-    "FechaCreacion": "2025-03-14", 
+
+    "FechaCreacion": "2025-03-14",
     "ClasePedido": "2025-03-14",
     "NumeroOrden": "346346",
     "Proveedor": { "CodigoSap": "567568" },
