@@ -97,6 +97,7 @@
                             <items>
                                 <ColumnListItem id="detalleFacturaItem">
                                     <cells>
+                                    <!-- Cambios merge github -->
                                         <Text id="1" text="{NumeroMaterial}" />
                                         <Text id="2" text="{Descripcion}" />
                                         <Text id="3" text="{Cantidad}" />
@@ -121,6 +122,7 @@
                             <items>
                                 <ColumnListItem id="entradaItem">
                                     <cells>
+                                    <!-- Cambios merge github -->
                                         <Text id="Texto5" text="{FechaEmision}" />
                                         <Text id="Texto6" text="{FechaRecepcion}" />
                                         <Text id="Texto7" text="{NumeroEntrada}" />
@@ -133,6 +135,7 @@
                 </VBox>
 
                 <!-- DERECHA -->
+                <!-- Cambios merge github -->
                 <VBox id="rightVBox" width="50%" class="sapUiContentPadding">
                     <Title id="titlePdf" text="Visualización PDF" level="H4" />
                    <pdf:PDFViewer
