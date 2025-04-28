@@ -1,66 +1,84 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.detallesfactura.ext.main.Main">
-    <Page id="Main" title="{i18n&gt;MainTitle}">
-        <content/>
-            <Table id="myTable" items="{/Facturas}" headerText="Facturas">
-            <!-- Definición de las columnas con IDs -->
-            <columns>
-                <Column id="colNumeroFactura">
-                    <Text id="text4" text="Numero Factura"/>
-                </Column>
-                <Column id="colFechaFactura">
-                    <Text id="text5" text="Fecha Factura"/>
-                </Column>
-                <Column id="colFechaContabilizacion">
-                    <Text id="text1" text="Fecha Contabilización"/>
-                </Column>
-                <Column id="colFechaVencimiento">
-                    <Text id="text2" text="Fecha Vencimiento"/>
-                </Column>
-                <Column id="colProveedorNombre">
-                    <Text id="text3" text="Proveedor"/>
-                </Column>
-                <Column id="colestado">
-                    <Text id="text6" text="Estado"/>
-                </Column>
-                <Column id="colUrgente">
-                    <Text id="urgente" text="Urgente"/>
-                </Column>
-                <!-- Columna de detalles para navegación -->
-                <Column id="colDetallesFactura">
-                    <Text id="detalle" text="Detalles"/>
-                </Column>
-            </columns>
-            <!-- Definición de los datos de la tabla con IDs -->
-            <items>
-                <ColumnListItem id="column">
-                    <cells>
-                        <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
-                        <Text id="cellFechaFactura" text="{FechaFactura}"/>
-                        <Text id="cellFechaContabilizacion" text="{FechaContabilizacion}"/>
-                        <Text id="cellFechaVencimiento" text="{FechaVencimiento}"/>
-                        <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
-                        <!-- Estado con colores dinámicos -->
-                        <ObjectStatus
-                            id="cellEstado"
-                            text="{Estado}"
-                            state="{ path: 'Estado', formatter: '.formatter.estadoToState' }"/>
+<mvc:View
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:macros="sap.fe.macros"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    controllerName="monitorfacturas.detallesfactura.ext.main.Main">
+    <Page
+        id="Main"
+        title=""> <content>
+            <Toolbar id="listToolbar">
+                 <Title text="Listado De Facturas" level="H2"/> </Toolbar>
 
-                        <ObjectStatus
-                            id="cellUrgente"
-                            text="{ path: 'Urgente', formatter: '.formatter.urgenteToText' }"
-                            state="{ path: 'Urgente', formatter: '.formatter.urgenteToState' }"/>
-
-
-                        <!-- Detalles como botón -->
-                        <Button
-                            id="btnDetallesFactura"
-                            text="Ver Detalles"
-                            icon="sap-icon://inspect"
-                            type="Emphasized"
-                            press="onDetallePress"/>
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
-    </Page>
+            <Table id="myTable" items="{/Facturas}" headerText=""> <columns>
+                    <Column id="colNumeroFactura">
+                        <Text id="text4" text="Numero Factura"/>
+                    </Column>
+                    <Column id="colFechaFactura">
+                        <Text id="text5" text="Fecha Factura"/>
+                    </Column>
+                    <Column id="colFechaContabilizacion">
+                        <Text id="text1" text="Fecha Contabilización"/>
+                    </Column>
+                    <Column id="colFechaVencimiento">
+                        <Text id="text2" text="Fecha Vencimiento"/>
+                    </Column>
+                    <Column id="colProveedorNombre">
+                        <Text id="text3" text="Proveedor"/>
+                    </Column>
+                    <Column id="colValortotal">
+                        <Text id="text66" text="Valor total"/>
+                    </Column>
+                    <Column id="colClasficacion">
+                        <Text id="text77" text="Clasificación"/>
+                    </Column>
+                    <Column id="colSede">
+                        <Text id="text88" text="Sede"/>
+                    </Column>
+                    <Column id="colArea">
+                        <Text id="text99" text="Área"/>
+                    </Column>
+                    <Column id="colestado">
+                        <Text id="text6" text="Estado"/>
+                    </Column>
+                    <Column id="colUrgente">
+                        <Text id="urgente" text="Urgente"/>
+                    </Column>
+                    <Column id="colDetallesFactura">
+                        <Text id="detalle" text="Detalles"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="column">
+                        <cells>
+                            <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
+                            <Text id="cellFechaFactura" text="{FechaFactura}"/>
+                            <Text id="cellFechaContabilizacion" text="{FechaContabilizacion}"/>
+                            <Text id="cellFechaVencimiento" text="{FechaVencimiento}"/>
+                            <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
+                            <Text id="cellValortotal" text="{TotalFactura}"/>
+                            <Text id="cellClasificacion" text="{Clasificacion}"/>
+                            <Text id="cellSede" text="{Sede}"/>
+                            <Text id="cellArea" text="{Area}"/>
+                            <ObjectStatus
+                                id="cellEstado"
+                                text="{Estado}"
+                                state="{ path: 'Estado', formatter: '.formatter.estadoToState' }"/>
+                            <ObjectStatus
+                                id="cellUrgente"
+                                text="{ path: 'Urgente', formatter: '.formatter.urgenteToText' }"
+                                state="{ path: 'Urgente', formatter: '.formatter.urgenteToState' }"/>
+                            <Button
+                                id="btnDetallesFactura"
+                                text="Ver Detalles"
+                                icon="sap-icon://inspect"
+                                type="Emphasized"
+                                press="onDetallePress"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        </Page>
 </mvc:View>

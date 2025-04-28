@@ -10,6 +10,7 @@ entity Facturas
     Proveedor: Association to one Proveedores @title : 'NIT Proveedor';
     Posiciones: String(255) @title : 'Posiciones';
     TotalFactura: String(255) @title : 'Total de factura';
+    Sede: String(255) @title : 'Sede';
     IVA: String(255) @title : 'IVA';
     IndicadorImpuesto: String(255) @title : 'Indicador de impuesto';
     NumeroIndicador: String(255) @title : 'Número indicador';
@@ -44,6 +45,8 @@ entity DetalleOrdenCompra
     GrupoArticulos: String(255) @title:'Grupo de articulos';
     TipoMaterial: String(255) @title : 'Tipo de material';
     Cantidad: String(255) @title: 'Cantidad'; 
+    IndicadorIva: String(255) @title: 'Indicador de IVA';
+    Unidad:String(255) @title: 'Unidad';
     ValorUnitario: String(255) @title: 'Valor unitario';
     NumeroOrden: Association to one OrdenCompra @title: 'Número de orden'; 
     DepartamentoEntrega: String(255) @title: 'Departamento de entrega';

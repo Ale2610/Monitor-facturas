@@ -138,14 +138,7 @@
                 <!-- Cambios merge github -->
                 <VBox id="rightVBox" width="50%" class="sapUiContentPadding">
                     <Title id="titlePdf" text="Visualización PDF" level="H4" />
-                   <pdf:PDFViewer
-    id="pdfViewer"
-    title="Factura PDF"
-    height="800px"
-    width="100%"
-    source="pdfPrueba/factura123.pdf"
-    showDownloadButton="true"
-    displayType="Embedded" />
+                    <core:HTML id="pdfEmbed" content="" />
                 </VBox>
             </HBox>
         </content>
