@@ -40,6 +40,10 @@ annotate service.Facturas with @(
             Value : NumeroFactura,
         },
     ],
+    UI.SelectionFields #filterBarMacro1 : [
+        NumeroFactura,
+        Proveedor_CodigoSap,
+    ],
 );
 
 annotate service.DetalleFactura with @(
@@ -113,4 +117,8 @@ annotate service.OrdenCompra with @(
         },
     ],
 );
+
+annotate service.Facturas with {
+    Proveedor @Common.Text : Proveedor_CodigoSap
+};
 

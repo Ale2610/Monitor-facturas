@@ -4,8 +4,9 @@ using {Monitor_Facturas as my} from '../db/schema.cds';
 service Monitor_FacturasService {
 
     @requires: ['facturas_user', 'admin']
+    @mediaStream
     entity Facturas as projection on my.Facturas;
-
+    
     action actualizarFactura(NumeroFactura : String, data : LargeString) returns String;
 
     @odata.draft.enabled
@@ -37,9 +38,17 @@ service Monitor_FacturasService {
         mensaje : String;
     }
 
-    action bulkInsertProveedores(proveedores : many Proveedores) returns BulkInsertResponse;
+    action   bulkInsertProveedores(proveedores : many Proveedores) returns BulkInsertResponse;
+    //API Noova
+    function noova_documents()                                     returns many String;
 
-    function noova_documents() returns many String;
+    //API invoicesList Carvajal 
+    
+    action consultar_documentos(noce: String, created: String) returns String;
+
+    //API Get documents Carvajal 
+    action extraer_documentos(noce: String, created: String, data: String, documentNumber: String, documentPrefix: String, documentType: String, senderIdentification: String) returns String;
+
 }
 
 
