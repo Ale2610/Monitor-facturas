@@ -94,7 +94,11 @@
     },
     "resources": {
       "js": [],
-      "css": [],
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ],
       "others": [
         {
           "uri": "pdfPrueba/",

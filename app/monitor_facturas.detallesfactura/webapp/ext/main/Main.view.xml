@@ -1,66 +1,47 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.detallesfactura.ext.main.Main">
-    <Page id="Main" title="{i18n&gt;MainTitle}">
-        <content/>
-            <Table id="myTable" items="{/Facturas}" headerText="Facturas">
-            <!-- Definición de las columnas con IDs -->
-            <columns>
-                <Column id="colNumeroFactura">
-                    <Text id="text4" text="Numero Factura"/>
-                </Column>
-                <Column id="colFechaFactura">
-                    <Text id="text5" text="Fecha Factura"/>
-                </Column>
-                <Column id="colFechaContabilizacion">
-                    <Text id="text1" text="Fecha Contabilización"/>
-                </Column>
-                <Column id="colFechaVencimiento">
-                    <Text id="text2" text="Fecha Vencimiento"/>
-                </Column>
-                <Column id="colProveedorNombre">
-                    <Text id="text3" text="Proveedor"/>
-                </Column>
-                <Column id="colestado">
-                    <Text id="text6" text="Estado"/>
-                </Column>
-                <Column id="colUrgente">
-                    <Text id="urgente" text="Urgente"/>
-                </Column>
-                <!-- Columna de detalles para navegación -->
-                <Column id="colDetallesFactura">
-                    <Text id="detalle" text="Detalles"/>
-                </Column>
-            </columns>
-            <!-- Definición de los datos de la tabla con IDs -->
-            <items>
-                <ColumnListItem id="column">
-                    <cells>
-                        <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
-                        <Text id="cellFechaFactura" text="{FechaFactura}"/>
-                        <Text id="cellFechaContabilizacion" text="{FechaContabilizacion}"/>
-                        <Text id="cellFechaVencimiento" text="{FechaVencimiento}"/>
-                        <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
-                        <!-- Estado con colores dinámicos -->
-                        <ObjectStatus
-                            id="cellEstado"
-                            text="{Estado}"
-                            state="{ path: 'Estado', formatter: '.formatter.estadoToState' }"/>
+    <Page id="Main" title="">
+        <content>
+        </content>
+        <Toolbar id="FiltroToolbar" class="sapUiSmallMarginBottom barraFiltros">
+            <!-- Búsqueda por número de factura -->
+            <Button id="myButton" text="Insertar Facturas" press="getDocuments" class="buttonHeader"/>
+            <!-- Filtro por Estado -->
+            <Select id="filtroEstado" change=".onFiltrarEstadoUrgente">
+                <core:Item id="key1" key="" text="Todos los estados" />
+                <core:Item id="key2" key="Aprobado" text="Aprobado" />
+                <core:Item id="key3" key="Rechazado" text="Rechazado" />
+            </Select>
 
-                        <ObjectStatus
-                            id="cellUrgente"
-                            text="{ path: 'Urgente', formatter: '.formatter.urgenteToText' }"
-                            state="{ path: 'Urgente', formatter: '.formatter.urgenteToState' }"/>
+            <!-- Filtro por Urgencia -->
+            <Select id="filtroUrgente" change=".onFiltrarEstadoUrgente">
+                <core:Item id="key4" key="" text="Todos" />
+                <core:Item id="key5" key="Sí" text="Sí" />
+                <core:Item id="key6" key="No" text="No" />
+            </Select>
 
+            <SearchField id="searchFactura" width="20rem" placeholder="Buscar número de factura..." search=".onBuscarFactura"/>
 
-                        <!-- Detalles como botón -->
-                        <Button
-                            id="btnDetallesFactura"
-                            text="Ver Detalles"
-                            icon="sap-icon://inspect"
-                            type="Emphasized"
-                            press="onDetallePress"/>
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
+        </Toolbar>
+        <List id="FacturaList" items="{/Facturas}" headerText="Facturas" growing="true" growingScrollToLoad="true">
+            <CustomListItem id="FacturaCardItem">
+                <VBox id="VBoxFacturaCard" class="facturaCard sapUiSmallMargin sapUiTinyMarginTop sapUiTinyMarginBottom">
+                    <HBox id="HBoxEncabezadoFactura" justifyContent="SpaceBetween">
+                        <Text id="TextNumeroFactura" text="{NumeroFactura}" class="sapMTitle"/>
+                        <ObjectStatus id="EstadoFacturaStatus" text="{Estado}" state="{ path: 'Estado', formatter: '.formatter.estadoToState' }"/>
+                        <Button id="BtnVerDetallesFactura" text="" icon="sap-icon://action" type="Transparent" press="onDetallePress" class="sapUiTinyMarginTop"/>
+
+                    </HBox>
+                    <HBox id="HBoxContenidoFactura" justifyContent="SpaceBetween" class="facturaContenido sapUiTinyMarginTop" wrap="Wrap">
+                        <VBox id="VBoxColumna1" class="facturaColumna">
+                            <Text id="TextFechaFactura" text="Fecha Factura: {FechaFactura}"/>
+                            <ObjectStatus id="UrgenteFacturaStatus" text="{ path: 'Urgente', formatter: '.formatter.urgenteToText' }" state="{ path: 'Urgente', formatter: '.formatter.urgenteToState' }"/>
+
+                        </VBox>
+                        <VBox id="VBoxColumna2" class="facturaColumna">
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </CustomListItem>
+        </List>
     </Page>
 </mvc:View>

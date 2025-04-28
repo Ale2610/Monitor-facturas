@@ -7,37 +7,43 @@ sap.ui.define([
     "use strict";
 
     return PageController.extend("monitorfacturas.detallesfactura.ext.view.Informaciongeneral", {
-        onInit: function () {
-            var oPdfViewer = this.byId("pdfViewer");
-            var sPath = sap.ui.require.toUrl("monitorfacturas/detallesfactura/pdfPrueba/factura123.pdf");
-            oPdfViewer.setSource(sPath);
-            var oView = this.getView();
 
-            // Esperar a que el contexto esté disponible
-            oView.attachEventOnce("modelContextChange", function () {
-                var oContext = oView.getBindingContext();
-                if (oContext) {
-                    var numeroFactura = oContext.getProperty("NumeroFactura");
-
-                    // Validar si existe número de factura
-                    if (numeroFactura) {
-                        var pdfUrl = "/pdfFactura/" + numeroFactura + ".pdf"; // Puedes ajustar esta ruta
-                        var pdfViewer = oView.byId("pdfViewer");
-
-                        if (pdfViewer) {
-                            pdfViewer.setSource(pdfUrl);
-                            pdfViewer.setTitle("Factura " + numeroFactura);
-                            pdfViewer.downloadPDF = function () {
-                                window.open(pdfUrl, "_blank");
-                            };
-                        }
-                    } else {
-                        MessageToast.show("No se encontró el número de factura.");
-                    }
-                }
-            });
+        onAfterRendering: function () {
+            console.log("✔️ onAfterRendering ejecutado");
+        
+            // Asegúrate que el visor PDF esté presente después de renderizar
+            setTimeout(() => {
+                this.mostrarPdfEnIframe();
+            }, 500); // Puedes ajustar el tiempo si aún es muy temprano
         },
-
+        
+        mostrarPdfEnIframe: function () {
+            const oHtml = this.byId("pdfEmbed");
+        
+            const oContext = this.getView().getBindingContext();
+            if (!oContext) {
+                console.error("No hay contexto de factura");
+                return;
+            }
+        
+            const numeroFactura = oContext.getProperty("NumeroFactura");
+            const oModel = this.getOwnerComponent().getModel();
+            const sServiceUrl = oModel.sServiceUrl;
+            const sUrl = sServiceUrl + "/Facturas('" + numeroFactura + "')/archivoPDF/$value";
+        
+            // Ya no usamos blob, ni base64. Solo usamos la URL directa
+            const iframeHTML = `
+                <iframe
+                    src="${sUrl}"
+                    width="100%"
+                    height="800px"
+                    style="border: none;"
+                ></iframe>
+            `;
+        
+            oHtml.setContent(iframeHTML);
+        },
+         
         onDetallePress: function (oEvent) {
             var oLink = oEvent.getSource();
             var oItem = oLink.getParent();

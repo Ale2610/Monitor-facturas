@@ -1,0 +1,43 @@
+.facturaCard {
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.facturaCard:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.facturaContenido .facturaColumna {
+    width: 48%;
+    margin-right: 2%;
+}
+
+.sapUiSmallMarginBottom {
+    padding: 2%;
+    justify-content: space-between;
+}
+
+/* Espaciado uniforme entre elementos del Toolbar */
+.barraFiltros .sapMBarChild {
+    margin-right: 2rem !important;
+}
+
+/* Eliminar margen del último hijo */
+.barraFiltros .sapMBarChild:last-child {
+    margin-right: 0 !important;
+}
+
+.buttonHeader:hover {
+    border-radius: 15%;
+    border: 1px solid #1786f5;       /* Borde azul */
+    background-color: transparent;   /* Fondo transparente */
+    color: #1786f5;                  /* Texto del mismo color del borde */
+}
+
+#FiltroToolbar {
+    padding: 50%;
+}

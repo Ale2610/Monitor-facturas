@@ -13,14 +13,17 @@
                 <!-- IZQUIERDA -->
                 <VBox id="leftVBox" width="50%" renderType="Bare">
                     <layout:SimpleForm
-                        id="facturaForm"
-                        editable="false"
-                        layout="ResponsiveGridLayout"
-                        columnsL="2"
-                        columnsM="1"
-                        labelSpanL="3"
-                        title="Datos de la Factura">
-                        
+                    id="facturaForm"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    labelSpanL="4"
+                    labelSpanM="4"
+                    columnsL="2"
+                    columnsM="2"
+                    columnsXL="2"
+                    singleContainerFullSize="false"
+                    title="Datos de la Factura">
+
                         <!-- Información General -->
                         <Toolbar id="toolbarGeneral">
                             <Title id="titleGeneral" text="Información General" level="H4" />
@@ -33,8 +36,12 @@
                         <Text id="txtEstado" text="{Estado}" />
                         <Label id="lblUrgente" text="Urgente" />
                         <Text id="txtUrgente" text="{Urgente}" />
-                        <Label id="lblOrdenCompra" text="Orden de Compra" />
-                        <Text id="txtOrdenCompra" text="{OrdenCompra/NumeroOrden}" />
+                        <Label id="lblFacturaElec" text="Factura Electrónica" />
+                        <Text id="txtFacturaElec" text="{FacturaElec}" />
+                        <Label id="lblDescuento" text="Descuento pronto pago" />
+                        <Text id="txtDescuento" text="{Descuento}" />
+                        <Label id="lblComentario" text="Comentario" />
+                        <Text id="txtComentario" text="{Comentario}" />
 
                         <!-- Fechas -->
                         <Toolbar id="toolbarFechas">
@@ -46,6 +53,8 @@
                         <Text id="txtFechaContabilizacion" text="{FechaContabilizacion}" />
                         <Label id="lblFechaVencimiento" text="Fecha Vencimiento" />
                         <Text id="txtFechaVencimiento" text="{FechaVencimiento}" />
+                        <Label id="lblFechaRecepcion" text="Fecha de recepción" />
+                        <Text id="txtFechaRecepcion" text="{FechaRecepcion}" />
 
                         <!-- Pago -->
                         <Toolbar id="toolbarPago">
@@ -62,6 +71,8 @@
                         </Toolbar>
                         <Label id="lblTotalFactura" text="Total de factura" />
                         <Text id="txtTotalFactura" text="{TotalFactura}" />
+                        <Label id="lblValorFinal" text="Valor final a pagar" />
+                        <Text id="txtValorFinal" text="{ValorFinal}" />
                         <Label id="lblIVA" text="IVA" />
                         <Text id="txtIVA" text="{IVA}" />
                         <Label id="lblIndicadorImpuesto" text="Indicador de impuesto" />
@@ -69,7 +80,7 @@
                         <Label id="lblNumeroIndicador" text="Número indicador" />
                         <Text id="txtNumeroIndicador" text="{NumeroIndicador}" />
 
-                        <!-- Destinatario -->
+                        <!-- Destinatario y Clasificación -->
                         <Toolbar id="toolbarDestinatario">
                             <Title id="titleDestinatario" text="Destinatario y Clasificación" level="H4" />
                         </Toolbar>
@@ -77,15 +88,40 @@
                         <Text id="txtDestinatario" text="{Destinatario}" />
                         <Label id="lblDescDestinatario" text="Descripción del destinatario" />
                         <Text id="txtDescDestinatario" text="{DescripcionDestinatario}" />
+                        <Label id="lblCodigoActividad" text="Código de actividad" />
+                        <Text id="txtCodigoActividad" text="{CodigoActividad}" />
                         <Label id="lblClasificacion" text="Clasificación" />
                         <Text id="txtClasificacion" text="{Clasificacion}" />
                         <Label id="lblArea" text="Área" />
                         <Text id="txtArea" text="{Area}" />
+                        <Label id="lblSede" text="Sede" />
+                        <Text id="txtSede" text="{Sede}" />
+                        <Label id="lblDocumentoMIRO" text="Documento MIRO" />
+                        <Text id="txtDocumentoMIRO" text="{DocumentoMIRO}" />
+                        <Label id="lblDocumentoFI" text="Documento FI" />
+                        <Text id="txtDocumentoFI" text="{DocumentoFI}" />
+
                     </layout:SimpleForm>
 
                     <!-- Tabla Detalle Factura -->
                     <VBox id="detalleFacturaVBox" class="sapUiMediumMarginTop">
-                        <Table id="tablaDetalleFactura" items="{DetalleFactura}" headerText="Detalles de la Factura">
+                        
+                    </VBox>
+
+                    <!-- Tabla Entradas -->
+                    <VBox id="entradasVBox" class="sapUiMediumMarginTop">
+                       
+                    </VBox>
+                </VBox>
+
+                <!-- DERECHA -->
+                <!-- Cambios merge github -->
+                <VBox id="rightVBox" width="50%" class="sapUiContentPadding">
+                    <Title id="titlePdf" text="Visualización PDF" level="H4" />
+                    <core:HTML id="pdfEmbed" content="" />
+                </VBox>
+            </HBox>
+            <Table id="tablaDetalleFactura" items="{DetalleFactura}" headerText="Detalles de la Factura">
                             <columns>
                                 <Column id="columna1"><Text id="11" text="Número Material" /></Column>
                                 <Column id="columna2" ><Text id="22" text="Descripción" /></Column>
@@ -108,11 +144,8 @@
                                 </ColumnListItem>
                             </items>
                         </Table>
-                    </VBox>
 
-                    <!-- Tabla Entradas -->
-                    <VBox id="entradasVBox" class="sapUiMediumMarginTop">
-                        <Table id="tablaEntradas" items="{Entrada}" headerText="Entradas asociadas a la Factura">
+                         <Table id="tablaEntradas" items="{Entrada}" headerText="Entradas asociadas a la Factura">
                             <columns>
                                 <Column id="Columna1"><Text id="Texto1" text="Fecha de emisión" /></Column>
                                 <Column id="Columna2"><Text id="Texto2" text="Fecha de recepción" /></Column>
@@ -131,23 +164,6 @@
                                 </ColumnListItem>
                             </items>
                         </Table>
-                    </VBox>
-                </VBox>
-
-                <!-- DERECHA -->
-                <!-- Cambios merge github -->
-                <VBox id="rightVBox" width="50%" class="sapUiContentPadding">
-                    <Title id="titlePdf" text="Visualización PDF" level="H4" />
-                   <pdf:PDFViewer
-    id="pdfViewer"
-    title="Factura PDF"
-    height="800px"
-    width="100%"
-    source="pdfPrueba/factura123.pdf"
-    showDownloadButton="true"
-    displayType="Embedded" />
-                </VBox>
-            </HBox>
         </content>
     </Page>
 </mvc:View>

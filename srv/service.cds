@@ -2,7 +2,7 @@ using {Monitor_Facturas as my} from '../db/schema.cds';
 
 @path: '/service/Monitor_FacturasService'
 service Monitor_FacturasService {
-
+    @mediaStream
     entity Facturas           as projection on my.Facturas;
 
     action   actualizarFactura(NumeroFactura : String,
@@ -27,7 +27,16 @@ service Monitor_FacturasService {
     }
 
     action   bulkInsertProveedores(proveedores : many Proveedores) returns BulkInsertResponse;
+    //API Noova
     function noova_documents()                                     returns many String;
+
+    //API invoicesList Carvajal 
+    
+    action consultar_documentos(noce: String, created: String) returns String;
+
+    //API Get documents Carvajal 
+    action extraer_documentos(noce: String, created: String, data: String, documentNumber: String, documentPrefix: String, documentType: String, senderIdentification: String) returns String;
+
 }
 
 annotate Monitor_FacturasService with @requires: ['authenticated-user'];

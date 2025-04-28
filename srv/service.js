@@ -8,6 +8,155 @@ const detalleordencompra_Logic = require('./code/detalleordencompra-logic');
 class Monitor_FacturasService extends LCAPApplicationService {
     async init() {
 
+        //Consumir api noova
+        this.on('noova_documents', async (req) => { // Puedes poner un valor por defecto para probar
+        
+            const apiUrl = `https://dev.noova.com.co/api-vph/api/FacProveedor/GetDocument?nvemp_nnit=860000452&nvfac_cont=923&nvfac_esta=A`;
+        
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Basic ODYwMDAwNDUyUmVjZV9JbnRlOlB3ZmZUOEg0Z2Y=',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+        
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("❌ API externa no respondió OK:", {
+                        status: response.status,
+                        statusText: response.statusText,
+                        body: errorText
+                    });
+                    return req.reject(response.status, `Error en la API externa: ${response.statusText}`);
+                }
+        
+                const data = await response.json();
+        
+                // Devuelve solo el archivo, o todo si lo prefieres
+                const nvdocFile = data?.lAttached?.[0]?.Nvdoc_file;
+                if (!nvdocFile) return req.reject(404, "Nvdoc_file no encontrado");
+        
+                return { Nvdoc_file: nvdocFile };
+        
+            } catch (err) {
+                console.error('🔥 Error detallado al consumir la API externa:', {
+                    message: err.message,
+                    name: err.name,
+                    stack: err.stack,
+                    cause: err.cause
+                });
+                return req.reject(500, `Error interno al consumir la API externa: ${err.message}`);
+            }
+            
+            
+            
+        });
+        
+        //Consumir API carvajal list invoices 
+        this.on('consultar_documentos', async (req) => {
+            const { noce, created } = req.data;
+        
+            const rawXML = `
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                          xmlns:inv="http://invoice.carvajal.com/invoiceService/"
+                          xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                          xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <soapenv:Header>
+                <wsse:Security>
+                    <wsse:UsernameToken wsu:Id="UsernameToken-1">
+                        <wsse:Username>ns_fe_integracion@colgas.com</wsse:Username>
+                        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</wsse:Password>
+                        <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">${noce}</wsse:Nonce>
+                        <wsu:Created>${created}</wsu:Created>
+                    </wsse:UsernameToken>
+                </wsse:Security>
+            </soapenv:Header>
+            <soapenv:Body>
+                <inv:CheckAvailableDocumentsRequest>
+                    <companyId>890500726</companyId>
+                    <initialDate>2025-01-01T00:00:00</initialDate>
+                    <finalDate>2025-03-30T00:00:00</finalDate>
+                    <resourceType>PDF,SIGNED_XML</resourceType>
+                </inv:CheckAvailableDocumentsRequest>
+            </soapenv:Body>
+        </soapenv:Envelope>`;
+        
+            try {
+                const response = await fetch("https://wscenflab.cen.biz/isows/InvoiceService?wsdl", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/xml'
+                    },
+                    body: rawXML
+                });
+        
+                const result = await response.text();
+                return result;
+        
+            } catch (error) {
+                console.error("❌ Error en consulta SOAP:", error);
+                return req.reject(500, `Error en consulta SOAP: ${error.message}`);
+            }
+        });
+
+        this.on('extraer_documentos', async (req) => {
+            const {noce, created, data, documentNumber, documentPrefix, documentType, senderIdentification } = req.data;
+
+            const rawXML = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                                            xmlns:inv="http://invoice.carvajal.com/invoiceService/" 
+                                            xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" 
+                                            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+                                <soapenv:Header>
+                                    <wsse:Security>
+                                        <wsse:UsernameToken wsu:Id="UsernameToken-1">
+                                            <wsse:Username>ns_fe_integracion@colgas.com</wsse:Username>
+                                            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</wsse:Password>
+                                            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">${noce}</wsse:Nonce>
+                                            <wsu:Created>${created}</wsu:Created>
+                                        </wsse:UsernameToken>
+                                    </wsse:Security>
+                            <soapenv:Header/>
+                            <soapenv:Body>
+                                <inv:DownloadAvailableDocumentsRequest>
+                                    <companyId>890500726</companyId>
+                                    <resourceType>${data}</resourceType>
+                                    <!--1 or more repetitions:-->
+                                    <availableDocument>
+                                        <!--Optional:-->
+                                        <documentNumber>${documentNumber}</documentNumber>
+                                        <!--Optional:-->
+                                        <documentPrefix>${documentPrefix}</documentPrefix>
+                                        <!--Optional:-->
+                                        <documentType>${documentType}</documentType>
+                                        <!--Optional:-->
+                                        <downloadData>?</downloadData>
+                                        <!--Optional:-->
+                                        <senderIdentification>${senderIdentification}</senderIdentification>
+                                    </availableDocument>
+                                </inv:DownloadAvailableDocumentsRequest>
+                            </soapenv:Body>
+                            </soapenv:Envelope>`;
+                            try {
+                                const response = await fetch("https://wscenflab.cen.biz/isows/InvoiceService?wsdl", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'text/xml'
+                                    },
+                                    body: rawXML
+                                });
+                        
+                                const result = await response.text();
+                                return result;
+                        
+                            } catch (error) {
+                                console.error("❌ Error en consulta SOAP:", error);
+                                return req.reject(500, `Error en consulta SOAP: ${error.message}`);
+                            }
+        });
+
         this.on(['CREATE', 'UPDATE'], 'Clientes', async (request, next) => {
             return clientes_Logic(request, next);
         });
