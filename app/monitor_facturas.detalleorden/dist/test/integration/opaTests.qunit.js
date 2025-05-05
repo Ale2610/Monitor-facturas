@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/detalleorden/test/integration/FirstJourney","monitorfacturas/detalleorden/test/integration/pages/DetalleOrdenCompraMain"],function(e,r,t){"use strict";var e=new e({launchUrl:sap.ui.require.toUrl("monitorfacturas/detalleorden")+"/index.html"});e.run({pages:{onTheDetalleOrdenCompraMain:t}},r.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

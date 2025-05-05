@@ -1,0 +1,8 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.facturaorden.ext.view.DetalleCompra">
+    <Page id="DetalleCompra" title="{i18n&gt;DetalleCompraTitle}">
+        <content>
+            <macros:Table id="Table" metaPath="/Facturas/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" header="Información General"/>
+            <macros:Table id="Table1" metaPath="/Facturas/@com.sap.vocabularies.UI.v1.LineItem#tableMacro3" header="Información General"/>
+        </content>
+    </Page>
+</mvc:View>

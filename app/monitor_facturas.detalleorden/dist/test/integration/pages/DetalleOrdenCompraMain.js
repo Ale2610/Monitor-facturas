@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/TemplatePage"],function(e){"use strict";var a={actions:{},assertions:{}};return new e("monitorfacturas.detalleorden::DetalleOrdenCompraMain",a)});
+//# sourceMappingURL=DetalleOrdenCompraMain.js.map

@@ -1,53 +1,7 @@
 {
-  "scopes": [
-    {
-      "name": "admin_scope",
-      "description": "Full access to all entities",
-      "role-templates": [
-        "admin"
-      ]
-    },
-    {
-      "name": "ordencompra_scope",
-      "description": "Access to OrdenCompra",
-      "role-templates": [
-        "ordencompra_user"
-      ]
-    },
-    {
-      "name": "proveedor_scope",
-      "description": "Access to Proveedores",
-      "role-templates": [
-        "proveedor_user"
-      ]
-    },
-    {
-      "name": "detallefactura_scope",
-      "description": "Access to DetalleFactura",
-      "role-templates": [
-        "detallefactura_user"
-      ]
-    }
-  ],
+  "scopes": [],
   "attributes": [],
-  "role-templates": [
-    {
-      "name": "admin",
-      "description": "Admin role with full access to all entities"
-    },
-    {
-      "name": "ordencompra_user",
-      "description": "Role with limited access to OrdenCompra"
-    },
-    {
-      "name": "proveedor_user",
-      "description": "Role with limited access to Proveedores"
-    },
-    {
-      "name": "detallefactura_user",
-      "description": "Role with limited access to DetalleFactura"
-    }
-  ],
+  "role-templates": [],
   "xsappname": "Monitor_Facturas",
   "tenant-mode": "dedicated"
 }

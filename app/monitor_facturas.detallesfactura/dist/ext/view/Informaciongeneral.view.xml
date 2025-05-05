@@ -1,0 +1,169 @@
+<mvc:View
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout.form"
+    xmlns:pdf="sap.m"
+    controllerName="monitorfacturas.detallesfactura.ext.view.Informaciongeneral"
+    xmlns:macros="sap.fe.macros">
+
+    <Page id="pageInformacionGeneral" title="Factura">
+        <content>
+            <HBox id="mainHBox" width="100%">
+                <!-- IZQUIERDA -->
+                <VBox id="leftVBox" width="50%" renderType="Bare">
+                    <layout:SimpleForm
+                    id="facturaForm"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    labelSpanL="4"
+                    labelSpanM="4"
+                    columnsL="2"
+                    columnsM="2"
+                    columnsXL="2"
+                    singleContainerFullSize="false"
+                    title="Datos de la Factura">
+
+                        <!-- Información General -->
+                        <Toolbar id="toolbarGeneral">
+                            <Title id="titleGeneral" text="Información General" level="H4" />
+                        </Toolbar>
+                        <Label id="lblNumeroFactura" text="Número Factura" />
+                        <Text id="txtNumeroFactura" text="{NumeroFactura}" />
+                        <Label id="lblProveedor" text="Proveedor" />
+                        <Text id="txtProveedor" text="{Proveedor/Nombre1}" />
+                        <Label id="lblEstado" text="Estado" />
+                        <Text id="txtEstado" text="{Estado}" />
+                        <Label id="lblUrgente" text="Urgente" />
+                        <Text id="txtUrgente" text="{Urgente}" />
+                        <Label id="lblFacturaElec" text="Factura Electrónica" />
+                        <Text id="txtFacturaElec" text="{FacturaElec}" />
+                        <Label id="lblDescuento" text="Descuento pronto pago" />
+                        <Text id="txtDescuento" text="{Descuento}" />
+                        <Label id="lblComentario" text="Comentario" />
+                        <Text id="txtComentario" text="{Comentario}" />
+
+                        <!-- Fechas -->
+                        <Toolbar id="toolbarFechas">
+                            <Title id="titleFechas" text="Fechas" level="H4" />
+                        </Toolbar>
+                        <Label id="lblFechaFactura" text="Fecha Factura" />
+                        <Text id="txtFechaFactura" text="{FechaFactura}" />
+                        <Label id="lblFechaContabilizacion" text="Fecha Contabilización" />
+                        <Text id="txtFechaContabilizacion" text="{FechaContabilizacion}" />
+                        <Label id="lblFechaVencimiento" text="Fecha Vencimiento" />
+                        <Text id="txtFechaVencimiento" text="{FechaVencimiento}" />
+                        <Label id="lblFechaRecepcion" text="Fecha de recepción" />
+                        <Text id="txtFechaRecepcion" text="{FechaRecepcion}" />
+
+                        <!-- Pago -->
+                        <Toolbar id="toolbarPago">
+                            <Title id="titlePago" text="Datos de Pago" level="H4" />
+                        </Toolbar>
+                        <Label id="lblFormaPago" text="Forma de pago" />
+                        <Text id="txtFormaPago" text="{FormaPago}" />
+                        <Label id="lblPosiciones" text="Posiciones" />
+                        <Text id="txtPosiciones" text="{Posiciones}" />
+
+                        <!-- Valores Monetarios -->
+                        <Toolbar id="toolbarValores">
+                            <Title id="titleValores" text="Valores Monetarios" level="H4" />
+                        </Toolbar>
+                        <Label id="lblTotalFactura" text="Total de factura" />
+                        <Text id="txtTotalFactura" text="{TotalFactura}" />
+                        <Label id="lblValorFinal" text="Valor final a pagar" />
+                        <Text id="txtValorFinal" text="{ValorFinal}" />
+                        <Label id="lblIVA" text="IVA" />
+                        <Text id="txtIVA" text="{IVA}" />
+                        <Label id="lblIndicadorImpuesto" text="Indicador de impuesto" />
+                        <Text id="txtIndicadorImpuesto" text="{IndicadorImpuesto}" />
+                        <Label id="lblNumeroIndicador" text="Número indicador" />
+                        <Text id="txtNumeroIndicador" text="{NumeroIndicador}" />
+
+                        <!-- Destinatario y Clasificación -->
+                        <Toolbar id="toolbarDestinatario">
+                            <Title id="titleDestinatario" text="Destinatario y Clasificación" level="H4" />
+                        </Toolbar>
+                        <Label id="lblDestinatario" text="Destinatario" />
+                        <Text id="txtDestinatario" text="{Destinatario}" />
+                        <Label id="lblDescDestinatario" text="Descripción del destinatario" />
+                        <Text id="txtDescDestinatario" text="{DescripcionDestinatario}" />
+                        <Label id="lblCodigoActividad" text="Código de actividad" />
+                        <Text id="txtCodigoActividad" text="{CodigoActividad}" />
+                        <Label id="lblClasificacion" text="Clasificación" />
+                        <Text id="txtClasificacion" text="{Clasificacion}" />
+                        <Label id="lblArea" text="Área" />
+                        <Text id="txtArea" text="{Area}" />
+                        <Label id="lblSede" text="Sede" />
+                        <Text id="txtSede" text="{Sede}" />
+                        <Label id="lblDocumentoMIRO" text="Documento MIRO" />
+                        <Text id="txtDocumentoMIRO" text="{DocumentoMIRO}" />
+                        <Label id="lblDocumentoFI" text="Documento FI" />
+                        <Text id="txtDocumentoFI" text="{DocumentoFI}" />
+
+                    </layout:SimpleForm>
+
+                    <!-- Tabla Detalle Factura -->
+                    <VBox id="detalleFacturaVBox" class="sapUiMediumMarginTop">
+                        
+                    </VBox>
+
+                    <!-- Tabla Entradas -->
+                    <VBox id="entradasVBox" class="sapUiMediumMarginTop">
+                       
+                    </VBox>
+                </VBox>
+
+                <!-- DERECHA -->
+                <!-- Cambios merge github -->
+                <VBox id="rightVBox" width="50%" class="sapUiContentPadding">
+                    <Title id="titlePdf" text="Visualización PDF" level="H4" />
+                    <core:HTML id="pdfEmbed" content="" />
+                </VBox>
+            </HBox>
+            <Table id="tablaDetalleFactura" items="{DetalleFactura}" headerText="Detalles de la Factura">
+                            <columns>
+                                <Column id="columna1"><Text id="11" text="Número Material" /></Column>
+                                <Column id="columna2" ><Text id="22" text="Descripción" /></Column>
+                                <Column id="columna3" ><Text id="33" text="Cantidad" /></Column>
+                                <Column id="columna4" ><Text id="44" text="Valor Unitario" /></Column>
+                                <Column id="column5" ><Text id="55" text="Valor Total" /></Column>
+                                <Column id="columna6" ><Text id="66" text="Detalles" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="detalleFacturaItem">
+                                    <cells>
+                                    <!-- Cambios merge github -->
+                                        <Text id="1" text="{NumeroMaterial}" />
+                                        <Text id="2" text="{Descripcion}" />
+                                        <Text id="3" text="{Cantidad}" />
+                                        <Text id="4" text="{ValorUnitario}" />
+                                        <Text id="5" text="{ValorTotal}" />
+                                        <Button id="6" text="Ver O.C" icon="sap-icon://show" type="Transparent" press="onDetallePressOrden" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                         <Table id="tablaEntradas" items="{Entrada}" headerText="Entradas asociadas a la Factura">
+                            <columns>
+                                <Column id="Columna1"><Text id="Texto1" text="Fecha de emisión" /></Column>
+                                <Column id="Columna2"><Text id="Texto2" text="Fecha de recepción" /></Column>
+                                <Column id="Columna3"><Text id="Texto3" text="Número de entrada" /></Column>
+                                <Column id="Columna4"><Text id="Texto4" text="Detalles" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="entradaItem">
+                                    <cells>
+                                    <!-- Cambios merge github -->
+                                        <Text id="Texto5" text="{FechaEmision}" />
+                                        <Text id="Texto6" text="{FechaRecepcion}" />
+                                        <Text id="Texto7" text="{NumeroEntrada}" />
+                                        <Button id="Boton2" text="Ver detalles" icon="sap-icon://show" type="Transparent" press="onDetallePress" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+        </content>
+    </Page>
+</mvc:View>

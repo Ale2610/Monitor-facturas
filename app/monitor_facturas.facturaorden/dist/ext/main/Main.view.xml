@@ -1,0 +1,52 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.facturaorden.ext.main.Main">
+    <Page id="Main" title="{i18n&gt;MainTitle}">
+        <content>
+            <!-- Tabla con columnas definidas -->
+            <Table id="myTable" items="{/Facturas}" headerText="Facturas">
+                <!-- Definición de las columnas con IDs -->
+                <columns>
+                    <Column id="colNumeroFactura">
+                        <Text id="text4" text="Numero Factura"/>
+                    </Column>
+                    <Column id="colFechaFactura">
+                        <Text id="text5" text="Fecha Factura"/>
+                    </Column>
+                    <Column id="colFechaContabilizacion">
+                        <Text id="text1" text="Fecha Contabilización"/>
+                    </Column>
+                    <Column id="colFechaVencimiento">
+                        <Text id="text2" text="Fecha Vencimiento"/>
+                    </Column>
+                    <Column id="colProveedorNombre">
+                        <Text id="text3" text="Proveedor"/>
+                    </Column>
+                    <Column id="colestado">
+                        <Text id="text6" text="Estado"/>
+                    </Column>
+                    <Column id="colUrgente">
+                        <Text id="text8" text="Urgente"/>
+                    </Column>
+                    <!-- Columna de detalles para navegación -->
+                    <Column id="colDetalles">
+                        <Text id="text7" text="Detalles"/>
+                    </Column>
+                </columns>
+                <!-- Definición de los datos de la tabla con IDs -->
+                <items>
+                    <ColumnListItem id="column">
+                        <cells>
+                            <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
+                            <Text id="cellFechaFactura" text="{FechaFactura}"/>
+                            <Text id="cellFechaContabilizacion" text="{FechaContabilizacion}"/>
+                            <Text id="cellFechaVencimiento" text="{FechaVencimiento}"/>
+                            <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
+                            <Text id="cellEstado" text="{Estado}"/>
+                            <Text id="cellUrgente" text="{Urgente}"/>
+                            <Link id="cellDetalles" text="Detalles" press="onDetallePress"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

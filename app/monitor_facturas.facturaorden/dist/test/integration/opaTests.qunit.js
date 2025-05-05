@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/facturaorden/test/integration/FirstJourney","monitorfacturas/facturaorden/test/integration/pages/FacturasMain"],function(r,a,t){"use strict";var r=new r({launchUrl:sap.ui.require.toUrl("monitorfacturas/facturaorden")+"/index.html"});r.run({pages:{onTheFacturasMain:t}},a.run)});
+//# sourceMappingURL=opaTests.qunit.js.map
