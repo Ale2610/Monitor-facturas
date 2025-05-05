@@ -34,12 +34,17 @@
     "watch-monitor_facturas.proveedores": "cds watch --open monitor_facturas.proveedores/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-monitor_facturas.facturaorden": "cds watch --open monitor_facturas.facturaorden/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-monitor_facturas.detallesfactura": "cds watch --open monitor_facturas.detallesfactura/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-monitor_facturas.detalleorden": "cds watch --open monitor_facturas.detalleorden/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-monitor_facturas.detalleorden": "cds watch --open monitor_facturas.detalleorden/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.centralfacturas": "cds watch --open monitor_facturas.centralfacturas/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.bandejaentradaalmacenista": "cds watch --open monitor_facturas.bandejaentradaalmacenista/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.bandejaentradacontabilidad": "cds watch --open monitor_facturas.bandejaentradacontabilidad/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.compradorbandejaentrada": "cds watch --open monitor_facturas.compradorbandejaentrada/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.bandejaentradabot": "cds watch --open monitor_facturas.bandejaentradabot/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requestLimits": {
-    "maxPayload": "1mb"
-  },
+      "maxPayload": "1mb"
+    },
     "sql": {
       "native_hana_associations": false
     },
@@ -70,6 +75,11 @@
     "app/monitor_facturas.proveedores",
     "app/monitor_facturas.facturaorden",
     "app/monitor_facturas.detallesfactura",
-    "app/monitor_facturas.detalleorden"
+    "app/monitor_facturas.detalleorden",
+    "app/monitor_facturas.centralfacturas",
+    "app/monitor_facturas.bandejaentradaalmacenista",
+    "app/monitor_facturas.bandejaentradacontabilidad",
+    "app/monitor_facturas.compradorbandejaentrada",
+    "app/monitor_facturas.bandejaentradabot"
   ]
 }

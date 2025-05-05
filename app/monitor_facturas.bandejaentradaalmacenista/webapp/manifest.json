@@ -1,0 +1,150 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "monitorfacturas.bandejaentradaalmacenista",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:fpm",
+      "version": "1.17.4",
+      "toolsId": "0ccdfb20-5819-47b4-9458-456ef9f551e0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/service/Monitor_FacturasService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "monitorfacturasbandejaentradaa-display": {
+          "semanticObject": "monitorfacturasbandejaentradaa",
+          "action": "display",
+          "title": "{{monitorfacturasbandejaentradaa-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.13",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.core": {},
+        "sap.fe.macros": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "monitorfacturas.bandejaentradaalmacenista.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "name": "DetalleFacturaMain",
+          "pattern": ":?query:",
+          "target": "DetalleFacturaMain"
+        },
+        {
+          "name": "FacturasFacturasPage",
+          "pattern": "Facturas({FacturasKey}):?query:",
+          "target": "FacturasFacturasPage"
+        }
+      ],
+      "targets": {
+        "DetalleFacturaMain": {
+          "type": "Component",
+          "id": "DetalleFacturaMain",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {
+                "Facturas": {
+                  "detail": {
+                    "route": "FacturasFacturasPage"
+                  }
+                }
+              },
+              "contextPath": "/DetalleFactura",
+              "viewName": "monitorfacturas.bandejaentradaalmacenista.ext.main.Main"
+            }
+          }
+        },
+        "FacturasFacturasPage": {
+          "type": "Component",
+          "id": "FacturasFacturasPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/Facturas",
+              "viewName": "monitorfacturas.bandejaentradaalmacenista.ext.view.Facturas"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {}
+}

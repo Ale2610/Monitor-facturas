@@ -41,3 +41,26 @@
 #FiltroToolbar {
     padding: 50%;
 }
+
+.campoBordeado {
+    box-shadow: none !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    border-bottom: none !important;
+}
+
+input.campoBordeado {
+    border-bottom: none !important;
+}
+
+.campoBordeado::after {
+    border-bottom: none !important;
+    display: none !important;
+}
+
+/* Este selector apunta al contenedor interno del Input que genera la línea */
+.campoBordeado .sapMInputBaseContentWrapper {
+    border-bottom: none !important;
+}
+
+

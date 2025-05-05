@@ -154,13 +154,75 @@ sap.ui.define(
             
                         const result = await response.text();
                         console.log("Respuesta SOAP:", result);
+                        await this.extraerFactura(result);
             
                     } catch (error) {
                         console.error("❌ Error al extraer documentos:", error);
                     }
                 }
-            },            
+            },
+            
+            extraerFactura: async function(xmlBase64) {
+                try {
+                    // Decodificar de Base64 a texto XML
+                    const xmlDecoded = atob(xmlBase64);
+            
+                    // Ahora xmlDecoded contiene el XML como texto
+                    console.log('XML decodificado:', xmlDecoded);
+                } catch (error) {
+                    console.error('Error al decodificar el XML:', error);
+                }
+            },
 
+            insertarFactura: async function(facturaData) {
+
+                var factura = {
+                    "FechaContabilizacion": "2025-04-28",
+                    "FechaFactura": "2025-04-28",
+                    "FechaVencimiento": "2025-05-28",
+                    "FechaRecepcion": "2025-04-27",
+                    "FormaPago": "Contado",
+                    "NumeroFactura": "FAC-123456",
+                    "Proveedor": { CodigoSap: "CodigoSap8014" },  // ⚡ Muy importante: Association se envía así
+                    "Posiciones": "1,2,3",
+                    "TotalFactura": "1000",
+                    "ValorFinal": "950",
+                    "IVA": "50",
+                    "IndicadorImpuesto": "IVA19",
+                    "NumeroIndicador": "1234",
+                    "Destinatario": "Centro Principal",
+                    "DescripcionDestinatario": "Sede Norte",
+                    "CodigoActividad": "123ABC",
+                    "Clasificacion": "Servicios",
+                    "Estado": "Pendiente",
+                    "Urgente": false,
+                    "Area": "Compras",
+                    "Sede": "Bogotá",
+                    "Comentario": "Factura correspondiente a servicios de abril",
+                    "DocumentoMIRO": "",
+                    "DocumentoFI": "",
+                    "FacturaElec": true,
+                    "Descuento": false,
+                    "archivoPDF": null // Si vas a cargar el PDF, aquí debes pasar el archivo en base64
+                }
+                
+                console.log('Inserción de factura en proceso...');
+                try {
+                    // Consumir el servicio OData
+                    await fetch("/service/Monitor_FacturasService/Facturas", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(factura)
+                    });
+            
+                    console.log('Factura insertada exitosamente');
+                } catch (error) {
+                    console.error('Error al insertar la factura:', error);
+                }
+            },
+            
             onBuscarFactura: function (oEvent) {
                 const sQuery = oEvent.getParameter("query");
                 this._aplicarFiltros(sQuery);

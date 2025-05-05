@@ -7,11 +7,37 @@
     controllerName="monitorfacturas.detallesfactura.ext.view.Informaciongeneral"
     xmlns:macros="sap.fe.macros">
 
-    <Page id="pageInformacionGeneral" title="Factura">
+    <Page id="pageInformacionGeneral" title="">
         <content>
+
             <HBox id="mainHBox" width="100%">
                 <!-- IZQUIERDA -->
                 <VBox id="leftVBox" width="50%" renderType="Bare">
+                <!-- Encabezado con Título y Botones -->
+                <Toolbar id="tituloToolbar">
+                    <Title id="title" text="Datos de la Factura" level="H2" />
+                    <ToolbarSpacer id="toolbarSpacerFactura" />
+                    <Button 
+                    id="myButtonUpdate" 
+                    text="" 
+                    visible="{= !${view>/modoEdicion} }" 
+                    icon="sap-icon://edit" type="Emphasized"
+                    press="editarFactura"/>
+                    <Button
+                        id="myButtonSave"
+                        text=""
+                        icon="sap-icon://save" type="Accept"
+                        press="onGuardar"
+                        visible="{view>/modoEdicion}"
+                        class="sapUiSmallMarginEnd" />
+                    <Button
+                        id="myButtonCancel"
+                        text=""
+                        icon="sap-icon://sys-cancel" type="Reject"
+                        press="onCancelar"
+                        visible="{view>/modoEdicion}"
+                        class="sapUiSmallMarginEnd" />
+                </Toolbar>
                     <layout:SimpleForm
                     id="facturaForm"
                     editable="false"
@@ -21,85 +47,87 @@
                     columnsL="2"
                     columnsM="2"
                     columnsXL="2"
-                    singleContainerFullSize="false"
-                    title="Datos de la Factura">
+                    singleContainerFullSize="false">
+                
 
                         <!-- Información General -->
                         <Toolbar id="toolbarGeneral">
                             <Title id="titleGeneral" text="Información General" level="H4" />
                         </Toolbar>
                         <Label id="lblNumeroFactura" text="Número Factura" />
-                        <Text id="txtNumeroFactura" text="{NumeroFactura}" />
+                        <Input id="txtNumeroFactura" value="{NumeroFactura}" class="campoBordeado" editable="false"/>
                         <Label id="lblProveedor" text="Proveedor" />
-                        <Text id="txtProveedor" text="{Proveedor/Nombre1}" />
+                        <Input id="txtProveedor" value="{Proveedor/Nombre1}" class="campoBordeado" editable="false"/>
                         <Label id="lblEstado" text="Estado" />
-                        <Text id="txtEstado" text="{Estado}" />
+                        <Input id="txtEstado" value="{Estado}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblUrgente" text="Urgente" />
-                        <Text id="txtUrgente" text="{Urgente}" />
+                        <Input id="txtUrgente" value="{Urgente}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblFacturaElec" text="Factura Electrónica" />
-                        <Text id="txtFacturaElec" text="{FacturaElec}" />
+                        <Input id="txtFacturaElec" value="{FacturaElec}" class="campoBordeado" editable="false"/>
                         <Label id="lblDescuento" text="Descuento pronto pago" />
-                        <Text id="txtDescuento" text="{Descuento}" />
+                        <Input id="txtDescuento" value="{Descuento}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblComentario" text="Comentario" />
-                        <Text id="txtComentario" text="{Comentario}" />
+                        <Input id="txtComentario" value="{Comentario}" class="campoBordeado" editable="{view>/modoEdicion}"/>
 
                         <!-- Fechas -->
                         <Toolbar id="toolbarFechas">
                             <Title id="titleFechas" text="Fechas" level="H4" />
                         </Toolbar>
                         <Label id="lblFechaFactura" text="Fecha Factura" />
-                        <Text id="txtFechaFactura" text="{FechaFactura}" />
+                        <Input id="txtFechaFactura" value="{FechaFactura}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblFechaContabilizacion" text="Fecha Contabilización" />
-                        <Text id="txtFechaContabilizacion" text="{FechaContabilizacion}" />
+                        <Input id="txtFechaContabilizacion" value="{FechaContabilizacion}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblFechaVencimiento" text="Fecha Vencimiento" />
-                        <Text id="txtFechaVencimiento" text="{FechaVencimiento}" />
+                        <Input id="txtFechaVencimiento" value="{FechaVencimiento}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblFechaRecepcion" text="Fecha de recepción" />
-                        <Text id="txtFechaRecepcion" text="{FechaRecepcion}" />
-
-                        <!-- Pago -->
-                        <Toolbar id="toolbarPago">
-                            <Title id="titlePago" text="Datos de Pago" level="H4" />
-                        </Toolbar>
-                        <Label id="lblFormaPago" text="Forma de pago" />
-                        <Text id="txtFormaPago" text="{FormaPago}" />
-                        <Label id="lblPosiciones" text="Posiciones" />
-                        <Text id="txtPosiciones" text="{Posiciones}" />
+                        <Input id="txtFechaRecepcion" value="{FechaRecepcion}" class="campoBordeado" editable="{view>/modoEdicion}"/>
 
                         <!-- Valores Monetarios -->
                         <Toolbar id="toolbarValores">
                             <Title id="titleValores" text="Valores Monetarios" level="H4" />
                         </Toolbar>
                         <Label id="lblTotalFactura" text="Total de factura" />
-                        <Text id="txtTotalFactura" text="{TotalFactura}" />
+                        <Input id="txtTotalFactura" value="{TotalFactura}" class="campoBordeado" editable="false"/>
                         <Label id="lblValorFinal" text="Valor final a pagar" />
-                        <Text id="txtValorFinal" text="{ValorFinal}" />
+                        <Input id="txtValorFinal" value="{ValorFinal}" class="campoBordeado" editable="false"/>
                         <Label id="lblIVA" text="IVA" />
-                        <Text id="txtIVA" text="{IVA}" />
+                        <Input id="txtIVA" value="{IVA}" class="campoBordeado" editable="false"/>
                         <Label id="lblIndicadorImpuesto" text="Indicador de impuesto" />
-                        <Text id="txtIndicadorImpuesto" text="{IndicadorImpuesto}" />
+                        <Input id="txtIndicadorImpuesto" value="{IndicadorImpuesto}" class="campoBordeado" editable="false"/>
                         <Label id="lblNumeroIndicador" text="Número indicador" />
-                        <Text id="txtNumeroIndicador" text="{NumeroIndicador}" />
+                        <Input id="txtNumeroIndicador" value="{NumeroIndicador}" class="campoBordeado" editable="false"/>
 
                         <!-- Destinatario y Clasificación -->
                         <Toolbar id="toolbarDestinatario">
                             <Title id="titleDestinatario" text="Destinatario y Clasificación" level="H4" />
                         </Toolbar>
                         <Label id="lblDestinatario" text="Destinatario" />
-                        <Text id="txtDestinatario" text="{Destinatario}" />
+                        <Input id="txtDestinatario" value="{Destinatario}" class="campoBordeado" editable="false"/>
                         <Label id="lblDescDestinatario" text="Descripción del destinatario" />
-                        <Text id="txtDescDestinatario" text="{DescripcionDestinatario}" />
+                        <Input id="txtDescDestinatario" value="{DescripcionDestinatario}" class="campoBordeado" editable="false"/>
                         <Label id="lblCodigoActividad" text="Código de actividad" />
-                        <Text id="txtCodigoActividad" text="{CodigoActividad}" />
+                        <Input id="txtCodigoActividad" value="{CodigoActividad}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblClasificacion" text="Clasificación" />
-                        <Text id="txtClasificacion" text="{Clasificacion}" />
+                        <Input id="txtClasificacion" value="{Clasificacion}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblArea" text="Área" />
-                        <Text id="txtArea" text="{Area}" />
+                        <Input id="txtArea" value="{Area}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblSede" text="Sede" />
-                        <Text id="txtSede" text="{Sede}" />
+                        <Input id="txtSede" value="{Sede}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblDocumentoMIRO" text="Documento MIRO" />
-                        <Text id="txtDocumentoMIRO" text="{DocumentoMIRO}" />
+                        <Input id="txtDocumentoMIRO" value="{DocumentoMIRO}" class="campoBordeado" editable="{view>/modoEdicion}"/>
                         <Label id="lblDocumentoFI" text="Documento FI" />
-                        <Text id="txtDocumentoFI" text="{DocumentoFI}" />
+                        <Input id="txtDocumentoFI" value="{DocumentoFI}" class="campoBordeado" editable="{view>/modoEdicion}"/>
+
+                        <!-- Pago -->
+                        <Toolbar id="toolbarPago">
+                            <Title id="titlePago" text="Datos de Pago" level="H4" />
+                        </Toolbar>
+                        <Label id="lblFormaPago" text="Forma de pago" />
+                        <Input id="txtFormaPago" value="{FormaPago}" class="campoBordeado" editable="{view>/modoEdicion}"/>
+                        <Label id="lblPosiciones" text="Posiciones" />
+                        <Input id="txtPosiciones" value="{Posiciones}" class="campoBordeado" editable="false"/>
+
+                        
 
                     </layout:SimpleForm>
 

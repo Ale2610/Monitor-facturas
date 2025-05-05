@@ -72,19 +72,15 @@
       "cozy": true
     },
     "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "monitorfacturas.detallesfactura.i18n.i18n"
-        }
-      },
       "": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
           "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
+          "earlyRequests": true,
+          "groupId": "$auto",
+          "updateGroupId": "$auto"
         }
       },
       "@i18n": {
