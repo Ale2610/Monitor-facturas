@@ -1,0 +1,39 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros"
+    xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.centralfacturas.ext.main.Main">
+
+    <Page id="pageCentralFacturas" title="Centro de Facturas">
+        <content>
+            <IconTabBar id="tabBarFacturas" expandable="false" selectedKey="calidad">
+                <items>
+                    <IconTabFilter id="tabCompras" key="compra" text="COMPRADOR">
+                        <VBox id="vboxCompras">
+                            <GenericTile id="tileComprador" header="Comprador" press="compradorPress" />
+                            <!-- Más tiles -->
+                        </VBox>
+                    </IconTabFilter>
+
+                    <IconTabFilter id="tabAlmacen" key="almacen" text="ALMACENISTA">
+                        <VBox id="vboxAlmacen">
+                            <GenericTile id="tileAlmacenista" header="Almacenista" press="almacenistaPress" />
+                            <!-- Más tiles -->
+                        </VBox>
+                    </IconTabFilter>
+
+                    <IconTabFilter id="tabBot" key="bot" text="GESTIÓN BOT">
+                        <VBox id="vboxBot">
+                            <GenericTile id="tileBot" header="Bot" press="botPress" />
+                            <!-- Más tiles -->
+                        </VBox>
+                    </IconTabFilter>
+
+                    <IconTabFilter id="tabContabi" key="Contabi" text="CONTABILIZACIÓN">
+                        <VBox id="vboxContabi">
+                            <GenericTile id="tileContabi" header="Contabilización" press="contabiPress" />
+                            <!-- Más tiles -->
+                        </VBox>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

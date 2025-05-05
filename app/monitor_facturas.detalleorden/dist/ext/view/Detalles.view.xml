@@ -1,0 +1,97 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout.form" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.detalleorden.ext.view.Detalles">
+    <Page id="Detalles" title="{i18n&gt;DetallesTitle}">
+        <content/>
+        <layout:SimpleForm 
+                    id="ordenForm" 
+                    editable="false" 
+                    layout="ResponsiveGridLayout" 
+                    columnsL="2" 
+                    columnsM="1" 
+                    labelSpanL="3" 
+                    title="Datos de la Orden de Compra"
+                    >
+
+                    <!-- Información General -->
+                    <Toolbar id="tabGeneral">
+                        <Title id="titleGeneralO" text="Información General" level="H4"/>
+                    </Toolbar>
+
+                    <Label id="lblFechaCreacion" text="Fecha de creación"/>
+                    <Text id="txtFechaCreacion" text="{NumeroOrden/FechaCreacion}"/>
+
+                    <Label id="lblClasePedido" text="Clase de pedido"/>
+                    <Text id="txtClasePedido" text="{NumeroOrden/ClasePedido}"/>
+
+                    <Label id="lblNumeroOrden" text="Número de orden"/>
+                    <Text id="txtNumeroOrden" text="{NumeroOrden/NumeroOrden}"/>
+
+                    <Label id="lbelProveedor" text="Proveedor"/>
+                    <Text id="txtoProveedor" text="{NumeroOrden/Proveedor/Nombre1}"/>
+
+                    <Label id="lblUsuarioCreador" text="Usuario creador"/>
+                    <Text id="txtUsuarioCreador" text="{NumeroOrden/UsuarioCreador}"/>
+
+                    <!-- Factura Asociada -->
+                    <Toolbar id="tbFactura">
+                        <Title id="titleFactura" text="Factura Asociada" level="H4"/>
+                    </Toolbar>
+
+                    <Label id="lbleNumeroFactura" text="Número Factura"/>
+                    <Text id="txtoNumeroFactura" text="{NumeroOrden/NumeroFactura/NumeroFactura}"/>
+
+            </layout:SimpleForm>
+
+            <layout:SimpleForm 
+                id="detalleForm" 
+                editable="false" 
+                layout="ResponsiveGridLayout" 
+                columnsL="2" 
+                columnsM="1" 
+                labelSpanL="3" 
+                title="Detalle de la Orden de Compra">
+
+                <!-- 🧾 Información General del Material -->
+                <Toolbar id="tbGeneralOC">
+                    <Title id="titleGeneralOC" text="Información del Material" level="H4"/>
+                </Toolbar>
+
+                <Label id="lblNumeroMaterial" text="Numero de material"/>
+                <Text id="txtNumeroMaterial" text="{NumeroMaterial/NumeroMaterial}"/>
+
+                <Label id="lblNombreMaterial" text="Nombre de material"/>
+                <Text id="txtNombreMaterial" text="{NombreMaterial}"/>
+
+                <Label id="lblGrupoArticulos" text="Grupo de artículos"/>
+                <Text id="txtGrupoArticulos" text="{GrupoArticulos}"/>
+
+                <Label id="lblTipoMaterial" text="Tipo de material"/>
+                <Text id="txtTipoMaterial" text="{TipoMaterial}"/>
+
+                <Label id="lblCantidad" text="Cantidad"/>
+                <Text id="txtCantidad" text="{Cantidad}"/>
+
+                <Label id="lblValorUnitario" text="Valor unitario"/>
+                <Text id="txtValorUnitario" text="{ValorUnitario}"/>
+
+                <!-- 📍 Información de Entrega -->
+                <Toolbar id="tbEntregaOC">
+                    <Title id="titleEntregaOC" text="Información de Entrega" level="H4"/>
+                </Toolbar>
+
+                <Label id="lblDepartamentoEntrega" text="Departamento de entrega"/>
+                <Text id="txtDepartamentoEntrega" text="{DepartamentoEntrega}"/>
+
+                <Label id="lblMunicipioEntrega" text="Municipio de entrega"/>
+                <Text id="txtMunicipioEntrega" text="{MunicipioEntrega}"/>
+
+                <Label id="lblDireccion" text="Dirección"/>
+                <Text id="txtDireccion" text="{Direccion}"/>
+
+                <Label id="lblEstado" text="Estado"/>
+                <Text id="txtEstado" text="{= ${Estado} ? 'Sí' : 'No'}"/>
+
+            </layout:SimpleForm>
+
+
+    </Page>
+</mvc:View>

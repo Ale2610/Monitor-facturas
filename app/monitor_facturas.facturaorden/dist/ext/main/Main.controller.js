@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/core/PageController"],function(a){"use strict";return a.extend("monitorfacturas.facturaorden.ext.main.Main",{onDetallePress:function(a){var e=a.getSource();var r=e.getParent();var t=r.getBindingContext();var n=t.getProperty("NumeroFactura");console.log(n);var o="#monitorfacturasfacturasxml-display&/Facturas('"+n+"')";window.open(o,"_blank")}})});
+//# sourceMappingURL=Main.controller.js.map

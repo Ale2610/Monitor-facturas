@@ -27,6 +27,42 @@ build-parameters:
       commands:
         - npm install
 modules:
+  - name: Monitor_Facturas-monitorfacturas.detalleorden
+    type: html5
+    path: app/monitor_facturas.detalleorden
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasdetalleorden.zip *"
+      _artifactName: monitorfacturasdetalleorden.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.detallesfactura
+    type: html5
+    path: app/monitor_facturas.detallesfactura
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasdetallesfactura.zip *"
+      _artifactName: monitorfacturasdetallesfactura.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: Monitor_Facturas-monitorfacturas.entradas
     type: html5
     path: app/monitor_facturas.entradas
@@ -43,6 +79,24 @@ modules:
           bash -c "cd dist && npx bestzip
           ../dist-zip/monitorfacturasentradas.zip *"
       _artifactName: monitorfacturasentradas.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.facturaorden
+    type: html5
+    path: app/monitor_facturas.facturaorden
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasfacturaorden.zip *"
+      _artifactName: monitorfacturasfacturaorden.zip
       supported-platforms: []
       build-result: dist-zip
   - name: Monitor_Facturas-monitorfacturas.facturasxml
@@ -222,9 +276,21 @@ modules:
     build-parameters:
       build-result: resources
       requires:
+        - name: Monitor_Facturas-monitorfacturas.detalleorden
+          artifacts:
+            - monitorfacturasdetalleorden.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.detallesfactura
+          artifacts:
+            - monitorfacturasdetallesfactura.zip
+          target-path: resources
         - name: Monitor_Facturas-monitorfacturas.entradas
           artifacts:
             - monitorfacturasentradas.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.facturaorden
+          artifacts:
+            - monitorfacturasfacturaorden.zip
           target-path: resources
         - name: Monitor_Facturas-monitorfacturas.facturasxml
           artifacts:

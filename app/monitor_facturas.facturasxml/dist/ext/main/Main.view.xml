@@ -9,19 +9,25 @@
             <!-- Definición de las columnas con IDs -->
             <columns>
                 <Column id="colNumeroFactura">
-                    <Text id="text4" text="NumeroFactura"/>
+                    <Text id="text4" text="Numero Factura"/>
                 </Column>
                 <Column id="colFechaFactura">
-                    <Text id="text5" text="FechaFactura"/>
+                    <Text id="text5" text="Fecha Factura"/>
                 </Column>
-                <Column id="colFormaPago">
-                    <Text id="text1" text="FormaPago"/>
+                <Column id="colFechaContabilizacion">
+                    <Text id="text1" text="Fecha Contabilización"/>
                 </Column>
-                <Column id="colProveedorNIT">
-                    <Text id="text2" text="Proveedor NIT"/>
+                <Column id="colFechaVencimiento">
+                    <Text id="text2" text="Fecha Vencimiento"/>
                 </Column>
                 <Column id="colProveedorNombre">
-                    <Text id="text3" text="Proveedor Nombre"/>
+                    <Text id="text3" text="Proveedor"/>
+                </Column>
+                <Column id="colestado">
+                    <Text id="text6" text="Estado"/>
+                </Column>
+                <Column id="colUrgente">
+                    <Text id="text8" text="Urgente"/>
                 </Column>
                 <!-- Columna de detalles para navegación -->
                 <Column id="colDetalles">
@@ -34,9 +40,11 @@
                     <cells>
                         <Text id="cellNumeroFactura" text="{NumeroFactura}"/>
                         <Text id="cellFechaFactura" text="{FechaFactura}"/>
-                        <Text id="cellFormaPago" text="{FormaPago}"/>
-                        <Text id="cellProveedorNIT" text="{Proveedor/NIT}"/>
+                        <Text id="cellFechaContabilizacion" text="{FechaContabilizacion}"/>
+                        <Text id="cellFechaVencimiento" text="{FechaVencimiento}"/>
                         <Text id="cellProveedorNombre" text="{Proveedor/Nombre1}"/>
+                        <Text id="cellEstado" text="{Estado}"/>
+                        <Text id="cellUrgente" text="{Urgente}"/>
                         <Link id="cellDetalles" text="Detalles" press="onDetallePress"/>
                     </cells>
                 </ColumnListItem>

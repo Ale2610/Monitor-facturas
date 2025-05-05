@@ -2,8 +2,11 @@ using {Monitor_Facturas as my} from '../db/schema.cds';
 
 @path: '/service/Monitor_FacturasService'
 service Monitor_FacturasService {
-    @mediaStream
-    entity Facturas           as projection on my.Facturas;
+   @mediaStream: {
+        mediaType: 'archivoPDF'
+        }
+        entity Facturas as projection on my.Facturas;
+
 
     action   actualizarFactura(NumeroFactura : String,
                                data : LargeString)                 returns String;

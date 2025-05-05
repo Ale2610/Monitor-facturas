@@ -15,7 +15,7 @@ entity Facturas
     key NumeroFactura : String(255)
         @title : 'No. de factura';
     Proveedor : Association to one Proveedores
-        @title : 'NIT Proveedor';
+        @title : 'Codigo Proveedor';
     Posiciones : String(255)
         @title : 'Posiciones';
     TotalFactura : String(255)
