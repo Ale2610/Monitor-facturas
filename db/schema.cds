@@ -200,3 +200,25 @@ entity Proveedores
     CorreoElectronico : String(255)
         @title : 'Correo electronico';
 }
+
+entity Usuarios
+{
+    key Correo : UUID;
+    nombre : String (255);
+    username: String(255);
+    activo: Boolean default true;
+}
+
+entity Roles
+ {
+  key  nombre       : String(50);  // Ej: "ADMIN", "OPERADOR", "VISOR"
+  descripcion  : String(255);
+}
+
+entity RolesPorUsuario 
+{
+  key ID        : UUID;
+  usuario       : Association to Usuarios;
+  rol           : Association to Roles;
+  asignadoEn    : DateTime default current_timestamp;
+}

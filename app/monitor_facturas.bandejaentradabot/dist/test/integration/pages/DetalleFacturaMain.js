@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/TemplatePage"],function(a){"use strict";var e={actions:{},assertions:{}};return new a("monitorfacturas.bandejaentradabot::DetalleFacturaMain",e)});
+//# sourceMappingURL=DetalleFacturaMain.js.map

@@ -35,6 +35,14 @@ service Monitor_FacturasService {
    
     entity Proveedores as projection on my.Proveedores;
 
+    entity Usuarios as projection on my.Usuarios;
+
+
+    entity Roles as projection on my.Roles;
+
+
+    entity RolesPorUsuario as projection on my.RolesPorUsuario;
+
     type BulkInsertResponse {
         mensaje : String;
     }

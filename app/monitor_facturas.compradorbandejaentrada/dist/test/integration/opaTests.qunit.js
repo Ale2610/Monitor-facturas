@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/compradorbandejaentrada/test/integration/FirstJourney","monitorfacturas/compradorbandejaentrada/test/integration/pages/DetalleFacturaMain"],function(a,r,e){"use strict";var a=new a({launchUrl:sap.ui.require.toUrl("monitorfacturas/compradorbandejaentrada")+"/index.html"});a.run({pages:{onTheDetalleFacturaMain:e}},r.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

@@ -7,25 +7,64 @@ sap.ui.define(
         'use strict';
 
         return PageController.extend('monitorfacturas.detallesfactura.ext.main.Main', {
-            onDetallePress: function(oEvent) {
-
-                var oLink = oEvent.getSource();
-    
-                // Acceder al contexto del control (por ejemplo, el contexto de la fila en una tabla)
-                var oItem = oLink.getParent(); // En el caso de una tabla, obtiene la fila
-                var oContext = oItem.getBindingContext(); // Obtiene el contexto de la fila seleccionada
-
-                // Obtener un valor específico desde el contexto, como el número de factura
+            onInit: function () {
+                const oList = this.byId("FacturaList");
+            
+                oList.attachEventOnce("updateFinished", () => {
+                    this._aplicarFiltrosDesdeHash();
+                });
+            },
+            
+            _aplicarFiltrosDesdeHash: function () {
+                const hash = window.location.hash;
+                const estadoParam = this._getQueryParamFromHash("Estado", hash);
+                const urgenteParam = this._getQueryParamFromHash("urgente", hash);
+            
+                const aFilters = [];
+            
+                if (estadoParam) {
+                    aFilters.push(new sap.ui.model.Filter("Estado", sap.ui.model.FilterOperator.EQ, estadoParam));
+                    this.byId("filtroEstado").setSelectedKey(estadoParam);
+                }
+            
+                if (urgenteParam) {
+                    aFilters.push(new sap.ui.model.Filter("Urgente", sap.ui.model.FilterOperator.EQ, urgenteParam));
+                    this.byId("filtroUrgente").setSelectedKey(urgenteParam);
+                }
+            
+                const oBinding = this.byId("FacturaList").getBinding("items");
+                if (oBinding) {
+                    oBinding.filter(aFilters);
+                } else {
+                    console.warn("El binding de la lista aún no está disponible.");
+                }
+            },
+            
+            _getQueryParamFromHash: function (param, hash) {
+                const queryString = hash.split("?")[1];
+                if (!queryString) return null;
+                const params = new URLSearchParams(queryString);
+                return params.get(param);
+            }
+            ,
+            
+            onDetallePress: function (oEvent) {
+                oEvent.preventDefault(); // Previene acción por defecto
+                oEvent.cancelBubble = true; // Previene burbujeo del evento
+            
+                var oButton = oEvent.getSource();
+                var oItem = oButton.getParent();
+                var oContext = oItem.getBindingContext();
                 var facturaId = oContext.getProperty("NumeroFactura");
-
-                // Ahora puedes usar facturaId para navegar o realizar otras acciones
-                console.log(facturaId);
-                // Abrir la aplicación de Facturas en una nueva ventana
-                var sUrl = "#monitorfacturasdetallesfactura-display&/Facturas('" + facturaId + "')";
-                
-                // Usar window.open para abrir la URL en una nueva ventana
-                window.open(sUrl, "_blank");
-            }, 
+            
+                var sHash = "monitorfacturasdetallesfactura-display&/Facturas('" + facturaId + "')";
+            
+                if (window.self !== window.top) {
+                    window.location.hash = sHash;
+                } else {
+                    window.location.href = "launchpadPage.html#" + sHash;
+                }
+            },            
 
             formatter: {
                 estadoToState: function (estado) {

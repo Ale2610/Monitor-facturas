@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor Facturas - Launchpad</title>
+    <style>
+        #appFrame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-libs="sap.m, sap.ui.layout"
+        data-sap-ui-xx-bindingSyntax="complex">
+    </script>
+    <script>
+        // Cargar la config de aplicaciones
+        window["sap-ushell-config"] = {
+            defaultRenderer: "fiori2",
+            applications: {
+                "monitorfacturasdetalleorden-display": {
+                    title: "Detalle Orden",
+                    url: "../lcapMonitor_Facturas.monitorfacturasdetalleorden-0.0.1"
+                },
+                "monitorfacturasdetallesfactura-display": {
+                    title: "Facturas",
+                    url: "../lcapMonitor_Facturas.monitorfacturasdetallesfactura-0.0.1"
+                },
+                "monitorfacturasentradas-display": {
+                    title: "Entradas",
+                    url: "../lcapMonitor_Facturas.monitorfacturasentradas-0.0.1"
+                },
+                "monitorfacturasfacturaorden-display": {
+                    title: "Factura Orden",
+                    url: "../lcapMonitor_Facturas.monitorfacturasfacturaorden-0.0.1"
+                },
+                "monitorfacturasfacturasxml-display": {
+                    title: "Facturas XML",
+                    url: "../lcapMonitor_Facturas.monitorfacturasfacturasxml-0.0.1"
+                },
+                "monitorfacturasmonitorfacturas-display": {
+                    title: "Monitor Facturas",
+                    url: "../lcapMonitor_Facturas.monitorfacturasmonitorfacturas-0.0.1"
+                },
+                "monitorfacturasordendecompra-display": {
+                    title: "Orden de Compra",
+                    url: "../lcapMonitor_Facturas.monitorfacturasordendecompra-0.0.1"
+                },
+                "monitorfacturasproveedores-display": {
+                    title: "Proveedores",
+                    url: "../lcapMonitor_Facturas.monitorfacturasproveedores-0.0.1"
+                },
+                "monitorfacturasbandejaentradaa-display": {
+                    title: "Bandeja Entrada Almacenista",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradaalmacenista-0.0.1"
+                },
+                "monitorfacturasbandejaentradab-display": {
+                    title: "Bandeja Entrada BOT",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradabot-0.0.1"
+                },
+                
+                "monitorfacturasbandejaentradac-display": {
+                    title: "Bandeja Entrada Contabilidad",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradacontabilidad-0.0.1"
+                },
+                
+                "monitorfacturascompradorbandej-display": {
+                    title: "Comprador Bandeja Entrada",
+                    url: "../lcapMonitor_Facturas.monitorfacturascompradorbandejaentrada-0.0.1"
+                },
+            }
+        };
+        function createTile(title, appId) {
+    return new sap.m.GenericTile({
+        header: title,
+        press: function () {
+            const app = window["sap-ushell-config"].applications[appId];
+            if (app && app.url) {
+                window.open(app.url, "_blank"); // ⬅️ Esto abre en otra pestaña
+            } else {
+                alert("No se encontró la aplicación para: " + appId);
+            }
+        },
+        tileContent: [
+            new sap.m.TileContent({
+                content: new sap.ui.core.Icon({ src: "sap-icon://document" })
+            })
+        ]
+    });
+}
+
+
+        sap.ui.getCore().attachInit(function () {
+            new sap.m.App({
+                pages: [
+                    new sap.m.Page({
+                        title: "Panel de Aplicaciones - Monitor Facturas",
+                        content: [
+                            new sap.m.IconTabBar({
+                                expandable: false,
+                                items: [
+                                    new sap.m.IconTabFilter({
+                                        text: "Central Facturas",
+                                        content: [
+                                            new sap.ui.layout.Grid({
+                                                defaultSpan: "L3 M6 S12",
+                                                content: [
+                                                    
+                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
+                                                    
+                                                ]
+                                            })
+                                        ]
+                                    }),
+                                    new sap.m.IconTabFilter({
+                                        text: "Comprador",
+                                        content: [
+                                            new sap.ui.layout.Grid({
+                                                defaultSpan: "L3 M6 S12",
+                                                content: [
+ 
+                                                    createTile("Comprador", "monitorfacturascompradorbandej-display"),
+                                                
+                                                ]
+                                            })
+                                        ]
+                                    }), 
+                                    new sap.m.IconTabFilter({
+                                        text: "Almacenista",
+                                        content: [
+                                            new sap.ui.layout.Grid({
+                                                defaultSpan: "L3 M6 S12",
+                                                content: [
+                                                    
+                                                    createTile("Almacenista", "monitorfacturasbandejaentradaa-display"),
+                                                   
+                                                ]
+                                            })
+                                        ]
+                                    }),
+                                    new sap.m.IconTabFilter({
+                                        text: "Gestión BOT",
+                                        content: [
+                                            new sap.ui.layout.Grid({
+                                                defaultSpan: "L3 M6 S12",
+                                                content: [
+                                                
+                                                    createTile("Gestión BOT", "monitorfacturasbandejaentradab-display"),
+                                           
+                                                ]
+                                            })
+                                        ]
+                                    }), 
+                                    new sap.m.IconTabFilter({
+                                        text: "Contabilización",
+                                        content: [
+                                            new sap.ui.layout.Grid({
+                                                defaultSpan: "L3 M6 S12",
+                                                content: [
+
+                                                    createTile("Contabilización", "monitorfacturasbandejaentradac-display"),
+                                                    
+                                                ]
+                                            })
+                                        ]
+                                    })
+                                ]
+                            }),
+                            new sap.ui.core.HTML({
+                                content: '<iframe id="appFrame" title="Aplicación" src=""></iframe>'
+                            })
+                        ]
+                    })
+                ]
+            }).placeAt("content");
+        });
+    </script>
+</head>
+<body class="sapUiBody" id="content"></body>
+</html>

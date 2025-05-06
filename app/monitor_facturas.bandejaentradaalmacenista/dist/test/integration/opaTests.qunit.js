@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/bandejaentradaalmacenista/test/integration/FirstJourney","monitorfacturas/bandejaentradaalmacenista/test/integration/pages/DetalleFacturaMain"],function(a,e,t){"use strict";var a=new a({launchUrl:sap.ui.require.toUrl("monitorfacturas/bandejaentradaalmacenista")+"/index.html"});a.run({pages:{onTheDetalleFacturaMain:t}},e.run)});
+//# sourceMappingURL=opaTests.qunit.js.map
