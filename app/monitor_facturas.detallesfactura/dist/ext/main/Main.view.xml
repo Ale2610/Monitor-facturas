@@ -4,7 +4,7 @@
         </content>
         <Toolbar id="FiltroToolbar" class="sapUiSmallMarginBottom barraFiltros">
             <!-- Búsqueda por número de factura -->
-            <Button id="myButton" text="Insertar Facturas" press="insertarFactura" class="buttonHeader"/>
+            <Button id="myButton" text="Insertar Facturas" press="getDocuments" class="buttonHeader"/>
             <!-- Filtro por Estado -->
             <Select id="filtroEstado" change=".onFiltrarEstadoUrgente">
                 <core:Item id="key1" key="" text="Todos los estados" />

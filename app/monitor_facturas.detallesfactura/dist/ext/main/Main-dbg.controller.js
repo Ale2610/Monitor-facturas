@@ -7,25 +7,64 @@ sap.ui.define(
         'use strict';
 
         return PageController.extend('monitorfacturas.detallesfactura.ext.main.Main', {
-            onDetallePress: function(oEvent) {
-
-                var oLink = oEvent.getSource();
-    
-                // Acceder al contexto del control (por ejemplo, el contexto de la fila en una tabla)
-                var oItem = oLink.getParent(); // En el caso de una tabla, obtiene la fila
-                var oContext = oItem.getBindingContext(); // Obtiene el contexto de la fila seleccionada
-
-                // Obtener un valor específico desde el contexto, como el número de factura
+            onInit: function () {
+                const oList = this.byId("FacturaList");
+            
+                oList.attachEventOnce("updateFinished", () => {
+                    this._aplicarFiltrosDesdeHash();
+                });
+            },
+            
+            _aplicarFiltrosDesdeHash: function () {
+                const hash = window.location.hash;
+                const estadoParam = this._getQueryParamFromHash("Estado", hash);
+                const urgenteParam = this._getQueryParamFromHash("urgente", hash);
+            
+                const aFilters = [];
+            
+                if (estadoParam) {
+                    aFilters.push(new sap.ui.model.Filter("Estado", sap.ui.model.FilterOperator.EQ, estadoParam));
+                    this.byId("filtroEstado").setSelectedKey(estadoParam);
+                }
+            
+                if (urgenteParam) {
+                    aFilters.push(new sap.ui.model.Filter("Urgente", sap.ui.model.FilterOperator.EQ, urgenteParam));
+                    this.byId("filtroUrgente").setSelectedKey(urgenteParam);
+                }
+            
+                const oBinding = this.byId("FacturaList").getBinding("items");
+                if (oBinding) {
+                    oBinding.filter(aFilters);
+                } else {
+                    console.warn("El binding de la lista aún no está disponible.");
+                }
+            },
+            
+            _getQueryParamFromHash: function (param, hash) {
+                const queryString = hash.split("?")[1];
+                if (!queryString) return null;
+                const params = new URLSearchParams(queryString);
+                return params.get(param);
+            }
+            ,
+            
+            onDetallePress: function (oEvent) {
+                oEvent.preventDefault(); 
+                oEvent.cancelBubble = true; 
+            
+                var oButton = oEvent.getSource();
+                var oItem = oButton.getParent();
+                var oContext = oItem.getBindingContext();
                 var facturaId = oContext.getProperty("NumeroFactura");
-
-                // Ahora puedes usar facturaId para navegar o realizar otras acciones
-                console.log(facturaId);
-                // Abrir la aplicación de Facturas en una nueva ventana
-                var sUrl = "#monitorfacturasdetallesfactura-display&/Facturas('" + facturaId + "')";
-                
-                // Usar window.open para abrir la URL en una nueva ventana
-                window.open(sUrl, "_blank");
-            }, 
+            
+                var sHash = "monitorfacturasdetallesfactura-display&/Facturas('" + facturaId + "')";
+            
+                if (window.self !== window.top) {
+                    window.location.hash = sHash;
+                } else {
+                    window.location.href = "launchpadPage.html#" + sHash;
+                }
+            },            
 
             formatter: {
                 estadoToState: function (estado) {
@@ -90,7 +129,7 @@ sap.ui.define(
                     const result = await response.text();
                     console.log("Respuesta SOAP:", result);
             
-                    // Buscar todos los bloques <availableDocument>...</availableDocument>
+                    
                     const matches = result.match(/<availableDocument>[\s\S]*?<\/availableDocument>/g);
             
                     const listaDocumentos = [];
@@ -114,12 +153,12 @@ sap.ui.define(
                     console.log("📋 Documentos extraídos:", listaDocumentos);
                     MessageToast.show(`Consulta realizada. ${listaDocumentos.length} documentos disponibles.`);
             
-                    return listaDocumentos;  // <<<<<< Aquí sí devuelve correctamente
+                    return listaDocumentos;  
             
                 } catch (err) {
                     console.error("Error al consultar:", err);
                     MessageToast.show("Error en consulta SOAP");
-                    return [];  // <<<<<< Siempre devuelve algo
+                    return [];  
                 }
             },            
 
@@ -130,9 +169,6 @@ sap.ui.define(
                 for (const documento of listaFacturas) {
                     var created = this.timeUTC();
                     var nonce = this.createdNonce();
-                    console.log("Número de documento:", documento.documentNumber);
-                    console.log("Prefijo de documento:", documento.documentPrefix);
-                    console.log("Tipo de documento:", documento.documentType);
                     console.log("Identificación del remitente:", documento.senderIdentification);
             
                     try {
@@ -153,58 +189,97 @@ sap.ui.define(
                         });
             
                         const result = await response.text();
-                        console.log("Respuesta SOAP:", result);
-                        await this.extraerFactura(result);
+                        const match = result.match(/<downloadData>([\s\S]*?)<\/downloadData>/);
+                        const xmlBase64 = match?.[1] || "";
+
+                        console.log("📦 Contenido base64 de downloadData:", xmlBase64);
+                        //console.log("Respuesta SOAP:", result);
+                        await this.extraerFactura(xmlBase64);
             
                     } catch (error) {
                         console.error("❌ Error al extraer documentos:", error);
                     }
                 }
+
             },
-            
             extraerFactura: async function(xmlBase64) {
                 try {
                     // Decodificar de Base64 a texto XML
                     const xmlDecoded = atob(xmlBase64);
-            
-                    // Ahora xmlDecoded contiene el XML como texto
+
                     console.log('XML decodificado:', xmlDecoded);
+                     
+                    const positionRegex = /<cac:InvoiceLine[^>]*>([\s\S]*?)<\/cac:InvoiceLine>/g;
+                    let match;
+                    const posiciones = [];
+
+                    while ((match = positionRegex.exec(xmlDecoded)) !== null) {
+                        const bloque = match[1];
+
+                        const numeroMaterial = bloque.match(/<cbc:ID[^>]*>(.*?)<\/cbc:ID>/)?.[1] || "Desconocido";
+                        const cantidad = bloque.match(/<cbc:InvoicedQuantity[^>]*>(.*?)<\/cbc:InvoicedQuantity>/)?.[1] || "0";
+                        const valorTotal = bloque.match(/<cbc:LineExtensionAmount[^>]*>(.*?)<\/cbc:LineExtensionAmount>/)?.[1] || "0";
+                        const valorUnitario = bloque.match(/<cbc:PriceAmount[^>]*>(.*?)<\/cbc:PriceAmount>/)?.[1] || "0";
+                        const descripcion = bloque.match(/<cbc:Description[^>]*>(.*?)<\/cbc:Description>/)?.[1] || "Sin descripción";
+                        const numeroFactura = xmlDecoded.match(/<cbc:ParentDocumentID>(.*?)<\/cbc:ParentDocumentID>/)?.[1] || ""
+
+                        posiciones.push({
+                            NumeroMaterial: numeroMaterial,
+                            Descripcion: descripcion,
+                            Cantidad: cantidad,
+                            ValorUnitario: valorUnitario,
+                            ValorTotal: valorTotal,
+                            NumeroFactura_NumeroFactura: numeroFactura
+                        });
+                    }
+
+
+                    console.log('detalles ', posiciones);
+                    
+
+                    const factura = {
+                        "FechaContabilizacion": xmlDecoded.match(/<cbc:IssueDate>(.*?)<\/cbc:IssueDate>/)?.[1] || "",
+                        "FechaFactura": xmlDecoded.match(/<cbc:IssueDate>(.*?)<\/cbc:IssueDate>/)?.[1] || "",
+                        "FechaVencimiento": xmlDecoded.match(/<cbc:DueDate>(.*?)<\/cbc:DueDate>/)?.[1] || "",
+                        "FechaRecepcion": "2025-04-27", 
+                        "FormaPago": "",
+                        "NumeroFactura": xmlDecoded.match(/<cbc:ParentDocumentID>(.*?)<\/cbc:ParentDocumentID>/)?.[1] || "",
+                        "Proveedor": { CodigoSap: xmlDecoded.match(/<cbc:CompanyID[^>]*schemeID="1"[^>]*>(\d{9,10})<\/cbc:CompanyID>/)?.[1] || "" },
+                        "Posiciones": xmlDecoded.match(/<cbc:LineCountNumeric>(\d+)<\/cbc:LineCountNumeric>/)?.[1] || "",
+                        "TotalFactura": xmlDecoded.match(/<cbc:PayableAmount currencyID="COP">(.*?)<\/cbc:PayableAmount>/)?.[1] || "",
+                        "ValorFinal": xmlDecoded.match(/<cbc:PayableAmount currencyID="COP">(.*?)<\/cbc:PayableAmount>/)?.[1] || "",
+                        "IVA": xmlDecoded.match(/<cbc:TaxAmount currencyID="COP">(.*?)<\/cbc:TaxAmount>/)?.[1] || "",
+                        "IndicadorImpuesto": xmlDecoded.match(/<cbc:Name>(.*?)<\/cbc:Name>/)?.[1] || "",
+                        "NumeroIndicador": "", 
+                        "Destinatario": xmlDecoded.match(/<cac:ReceiverParty>[\s\S]*?<cbc:CompanyID.*?>(\d+)<\/cbc:CompanyID>/)?.[1] || "",
+                        "DescripcionDestinatario": xmlDecoded.match(/<cac:ReceiverParty>[\s\S]*?<cbc:RegistrationName>(.*?)<\/cbc:RegistrationName>/)?.[1] || "",
+                        "CodigoActividad": "", 
+                        "Clasificacion": "", 
+                        "Estado": "Central Facturas",
+                        "Urgente": false, 
+                        "Area": "", 
+                        "Sede": "", 
+                        "Comentario": "Entrada", 
+                        "DocumentoMIRO": "",
+                        "DocumentoFI": "",
+                        "FacturaElec": true, 
+                        "Descuento": false, 
+                        "archivoPDF": null 
+                    };
+
+                    
+                    console.log('Factura extraída:', factura); 
+                    var insercionFactura = await this.insertarFactura(factura); 
+                    var insercionDetalles = await this.insertarDetalleFacturas(posiciones);
+
+                    return factura;
+            
                 } catch (error) {
-                    console.error('Error al decodificar el XML:', error);
+                    console.error('Error al procesar el XML:', error);
                 }
             },
 
             insertarFactura: async function(facturaData) {
-
-                var factura = {
-                    "FechaContabilizacion": "2025-04-28",
-                    "FechaFactura": "2025-04-28",
-                    "FechaVencimiento": "2025-05-28",
-                    "FechaRecepcion": "2025-04-27",
-                    "FormaPago": "Contado",
-                    "NumeroFactura": "FAC-123456",
-                    "Proveedor": { CodigoSap: "CodigoSap8014" },  // ⚡ Muy importante: Association se envía así
-                    "Posiciones": "1,2,3",
-                    "TotalFactura": "1000",
-                    "ValorFinal": "950",
-                    "IVA": "50",
-                    "IndicadorImpuesto": "IVA19",
-                    "NumeroIndicador": "1234",
-                    "Destinatario": "Centro Principal",
-                    "DescripcionDestinatario": "Sede Norte",
-                    "CodigoActividad": "123ABC",
-                    "Clasificacion": "Servicios",
-                    "Estado": "Pendiente",
-                    "Urgente": false,
-                    "Area": "Compras",
-                    "Sede": "Bogotá",
-                    "Comentario": "Factura correspondiente a servicios de abril",
-                    "DocumentoMIRO": "",
-                    "DocumentoFI": "",
-                    "FacturaElec": true,
-                    "Descuento": false,
-                    "archivoPDF": null // Si vas a cargar el PDF, aquí debes pasar el archivo en base64
-                }
                 
                 console.log('Inserción de factura en proceso...');
                 try {
@@ -214,13 +289,41 @@ sap.ui.define(
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(factura)
+                        body: JSON.stringify(facturaData)
                     });
             
                     console.log('Factura insertada exitosamente');
                 } catch (error) {
                     console.error('Error al insertar la factura:', error);
                 }
+            },
+
+            insertarDetalleFacturas: async function(arrayDetalles) {
+                console.log('Inserción de detalles de factura en proceso...');
+            
+                for (let i = 0; i < arrayDetalles.length; i++) {
+                    const detalle = arrayDetalles[i];
+            
+                    try {
+                        const response = await fetch("/service/Monitor_FacturasService/DetalleFactura", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(detalle)
+                        });
+            
+                        if (!response.ok) {
+                            console.error(`Error al insertar detalle #${i + 1}:`, await response.text());
+                        } else {
+                            console.log(`Detalle #${i + 1} insertado exitosamente`);
+                        }
+                    } catch (error) {
+                        console.error(`Error al insertar detalle #${i + 1}:`, error);
+                    }
+                }
+            
+                console.log('Inserción de detalles completada.');
             },
             
             onBuscarFactura: function (oEvent) {
@@ -254,7 +357,7 @@ sap.ui.define(
                     aFiltros.push(new sap.ui.model.Filter("Urgente", sap.ui.model.FilterOperator.EQ, urgente));
                 }
             
-                // ✅ SOLUCIÓN: Obtener el binding dinámicamente
+                // Obtener el binding dinámicamente
                 const oList = this.byId("FacturaList"); // Asegúrate que este es el ID real de tu <List>
                 const oBinding = oList.getBinding("items");
             

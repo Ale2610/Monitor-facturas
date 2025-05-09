@@ -27,6 +27,96 @@ build-parameters:
       commands:
         - npm install
 modules:
+  - name: Monitor_Facturas-monitorfacturas.bandejaentradaalmacenista
+    type: html5
+    path: app/monitor_facturas.bandejaentradaalmacenista
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasbandejaentradaalmacenista.zip *"
+      _artifactName: monitorfacturasbandejaentradaalmacenista.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.bandejaentradabot
+    type: html5
+    path: app/monitor_facturas.bandejaentradabot
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasbandejaentradabot.zip *"
+      _artifactName: monitorfacturasbandejaentradabot.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.bandejaentradacontabilidad
+    type: html5
+    path: app/monitor_facturas.bandejaentradacontabilidad
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturasbandejaentradacontabilidad.zip *"
+      _artifactName: monitorfacturasbandejaentradacontabilidad.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.centralfacturas
+    type: html5
+    path: app/monitor_facturas.centralfacturas
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturascentralfacturas.zip *"
+      _artifactName: monitorfacturascentralfacturas.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: Monitor_Facturas-monitorfacturas.compradorbandejaentrada
+    type: html5
+    path: app/monitor_facturas.compradorbandejaentrada
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/monitorfacturascompradorbandejaentrada.zip *"
+      _artifactName: monitorfacturascompradorbandejaentrada.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: Monitor_Facturas-monitorfacturas.detalleorden
     type: html5
     path: app/monitor_facturas.detalleorden
@@ -276,6 +366,26 @@ modules:
     build-parameters:
       build-result: resources
       requires:
+        - name: Monitor_Facturas-monitorfacturas.bandejaentradaalmacenista
+          artifacts:
+            - monitorfacturasbandejaentradaalmacenista.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.bandejaentradabot
+          artifacts:
+            - monitorfacturasbandejaentradabot.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.bandejaentradacontabilidad
+          artifacts:
+            - monitorfacturasbandejaentradacontabilidad.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.centralfacturas
+          artifacts:
+            - monitorfacturascentralfacturas.zip
+          target-path: resources
+        - name: Monitor_Facturas-monitorfacturas.compradorbandejaentrada
+          artifacts:
+            - monitorfacturascompradorbandejaentrada.zip
+          target-path: resources
         - name: Monitor_Facturas-monitorfacturas.detalleorden
           artifacts:
             - monitorfacturasdetalleorden.zip

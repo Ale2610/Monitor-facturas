@@ -162,24 +162,74 @@ class Monitor_FacturasService extends LCAPApplicationService {
         });
 
         this.on('bulkInsertProveedores', async (req) => {
-            const { proveedores } = req.data;
-        
-            if (!Array.isArray(proveedores) || proveedores.length === 0) {
+            let { proveedores } = req.data;
+            
+            // Verificar si 'proveedores' es un array JSON. Si no lo es, convertirlo en un array.
+            if (!Array.isArray(proveedores)) {
+                proveedores = [proveedores]; // Convertir a un array si es un solo objeto
+            }
+            
+            // Verificar que 'proveedores' sea un array válido
+            if (proveedores.length === 0) {
                 return req.reject(400, 'Debe enviar una lista de proveedores válida.');
             }
         
+            let proveedoresActualizados = 0;
+            let proveedoresCreados = 0;
+        
             try {
                 const tx = cds.transaction(req);
-                await tx.run(INSERT.into(this.entities.Proveedores).entries(proveedores));
         
-                // ✅ Aquí sí se retorna algo
-                return { mensaje: `Se insertaron ${proveedores.length} proveedores.` };
+                // Usar un bucle para procesar cada proveedor
+                for (let i = 0; i < proveedores.length; i++) {
+                    const proveedor = proveedores[i]; // Obtener el proveedor usando el índice
+        
+                    // Verificar que CodigoSap esté presente
+                    if (!proveedor.CodigoSap) {
+                        return req.reject(400, `Proveedor con datos incorrectos (sin CodigoSap): ${JSON.stringify(proveedor)}`);
+                    }
+        
+                    // Convertir todos los campos a string
+                    const proveedorConvertido = {};
+                    for (let key in proveedor) {
+                        // Convertir cada campo del proveedor a string
+                        proveedorConvertido[key] = String(proveedor[key]);
+                    }
+        
+                    // Mostrar datos del proveedor para verificar que CodigoSap está presente
+                    console.log(`Accediendo al proveedor con CodigoSap: ${proveedorConvertido.CodigoSap}`);
+        
+                    // Consultar si el proveedor ya existe en la base de datos
+                    const existingProveedor = await tx.run(
+                        SELECT.one.from(this.entities.Proveedores).where({ CodigoSap: proveedorConvertido.CodigoSap })
+                    );
+        
+                    if (existingProveedor) {
+                        // Si el proveedor existe, actualizarlo
+                        await tx.run(
+                            UPDATE(this.entities.Proveedores)
+                                .set(proveedorConvertido)
+                                .where({ CodigoSap: proveedorConvertido.CodigoSap })
+                        );
+                        proveedoresActualizados++;
+                    } else {
+                        // Si el proveedor no existe, insertarlo
+                        await tx.run(
+                            INSERT.into(this.entities.Proveedores).entries(proveedorConvertido)
+                        );
+                        proveedoresCreados++;
+                    }
+                }
+        
+                return { mensaje: `Se actualizaron ${proveedoresActualizados} proveedores y se crearon ${proveedoresCreados} proveedores.` };
+        
             } catch (error) {
-                console.error('Error al insertar proveedores:', error);
-                return req.reject(500, `Error al insertar proveedores: ${error.message}`);
+                // Capturar el error y devolver los datos en el mensaje de error
+                console.error('Error al procesar proveedores:', error);
+                return req.reject(500, `Error al procesar proveedores: ${error.message}, datos recibidos: ${JSON.stringify(proveedores)}`);
             }
         });
-
+        
         this.on('bulkInsertOrdenCompra', async (req) => {
             const { OrdenCompra } = req.data;
         
@@ -199,6 +249,9 @@ class Monitor_FacturasService extends LCAPApplicationService {
             }
         });
 
+        this.on('prueba', async (req) =>{
+            return ('hola');
+        });
 
         module.exports = async function (srv) {
             const { Facturas } = srv.entities;

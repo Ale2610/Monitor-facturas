@@ -1,0 +1,39 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros"
+    xmlns:html="http://www.w3.org/1999/xhtml" controllerName="monitorfacturas.bandejaentradabot.ext.main.Main">
+    <Page id="Main" title="{i18n>MainTitle}">
+        <content></content>
+
+        <Toolbar id="FiltroToolbar" class="sapUiSmallMarginBottom barraFiltros">
+        <!-- Filtro por Urgencia -->
+            <Select id="filtroUrgente" change=".onFiltrarEstadoUrgente">
+                <core:Item id="key4" key="" text="Todos" />
+                <core:Item id="key5" key="Sí" text="Sí" />
+                <core:Item id="key6" key="No" text="No" />
+            </Select>
+
+            <SearchField id="searchFactura" width="20rem" placeholder="Buscar número de factura..." search=".onBuscarFactura"/>
+
+        </Toolbar>
+        <List id="FacturaList" items="{/Facturas}" headerText="Facturas" growing="true" growingScrollToLoad="true">
+            <CustomListItem id="FacturaCardItem">
+                <VBox id="VBoxFacturaCard" class="facturaCard sapUiSmallMargin sapUiTinyMarginTop sapUiTinyMarginBottom">
+                    <HBox id="HBoxEncabezadoFactura" justifyContent="SpaceBetween">
+                        <Text id="TextNumeroFactura" text="{NumeroFactura}" class="sapMTitle"/>
+                        <ObjectStatus id="EstadoFacturaStatus" text="{Estado}" state="{ path: 'Estado', formatter: '.formatter.estadoToState' }"/>
+                        <Button id="BtnVerDetallesFactura" text="" icon="sap-icon://action" type="Transparent" press="onDetallePress" class="sapUiTinyMarginTop"/>
+
+                    </HBox>
+                    <HBox id="HBoxContenidoFactura" justifyContent="SpaceBetween" class="facturaContenido sapUiTinyMarginTop" wrap="Wrap">
+                        <VBox id="VBoxColumna1" class="facturaColumna">
+                            <Text id="TextFechaFactura" text="Fecha Factura: {FechaFactura}"/>
+                            <ObjectStatus id="UrgenteFacturaStatus" text="{ path: 'Urgente', formatter: '.formatter.urgenteToText' }" state="{ path: 'Urgente', formatter: '.formatter.urgenteToState' }"/>
+
+                        </VBox>
+                        <VBox id="VBoxColumna2" class="facturaColumna">
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </CustomListItem>
+        </List>
+    </Page>
+</mvc:View>

@@ -52,7 +52,25 @@
                 "monitorfacturasproveedores-display": {
                     title: "Proveedores",
                     url: "./monitor_facturas.proveedores/webapp"
-                }
+                },
+                "monitorfacturasbandejaentradaa-display": {
+                    title: "Bandeja Entrada Almacenista",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradaalmacenista-0.0.1"
+                },
+                "monitorfacturasbandejaentradab-display": {
+                    title: "Bandeja Entrada BOT",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradabot-0.0.1"
+                },
+                
+                "monitorfacturasbandejaentradac-display": {
+                    title: "Bandeja Entrada Contabilidad",
+                    url: "../lcapMonitor_Facturas.monitorfacturasbandejaentradacontabilidad-0.0.1"
+                },
+                
+                "monitorfacturascompradorbandej-display": {
+                    title: "Comprador Bandeja Entrada",
+                    url: "../lcapMonitor_Facturas.monitorfacturascompradorbandejaentrada-0.0.1"
+                },
             }
         };
         function createTile(title, appId) {
@@ -76,97 +94,125 @@
 
 
         sap.ui.getCore().attachInit(function () {
-            new sap.m.App({
-                pages: [
-                    new sap.m.Page({
-                        title: "Panel de Aplicaciones - Monitor Facturas",
+                    // Obtener roles del usuario
+                    var request = new XMLHttpRequest();
+                    request.open('GET', '/service/Monitor_FacturasService/getRoles', true);
+                    request.send(null);
+
+                    let roles = [];
+                    if (request.status === 200) {
+                        roles = JSON.parse(request.responseText).value;
+                    }
+
+                    let tabItems = [];
+
+                    // Central para todos
+                    tabItems.push(new sap.m.IconTabFilter({
+                        text: "Central Facturas",
                         content: [
-                            new sap.m.IconTabBar({
-                                expandable: false,
-                                items: [
-                                    new sap.m.IconTabFilter({
-                                        text: "Central Facturas",
-                                        content: [
-                                            new sap.ui.layout.Grid({
-                                                defaultSpan: "L3 M6 S12",
-                                                content: [
-                                                    //createTile("Monitor Facturas", "monitorfacturasmonitorfacturas-display"),
-                                                    //createTile("Facturas XML", "monitorfacturasfacturasxml-display"),
-                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
-                                                    //createTile("Factura Orden", "monitorfacturasfacturaorden-display")
-                                                ]
-                                            })
-                                        ]
-                                    }),
-                                    new sap.m.IconTabFilter({
-                                        text: "Comprador",
-                                        content: [
-                                            new sap.ui.layout.Grid({
-                                                defaultSpan: "L3 M6 S12",
-                                                content: [
-                                                    //createTile("Proveedores", "monitorfacturasproveedores-display"),
-                                                    //createTile("Entradas", "monitorfacturasentradas-display"),
-                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
-                                                    createTile("Orden de Compra", "monitorfacturasordendecompra-display"),
-                                                    createTile("Detalle Orden", "monitorfacturasdetalleorden-display")
-                                                ]
-                                            })
-                                        ]
-                                    }), 
-                                    new sap.m.IconTabFilter({
-                                        text: "Almacenista",
-                                        content: [
-                                            new sap.ui.layout.Grid({
-                                                defaultSpan: "L3 M6 S12",
-                                                content: [
-                                                    //createTile("Proveedores", "monitorfacturasproveedores-display"),
-                                                    createTile("Entradas", "monitorfacturasentradas-display"),
-                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
-                                                    //createTile("Orden de Compra", "monitorfacturasordendecompra-display"),
-                                                    //createTile("Detalle Orden", "monitorfacturasdetalleorden-display")
-                                                ]
-                                            })
-                                        ]
-                                    }),
-                                    new sap.m.IconTabFilter({
-                                        text: "Gestión BOT",
-                                        content: [
-                                            new sap.ui.layout.Grid({
-                                                defaultSpan: "L3 M6 S12",
-                                                content: [
-                                                    //createTile("Proveedores", "monitorfacturasproveedores-display"),
-                                                    //createTile("Entradas", "monitorfacturasentradas-display"),
-                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
-                                                    //createTile("Orden de Compra", "monitorfacturasordendecompra-display"),
-                                                    //createTile("Detalle Orden", "monitorfacturasdetalleorden-display")
-                                                ]
-                                            })
-                                        ]
-                                    }), 
-                                    new sap.m.IconTabFilter({
-                                        text: "Contabilización",
-                                        content: [
-                                            new sap.ui.layout.Grid({
-                                                defaultSpan: "L3 M6 S12",
-                                                content: [
-                                                    //createTile("Proveedores", "monitorfacturasproveedores-display"),
-                                                    //createTile("Entradas", "monitorfacturasentradas-display"),
-                                                    createTile("Facturas", "monitorfacturasdetallesfactura-display"),
-                                                    //createTile("Orden de Compra", "monitorfacturasordendecompra-display"),
-                                                    //createTile("Detalle Orden", "monitorfacturasdetalleorden-display")
-                                                ]
-                                            })
-                                        ]
-                                    })
+                            new sap.ui.layout.Grid({
+                                defaultSpan: "L3 M6 S12",
+                                content: [
+                                    createTile("Facturas", "monitorfacturasdetallesfactura-display")
                                 ]
-                            }),
-                            new sap.ui.core.HTML({
-                                content: '<iframe id="appFrame" title="Aplicación" src=""></iframe>'
                             })
                         ]
-                    })
-                ]
-            }).placeAt("content");
+                    }));
+
+                    // Rol: Comprador
+                    if (roles.includes("Comprador")) {
+                        tabItems.push(new sap.m.IconTabFilter({
+                            text: "Comprador",
+                            content: [
+                                new sap.ui.layout.Grid({
+                                    defaultSpan: "L3 M6 S12",
+                                    content: [
+                                        createTile("Comprador", "monitorfacturascompradorbandej-display")
+                                    ]
+                                })
+                            ]
+                        }));
+                    }
+
+                    // Rol: Almacenista
+                    if (roles.includes("Almacenista")) {
+                        tabItems.push(new sap.m.IconTabFilter({
+                            text: "Almacenista",
+                            content: [
+                                new sap.ui.layout.Grid({
+                                    defaultSpan: "L3 M6 S12",
+                                    content: [
+                                        createTile("Almacenista", "monitorfacturasbandejaentradaa-display")
+                                    ]
+                                })
+                            ]
+                        }));
+                    }
+
+                    // Rol: BOT
+                    if (roles.includes("BOT")) {
+                        tabItems.push(new sap.m.IconTabFilter({
+                            text: "Gestión BOT",
+                            content: [
+                                new sap.ui.layout.Grid({
+                                    defaultSpan: "L3 M6 S12",
+                                    content: [
+                                        createTile("Gestión BOT", "monitorfacturasbandejaentradab-display")
+                                    ]
+                                })
+                            ]
+                        }));
+                    }
+
+                    // Rol: Contabilidad
+                    if (roles.includes("Contabilidad")) {
+                        tabItems.push(new sap.m.IconTabFilter({
+                            text: "Contabilización",
+                            content: [
+                                new sap.ui.layout.Grid({
+                                    defaultSpan: "L3 M6 S12",
+                                    content: [
+                                        createTile("Contabilización", "monitorfacturasbandejaentradac-display")
+                                    ]
+                                })
+                            ]
+                        }));
+                    }
+
+                    // Rol: Administrador
+                    if (roles.includes("Administrador")) {
+                        tabItems.push(new sap.m.IconTabFilter({
+                            text: "Administrador",
+                            content: [
+                                new sap.ui.layout.Grid({
+                                    defaultSpan: "L3 M6 S12",
+                                    content: [
+                                        createTile("Proveedores", "monitorfacturasproveedores-display"),
+                                        createTile("Orden de Compra", "monitorfacturasordendecompra-display"),
+                                        createTile("Monitor Facturas", "monitorfacturasmonitorfacturas-display")
+                                    ]
+                                })
+                            ]
+                        }));
+                    }
+
+                    // Crear UI5 App con tabs filtrados por rol
+                    new sap.m.App({
+                        pages: [
+                            new sap.m.Page({
+                                title: "Panel de Aplicaciones - Monitor Facturas",
+                                content: [
+                                    new sap.m.IconTabBar({
+                                        expandable: false,
+                                        items: tabItems
+                                    }),
+                                    new sap.ui.core.HTML({
+                                        content: '<iframe id="appFrame" title="Aplicación" src=""></iframe>'
+                                    })
+                                ]
+                            })
+                        ]
+                    }).placeAt("content");
         });
     </script>
 </head>

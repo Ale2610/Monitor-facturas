@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","monitorfacturas/bandejaentradacontabilidad/test/integration/FirstJourney","monitorfacturas/bandejaentradacontabilidad/test/integration/pages/DetalleFacturaMain"],function(a,t,n){"use strict";var a=new a({launchUrl:sap.ui.require.toUrl("monitorfacturas/bandejaentradacontabilidad")+"/index.html"});a.run({pages:{onTheDetalleFacturaMain:n}},t.run)});
+//# sourceMappingURL=opaTests.qunit.js.map

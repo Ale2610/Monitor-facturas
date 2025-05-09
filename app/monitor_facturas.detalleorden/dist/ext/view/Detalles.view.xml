@@ -73,6 +73,9 @@
                 <Label id="lblValorUnitario" text="Valor unitario"/>
                 <Text id="txtValorUnitario" text="{ValorUnitario}"/>
 
+                <Label id="lblIndicadorIVA" text="Indicador IVA"/>
+                <Text id="txtIndicadorIVA" text="{IndicadorIva}"/>
+
                 <!-- 📍 Información de Entrega -->
                 <Toolbar id="tbEntregaOC">
                     <Title id="titleEntregaOC" text="Información de Entrega" level="H4"/>

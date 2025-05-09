@@ -134,7 +134,8 @@ entity DetalleEntrada
 
 entity DetalleFactura
 {
-    key NumeroMaterial : String(255)
+    key ID : UUID;
+    NumeroMaterial : String(255)
         @title : 'Número de material';
     Descripcion : String(255)
         @title : 'Descripción';
@@ -200,3 +201,10 @@ entity Proveedores
     CorreoElectronico : String(255)
         @title : 'Correo electronico';
 }
+
+entity Usuarios{
+    Nombre: String(255)
+    @title : 'Nombre usuario';
+    Correo: String(255)
+    @title : 'Correo usuario';
+}    

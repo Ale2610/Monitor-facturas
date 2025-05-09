@@ -123,7 +123,7 @@ Content-Type: application/json
     {
       "CodigoSap": "CodigoSap8014",    
 "Tratamiento": "Tratamiento",  
-"Nombre1": "Nicol", 
+"Nombre1": "Juliana", 
 "Nombre2": "No2",     
 "Nombre3": "No3",     
 "Nombre4": "No4",    
@@ -203,6 +203,9 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4004/service/Monitor_FacturasService/noova_documents
+
+###
+POST http://localhost:4004/service/Monitor_FacturasService/prueba
 
 
 

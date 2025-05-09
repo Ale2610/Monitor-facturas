@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(a){"use strict";return a.extend("monitorfacturas.bandejaentradaalmacenista.Component",{metadata:{manifest:"json"}})});
+//# sourceMappingURL=Component.js.map
