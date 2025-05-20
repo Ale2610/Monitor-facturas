@@ -205,6 +205,10 @@ Content-Type: application/json
 GET http://localhost:4004/service/Monitor_FacturasService/noova_documents
 
 ###
+POST http://localhost:4004/service/Monitor_FacturasService/consultar_documentos
+
+
+###
 POST http://localhost:4004/service/Monitor_FacturasService/prueba
 
 

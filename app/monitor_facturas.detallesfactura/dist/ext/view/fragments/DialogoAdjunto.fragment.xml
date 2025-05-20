@@ -1,0 +1,33 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload">
+
+    <Dialog
+        id="dialogAdjunto"
+        title="Adjuntar documento"
+        draggable="true"
+        resizable="true"
+        class="sapUiContentPadding">
+
+        <upload:UploadSet
+            id="uploadSet"
+            uploadEnabled="true"
+            instantUpload="false"
+            uploadUrl="/dummy"
+            showIcons="true"
+            fileTypes="['pdf','jpg','png','docx','xlsx']"
+            sameFilenameAllowed="false"
+            maxFileNameLength="100"
+            maxFileSize="10"
+            beforeItemAdded="onBeforeItemAdded"
+        />
+
+        <beginButton>
+            <Button id="buttonSubir" text="Subir" press="onSubirAdjunto" />
+        </beginButton>
+        <endButton>
+            <Button id="buttonCancelar" text="Cancelar" press="onCerrarDialogoAdjunto" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

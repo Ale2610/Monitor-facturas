@@ -1,30 +1,39 @@
-using {Monitor_Facturas as my} from '../db/schema.cds';
+using { Monitor_Facturas as my } from '../db/schema.cds';
 
-@path: '/service/Monitor_FacturasService'
+@path : '/service/Monitor_FacturasService'
 service Monitor_FacturasService {
-   @mediaStream: {
-        mediaType: 'archivoPDF'
-        }
-    @mediaStream
-    entity Facturas as projection on my.Facturas;
-    
-    action actualizarFactura(NumeroFactura : String, data : LargeString) returns String;
 
-    @odata.draft.enabled
+    @mediaStream
+    @mediaStream.mediaType : 'application/pdf'
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
+    entity Facturas as projection on my.Facturas;
+
+    action actualizarFactura(
+        NumeroFactura : String,
+        data : LargeString
+    ) returns String;
+
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
     entity OrdenCompra as projection on my.OrdenCompra;
 
     type BulkInsertResponseOrden {
         mensaje : String;
     }
 
-    action bulkInsertOrdenCompra(OrdenCompra : many OrdenCompra) returns BulkInsertResponseOrden;
+    action bulkInsertOrdenCompra(
+        OrdenCompra : many OrdenCompra
+    ) returns BulkInsertResponseOrden;
 
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
     entity DetalleOrdenCompra as projection on my.DetalleOrdenCompra;
 
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
     entity Entrada as projection on my.Entrada;
 
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
     entity DetalleEntrada as projection on my.DetalleEntrada;
 
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
     entity DetalleFactura as projection on my.DetalleFactura;
 
     entity Proveedores as projection on my.Proveedores;
@@ -33,21 +42,40 @@ service Monitor_FacturasService {
         mensaje : String;
     }
 
-    action bulkInsertProveedores(proveedores: array of Proveedores) returns BulkInsertResponse;
-    //API Noova
-    function noova_documents()                                     returns many String;
+    action bulkInsertProveedores(
+        proveedores : many Proveedores
+    ) returns BulkInsertResponse;
 
-    //API invoicesList Carvajal 
-    
-    action consultar_documentos(noce: String, created: String) returns String;
+    function noova_documents() returns many String;
 
-    //API Get documents Carvajal 
-    action extraer_documentos(noce: String, created: String, data: String, documentNumber: String, documentPrefix: String, documentType: String, senderIdentification: String) returns String;
+    action consultar_documentos(
+        noce : String,
+        created : String
+    ) returns String;
 
-    function getRoles() returns array of String;
+    action extraer_documentos(
+        noce : String,
+        created : String,
+        data : String,
+        documentNumber : String,
+        documentPrefix : String,
+        documentType : String,
+        senderIdentification : String
+    ) returns String;
+
+    function getRoles() returns many String;
 
     action prueba() returns String;
+
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
+    entity FacturaOrdenCompra as projection on my.FacturaOrdenCompra;
+
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
+    entity DetalleFacturaOrden as projection on my.DetalleFacturaOrden;
+
+    @requires: ['CentralFacturas', 'Comprador', 'Almacenista', 'Contabilidad']
+    entity Usuarios as projection on my.Usuarios;
 }
 
 
-annotate Monitor_FacturasService with @requires: ['authenticated-user'];
+

@@ -2,56 +2,6 @@
   "cds": {
     "requestLimits": {
       "maxPayload": "50mb"
-    },
-    "roles": [
-      {
-        "name": "admin",
-        "description": "Admin role with full access to all entities",
-        "permissions": [
-          {
-            "entity": "Proveedores",
-            "action": "read, write, update, delete"
-          },
-          {
-            "entity": "OrdenCompra",
-            "action": "read, write, update, delete"
-          },
-          {
-            "entity": "DetalleFactura",
-            "action": "read, write, update, delete"
-          }
-        ]
-      },
-      {
-        "name": "ordencompra_user",
-        "description": "Role with limited access to OrdenCompra",
-        "permissions": [
-          {
-            "entity": "OrdenCompra",
-            "action": "read, update"
-          }
-        ]
-      },
-      {
-        "name": "proveedor_user",
-        "description": "Role with limited access to Proveedores",
-        "permissions": [
-          {
-            "entity": "Proveedores",
-            "action": "read"
-          }
-        ]
-      },
-      {
-        "name": "detallefactura_user",
-        "description": "Role with limited access to DetalleFactura",
-        "permissions": [
-          {
-            "entity": "DetalleFactura",
-            "action": "read"
-          }
-        ]
-      }
-    ]
+    }
   }
 }

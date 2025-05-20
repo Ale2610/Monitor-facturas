@@ -10,6 +10,26 @@
     <Page id="pageInformacionGeneral" title="">
         <content>
 
+        <MenuButton
+    id="btnRoles"
+    text="Seleccionar rol"
+    icon="sap-icon://slim-arrow-down"
+    type="Default"
+    buttonMode="Split"
+    menuPosition="BeginCenter"
+    tooltip="Seleccionar un rol"
+>
+    <menu>
+        <Menu id="menu">
+            <MenuItem id="menu1" text="Comprador" press="onSeleccionarComprador"/>
+            <MenuItem id="menu2" text="Almacenista" press="onSeleccionarAlmacenista"/>
+            <MenuItem id="menu3" text="Bot" press="onSeleccionarBot"/>
+            <MenuItem id="menu4" text="Contabilidad" press="onSeleccionarContabilidad"/>
+        </Menu>
+    </menu>
+</MenuButton>
+
+        
             <HBox id="mainHBox" width="100%">
                 <!-- IZQUIERDA -->
                 <VBox id="leftVBox" width="50%" renderType="Bare">
@@ -130,16 +150,6 @@
                         
 
                     </layout:SimpleForm>
-
-                    <!-- Tabla Detalle Factura -->
-                    <VBox id="detalleFacturaVBox" class="sapUiMediumMarginTop">
-                        
-                    </VBox>
-
-                    <!-- Tabla Entradas -->
-                    <VBox id="entradasVBox" class="sapUiMediumMarginTop">
-                       
-                    </VBox>
                 </VBox>
 
                 <!-- DERECHA -->
@@ -156,7 +166,6 @@
                                 <Column id="columna3" ><Text id="33" text="Cantidad" /></Column>
                                 <Column id="columna4" ><Text id="44" text="Valor Unitario" /></Column>
                                 <Column id="column5" ><Text id="55" text="Valor Total" /></Column>
-                                <Column id="columna6" ><Text id="66" text="Detalles" /></Column>
                             </columns>
                             <items>
                                 <ColumnListItem id="detalleFacturaItem">
@@ -167,13 +176,56 @@
                                         <Text id="3" text="{Cantidad}" />
                                         <Text id="4" text="{ValorUnitario}" />
                                         <Text id="5" text="{ValorTotal}" />
-                                        <Button id="6" text="Ver O.C" icon="sap-icon://show" type="Transparent" press="onDetallePressOrden" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
 
-                         <Table id="tablaEntradas" items="{Entrada}" headerText="Entradas asociadas a la Factura">
+                        <Button
+                            id="myButtonOrden"
+                            text="Agregar O.C"
+                            icon="sap-icon://add-document" type="Transparent"
+                            press="onInsertOrdenCompra"
+                            visible="true"
+                            class="buttonHeader"
+                        />
+
+                        <Table id="tablaOrdenesRelacionadas"
+                            headerText="Órdenes de Compra Relacionadas"
+                            items="{path: 'Ordenes', parameters: { $expand: 'Orden' }}">
+
+                            <columns>
+                                <Column id="colNumOrdenRelacionada">
+                                    <Text id="txtColNumOrdenRelacionada" text="Número de Orden" />
+                                </Column>
+                                <Column id="colFechaCreacionRelacionada">
+                                    <Text id="txtColFechaCreacionRelacionada" text="Fecha de Creación" />
+                                </Column>
+                                <Column id="colUsuarioCreadorRelacionada">
+                                    <Text id="txtColUsuarioCreadorRelacionada" text="Usuario Creador" />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="itemOrdenRelacionada">
+                                    <cells>
+                                        <Text id="txtNumOrdenRelacionada" text="{Orden/NumeroOrden}" />
+                                        <Text id="txtFechaCreacionRelacionada" text="{Orden/FechaCreacion}" />
+                                        <Text id="txtUsuarioCreadorRelacionada" text="{Orden/UsuarioCreador/Cedula}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                        <Button
+                            id="myButtonEntrada"
+                            text="Crear Entrada"
+                            icon="sap-icon://add-document" type="Transparent"
+                            press="onInsertEntrada"
+                            visible="true"
+                            class="buttonHeader"
+                        />
+                         <Table id="tablaEntradas" items="{Entrada}" headerText="Entradas">
                             <columns>
                                 <Column id="Columna1"><Text id="Texto1" text="Fecha de emisión" /></Column>
                                 <Column id="Columna2"><Text id="Texto2" text="Fecha de recepción" /></Column>
@@ -187,11 +239,48 @@
                                         <Text id="Texto5" text="{FechaEmision}" />
                                         <Text id="Texto6" text="{FechaRecepcion}" />
                                         <Text id="Texto7" text="{NumeroEntrada}" />
-                                        <Button id="Boton2" text="Ver detalles" icon="sap-icon://show" type="Transparent" press="onDetallePress" />
+                                        <Button id="Boton2" text="" icon="sap-icon://show" type="Transparent" press="onDetallePress" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
+
+                        <Button
+                            id="btnAdjuntar"
+                            text="Adjuntar documento"
+                            icon="sap-icon://attachment"
+                            type="Transparent"
+                            press="onAbrirDialogoAdjuntos"
+                        />
+                        <Toolbar id="toolbarAdjuntos">
+                            <Title id="titleAdjuntos" text="Documentos Adjuntos" level="H4" />
+                        </Toolbar>
+
+                        <Table id="tablaAdjuntos" items="{Adjuntos}" headerText="Documentos Adjuntos">
+                            <columns>
+                                <Column id="colNombreAdjunto">
+                                    <Text id="txtColNombreAdjunto" text="Nombre" />
+                                </Column>
+                                <Column id="colTipoAdjunto">
+                                    <Text id="txtColTipoAdjunto" text="Tipo" />
+                                </Column>
+                                <Column id="colVerAdjunto">
+                                    <Text id="txtColVerAdjunto" text="Ver" />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="itemAdjunto">
+                                    <cells>
+                                        <Text id="txtNombreAdjunto" text="{NombreArchivo}" />
+                                        <Text id="txtTipoAdjunto" text="{TipoArchivo}" />
+                                        <Button id="btnVerAdjunto" icon="sap-icon://attachment" press="onVerAdjunto" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+
         </content>
     </Page>
 </mvc:View>

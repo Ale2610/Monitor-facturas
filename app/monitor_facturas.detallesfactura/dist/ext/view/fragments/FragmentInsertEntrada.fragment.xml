@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog
+        id="crearEntradaDialog"
+        title="Crear Entrada"
+        draggable="true"
+        resizable="true"
+        contentWidth="500px"
+        contentHeight="auto">
+
+        <VBox id="vboxCrearEntrada" class="sapUiSmallMargin">
+            
+            <Label id="lblNumeroEntrada" text="Número de entrada" />
+            <Input id="numeroEntrada" placeholder="Ingrese número de entrada" />
+
+            <Label id="lblOrdenCompra" text="Seleccionar Orden de Compra" class="sapUiSmallMarginTop"/>
+            <Select id="selectOrdenEntrada"
+                    items="{
+                        path: 'ordenesFactura>/Ordenes',
+                        sorter: { path: 'NumeroOrden' }
+                    }"
+                    forceSelection="true"
+                    autoAdjustWidth="true"
+                    width="100%">
+                <core:Item id="items" key="{ordenesFactura>NumeroOrden}" text="{ordenesFactura>NumeroOrden}" />
+            </Select>
+
+        </VBox>
+
+        <beginButton>
+            <Button id="btnGuardarEntrada" text="Guardar" press=".onGuardarEntrada" />
+        </beginButton>
+        <endButton>
+            <Button id="btnCancelarEntrada" text="Cancelar" press=".onCancelarEntrada" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,7 +1,57 @@
 {
-  "scopes": [],
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.CentralFacturas",
+      "description": "CentralFacturas"
+    },
+    {
+      "name": "$XSAPPNAME.Comprador",
+      "description": "Comprador"
+    },
+    {
+      "name": "$XSAPPNAME.Almacenista",
+      "description": "Almacenista"
+    },
+    {
+      "name": "$XSAPPNAME.Contabilidad",
+      "description": "Contabilidad"
+    }
+  ],
   "attributes": [],
-  "role-templates": [],
+  "role-templates": [
+    {
+      "name": "CentralFacturas",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.CentralFacturas"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Comprador",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Comprador"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Almacenista",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Almacenista"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Contabilidad",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Contabilidad"
+      ],
+      "attribute-references": []
+    }
+  ],
   "xsappname": "Monitor_Facturas",
   "tenant-mode": "dedicated"
 }

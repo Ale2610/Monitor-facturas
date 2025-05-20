@@ -6,10 +6,11 @@ const LCAPApplicationService = require('@sap/low-code-event-handler');
 const detalleordencompra_Logic = require('./code/detalleordencompra-logic');
 
 class Monitor_FacturasService extends LCAPApplicationService {
+    
     async init() {
 
         //Consumir api noova
-        this.on('noova_documents', async (req) => { // Puedes poner un valor por defecto para probar
+        this.on('noova_documents', async (req) => { 
         
             const apiUrl = `https://dev.noova.com.co/api-vph/api/FacProveedor/GetDocument?nvemp_nnit=860000452&nvfac_cont=923&nvfac_esta=A`;
         
@@ -203,8 +204,9 @@ class Monitor_FacturasService extends LCAPApplicationService {
                     const existingProveedor = await tx.run(
                         SELECT.one.from(this.entities.Proveedores).where({ CodigoSap: proveedorConvertido.CodigoSap })
                     );
-        
+                    console.log('existe provedor: '+existingProveedor);
                     if (existingProveedor) {
+                        console.log('si existe');
                         // Si el proveedor existe, actualizarlo
                         await tx.run(
                             UPDATE(this.entities.Proveedores)
@@ -213,9 +215,12 @@ class Monitor_FacturasService extends LCAPApplicationService {
                         );
                         proveedoresActualizados++;
                     } else {
+                        console.log('no existe');
+                        console.log('gg '+this.entities.Proveedores);
+                        console.log('gg 2 '+proveedorConvertido);
                         // Si el proveedor no existe, insertarlo
                         await tx.run(
-                            INSERT.into(this.entities.Proveedores).entries(proveedorConvertido)
+                            INSERT.into(this.entities.Proveedores).entries({})
                         );
                         proveedoresCreados++;
                     }
@@ -253,80 +258,9 @@ class Monitor_FacturasService extends LCAPApplicationService {
             return ('hola');
         });
 
-        module.exports = async function (srv) {
-            const { Facturas } = srv.entities;
-        
-            srv.on('actualizarFactura', async (req) => {
-                const { NumeroFactura, data } = req.data;
-        
-                if (!NumeroFactura) {
-                    return req.error(400, 'El campo NumeroFactura es obligatorio');
-                }
-        
-                const tx = srv.tx(req);
-        
-                // Verifica si la factura existe
-                const factura = await tx.run(
-                    SELECT.one.from(Facturas).where({ NumeroFactura })
-                );
-        
-                if (!factura) {
-                    return req.error(404, `Factura ${NumeroFactura} no encontrada`);
-                }
-        
-                // Ejecuta el update con los datos enviados
-                await tx.run(
-                    UPDATE(Facturas).set(data).where({ NumeroFactura })
-                );
-        
-                return `Factura ${NumeroFactura} actualizada correctamente`;
-            });
-        };
-        
-        
-
-        // this.on('actualizarOrdenCompra', async (req) => {
-        //     const { ID, FechaEmision, FechaRecepcion, NumeroOrden, NumeroFactura, DetalleOrdenCompra } = req.data;
-        
-        //     if (!NumeroOrden) {
-        //         return req.reject(400, "El campo 'NumeroOrden' es obligatorio.");
-        //     }
-        
-        //     const updateData = {
-        //         FechaEmision: FechaEmision ?? "",
-        //         FechaRecepcion: FechaRecepcion ?? "",
-        //         NumeroOrden,
-        //         NumeroFactura: NumeroFactura ?? ""
-        //     };
-        
-        //     try {
-        //         const tx = cds.tx(req);
-        //         const result = await tx.run(UPDATE(this.entities.OrdenCompra).set(updateData).where({ ID }));
-        
-        //         if (result === 0) {
-        //             return req.reject(404, "No se encontró la orden de compra para actualizar.");
-        //         }
-        
-        //         // Si hay detalles, los actualizamos individualmente
-        //         if (Array.isArray(DetalleOrdenCompra) && DetalleOrdenCompra.length > 0) {
-        //             for (const detalle of DetalleOrdenCompra) {
-        //                 await tx.run(UPDATE(this.entities.DetalleOrdenCompra).set(detalle).where({ NumeroOrden_NumeroOrden: NumeroOrden }));
-        //             }
-        //         }
-        
-        //         await tx.commit();
-        //         return { message: "Orden de compra actualizada con éxito" };
-        
-        //     } catch (error) {
-        //         console.error("Error al actualizar la OrdenCompra:", error);
-        //         return req.reject(500, "Hubo un error al actualizar la orden de compra.");
-        //     }
-        // });
-
         return super.init();
     }
 }
-
 
 module.exports = {
     Monitor_FacturasService

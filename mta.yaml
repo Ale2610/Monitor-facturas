@@ -443,7 +443,23 @@ resources:
             - binding-secret
             - x509
         xsappname: Monitor_Facturas-${space}
-        role-collections: []
+        role-collections:
+          - description: CentralFacturas
+            name: Monitor_Facturas-CentralFacturas-${space}
+            role-template-references:
+              - $XSAPPNAME.CentralFacturas
+          - description: Comprador
+            name: Monitor_Facturas-Comprador-${space}
+            role-template-references:
+              - $XSAPPNAME.Comprador
+          - description: Almacenista
+            name: Monitor_Facturas-Almacenista-${space}
+            role-template-references:
+              - $XSAPPNAME.Almacenista
+          - description: Contabilidad
+            name: Monitor_Facturas-Contabilidad-${space}
+            role-template-references:
+              - $XSAPPNAME.Contabilidad
   - type: org.cloudfoundry.managed-service
     name: Monitor_Facturas-service-db
     parameters:

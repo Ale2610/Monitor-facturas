@@ -13,6 +13,8 @@ sap.ui.define(
                 oList.attachEventOnce("updateFinished", () => {
                     this._aplicarFiltrosDesdeHash();
                 });
+
+                sap.ui.getCore().getEventBus().subscribe("Facturas", "ActualizarLista", this._onActualizarLista, this);
             },
             
             _aplicarFiltrosDesdeHash: function () {
@@ -45,8 +47,15 @@ sap.ui.define(
                 if (!queryString) return null;
                 const params = new URLSearchParams(queryString);
                 return params.get(param);
-            }
-            ,
+            },
+
+            _onActualizarLista: function () {
+                const oTable = this.byId("FacturaList"); // usa el ID correcto
+                const oBinding = oTable.getBinding("items");
+                if (oBinding) {
+                    oBinding.refresh();
+                }
+            },
             
             onDetallePress: function (oEvent) {
                 oEvent.preventDefault(); 

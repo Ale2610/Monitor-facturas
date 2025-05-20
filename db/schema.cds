@@ -32,7 +32,7 @@ entity Facturas
         @title : 'Destinatario';
     DescripcionDestinatario : String(255)
         @title : 'Descripción del destinatario';
-    CodigoActividad : String(255) 
+    CodigoActividad : String(255)
         @title : 'Código de actividad';
     Clasificacion : String(255)
         @title : 'Clasificación';
@@ -52,39 +52,53 @@ entity Facturas
         @title : 'Documento FI';
     FacturaElec : Boolean
         @title : 'Factura Electrónica';
-    Descuento : Boolean 
+    Descuento : Boolean
         @title : 'Descuento pronto pago';
-    @Core.MediaType : 'application/pdf'
-    @Core.ContentDisposition.Filename : 'Factura.pdf'
-    @Core.ContentDisposition.Type : 'inline'
-    archivoPDF : LargeBinary;
+    archivoPDF : LargeBinary
+        @Core.MediaType : 'application/pdf'
+        @Core.ContentDisposition : 
+        {
+            Type : 'inline',
+            Filename : 'Factura.pdf'
+        };
     DetalleFactura : Composition of many DetalleFactura on DetalleFactura.NumeroFactura = $self;
-    OrdenCompra : Composition of many OrdenCompra on OrdenCompra.NumeroFactura = $self;
+    Ordenes : Association to many FacturaOrdenCompra on Ordenes.Factura = $self;
     Entrada : Composition of many Entrada on Entrada.NumeroFactura = $self;
+    Adjuntos : Composition of many Adjuntos on Adjuntos.Factura = $self;
 }
+
+entity Adjuntos 
+{
+    key ID: UUID;
+    NombreArchivo: String(255);
+    TipoArchivo: String(100);
+    ArchivoBase64: LargeBinary;
+    Factura: Association to Facturas;
+}
+
 
 entity OrdenCompra
 {
-    key ID : UUID;
     FechaCreacion : String(255)
         @title : 'Fecha de creación';
     ClasePedido : String(255)
         @title : 'Clase de pedido';
-    NumeroOrden : String(255)
+    key NumeroOrden : String(255)
         @title : 'Número de orden';
     Proveedor : Association to one Proveedores
         @title : 'Proveedor';
-    UsuarioCreador : String(255)
+    UsuarioCreador : Association to one Usuarios
         @title : 'Usuario creador';
     DetalleOrdenCompra : Composition of many DetalleOrdenCompra on DetalleOrdenCompra.NumeroOrden = $self;
-    NumeroFactura : Association to one Facturas
+    Facturas : Association to many FacturaOrdenCompra on Facturas.Orden = $self
         @title : 'Número Factura';
 }
 
 entity DetalleOrdenCompra
 {
     key ID : UUID;
-    NumeroMaterial : Association to one DetalleFactura;
+    NumeroMaterial : String(255)
+        @title : 'Número de material';
     NombreMaterial : String(255)
         @title : 'Nombre de material';
     GrupoArticulos : String(255)
@@ -107,6 +121,14 @@ entity DetalleOrdenCompra
         @title : 'Estado';
 }
 
+entity DetalleFacturaOrden
+{
+    key ID : UUID;
+    Factura : Association to one Facturas;
+    Orden : Association to one OrdenCompra;
+    Posicion : Association to one DetalleOrdenCompra;
+}
+
 entity Entrada
 {
     FechaEmision : Date
@@ -118,6 +140,8 @@ entity Entrada
     NumeroFactura : Association to one Facturas
         @title : 'Número de factura';
     DetalleEntrada : Composition of many DetalleEntrada on DetalleEntrada.NumeroEntrada = $self;
+    Orden : Association to one OrdenCompra
+        @title : 'Orden de compra relacionada';
 }
 
 entity DetalleEntrada
@@ -202,9 +226,20 @@ entity Proveedores
         @title : 'Correo electronico';
 }
 
-entity Usuarios{
-    Nombre: String(255)
-    @title : 'Nombre usuario';
-    Correo: String(255)
-    @title : 'Correo usuario';
-}    
+entity Usuarios
+{
+    key Cedula : String(255)
+        @title : 'Cedula';
+    Nombre : String(255)
+        @title : 'Nombre usuario';
+    Correo : String(255)
+        @title : 'Correo usuario';
+}
+
+entity FacturaOrdenCompra
+{
+    key ID : UUID;
+    Factura : Association to one Facturas;
+    Orden : Association to one OrdenCompra;
+    FechaAsignacion : Date;
+}

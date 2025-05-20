@@ -21,7 +21,8 @@
         "type": "OData",
         "settings": {
           "annotations": [],
-          "odataVersion": "4.0"
+          "odataVersion": "4.0",
+          "useBatch": true
         }
       }
     },

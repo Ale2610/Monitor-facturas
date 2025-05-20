@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog
+        id="insertOrdenCompraDialog"
+        title="Seleccionar Orden de Compra"
+        draggable="true"
+        resizable="true"
+        contentWidth="400px"
+        contentHeight="auto">
+        
+        <VBox id="ordenCompraVBox" class="sapUiSmallMargin">
+            <Label id="labelOrdenCompra" text="Seleccionar Orden de Compra"/>
+            <Select id="selectOrdenCompra"
+                    change=".onOrdenSeleccionada"
+                    items="{
+                        path: 'ordenesProveedor>/Ordenes',
+                        sorter: { path: 'NumeroOrden' }
+                    }"
+                    forceSelection="true"
+                    autoAdjustWidth="true"
+                    width="100%">
+                <core:Item id="item" key="{ordenesProveedor>NumeroOrden}" text="{ordenesProveedor>NumeroOrden}" />
+            </Select>
+
+            <Label id="labelPosiciones" text="Seleccionar Posiciones" class="sapUiSmallMarginTop"/>
+            <List id="multiSelectPosiciones"
+                  mode="MultiSelect"
+                  items="{
+                      path: 'detalleOrden>/Posiciones'
+                  }"
+                  width="100%">
+                <StandardListItem id="listItem" title="{detalleOrden>NombreMaterial}" description="{detalleOrden>NumeroMaterial}" />
+            </List>
+        </VBox>
+
+        <beginButton>
+            <Button id="btnGuardarOrden" text="Guardar" press=".onGuardarOrdenCompra" />
+        </beginButton>
+        <endButton>
+            <Button id="btnCancelarOrden" text="Cancelar" press=".onCancelarOrdenCompra" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
