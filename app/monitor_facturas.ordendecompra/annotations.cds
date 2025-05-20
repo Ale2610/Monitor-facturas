@@ -17,7 +17,7 @@ annotate service.OrdenCompra with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : UsuarioCreador,
+                Value : UsuarioCreador_Cedula,
             },
             {
                 $Type : 'UI.DataField',
@@ -58,7 +58,7 @@ annotate service.OrdenCompra with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : UsuarioCreador,
+            Value : UsuarioCreador_Cedula,
         },
     ],
 );

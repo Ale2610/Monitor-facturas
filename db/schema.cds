@@ -74,7 +74,7 @@ entity OrdenCompra
         @title : 'Número de orden';
     Proveedor : Association to one Proveedores
         @title : 'Proveedor';
-    UsuarioCreador : String(255)
+    UsuarioCreador : Association to one Usuarios
         @title : 'Usuario creador';
     DetalleOrdenCompra : Composition of many DetalleOrdenCompra on DetalleOrdenCompra.NumeroOrden = $self;
     NumeroFactura : Association to one Facturas
@@ -201,24 +201,12 @@ entity Proveedores
         @title : 'Correo electronico';
 }
 
+
 entity Usuarios
 {
-    key Correo : UUID;
-    nombre : String (255);
-    username: String(255);
-    activo: Boolean default true;
-}
-
-entity Roles
- {
-  key  nombre       : String(50);  // Ej: "ADMIN", "OPERADOR", "VISOR"
-  descripcion  : String(255);
-}
-
-entity RolesPorUsuario 
-{
-  key ID        : UUID;
-  usuario       : Association to Usuarios;
-  rol           : Association to Roles;
-  asignadoEn    : DateTime default current_timestamp;
+    key Cedula : String(255);
+    Usuario : String(255);
+    Correo : String(255);
+    NoPersona : String(255);
+    NoDireccion : String(255);
 }

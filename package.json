@@ -39,7 +39,9 @@
     "watch-monitor_facturas.bandejaentradaalmacenista": "cds watch --open monitor_facturas.bandejaentradaalmacenista/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-monitor_facturas.bandejaentradacontabilidad": "cds watch --open monitor_facturas.bandejaentradacontabilidad/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-monitor_facturas.compradorbandejaentrada": "cds watch --open monitor_facturas.compradorbandejaentrada/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-monitor_facturas.bandejaentradabot": "cds watch --open monitor_facturas.bandejaentradabot/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-monitor_facturas.bandejaentradabot": "cds watch --open monitor_facturas.bandejaentradabot/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.roles": "cds watch --open monitor_facturas.roles/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-monitor_facturas.usuarios": "cds watch --open monitor_facturas.usuarios/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requestLimits": {
@@ -80,6 +82,8 @@
     "app/monitor_facturas.bandejaentradaalmacenista",
     "app/monitor_facturas.bandejaentradacontabilidad",
     "app/monitor_facturas.compradorbandejaentrada",
-    "app/monitor_facturas.bandejaentradabot"
+    "app/monitor_facturas.bandejaentradabot",
+    "app/monitor_facturas.roles",
+    "app/monitor_facturas.usuarios"
   ]
 }

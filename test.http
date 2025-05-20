@@ -43,11 +43,15 @@ Content-Type: application/json
     "ClasePedido": "2025-03-14",
     "NumeroOrden": "346346",
     "Proveedor": { "CodigoSap": "567568" },
-    "UsuarioCreador": "Usuarioooo",
+    "UsuarioCreador": {
+      "Cedula":"1234567890"
+    },
     "DetalleOrdenCompra": [
         {
-            "NumeroMaterial": "Nhhg",
-            "NombreMaterial": "Nhfghd",
+            "NumeroMaterial": {
+                "NumeroMaterial": "567568"
+                },
+            "NombreMaterial": "7689",
             "GrupoArticulos": "dfhdf",
             "TipoMaterial": "dfhdf",
             "Cantidad": "107",
@@ -64,10 +68,14 @@ Content-Type: application/json
     "ClasePedido": "2025-03-14",
     "NumeroOrden": "1010",
     "Proveedor": { "CodigoSap": "567568" },
-    "UsuarioCreador": "Prueba",
+    "UsuarioCreador": {
+      "Cedula":"1234567890"
+    },
     "DetalleOrdenCompra": [
         {
-            "NumeroMaterial": "Nhhg",
+            "NumeroMaterial": {
+                "NumeroMaterial": "567568"
+                },
             "NombreMaterial": "Nhfghd",
             "GrupoArticulos": "dfhdf",
             "TipoMaterial": "dfhdf",

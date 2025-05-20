@@ -443,15 +443,7 @@ resources:
             - binding-secret
             - x509
         xsappname: Monitor_Facturas-${space}
-        role-collections:
-          - description: ordencompra_user
-            name: Monitor_Facturas-ordencompra_user-${space}
-            role-template-references:
-              - $XSAPPNAME.ordencompra_user
-          - description: admin
-            name: Monitor_Facturas-admin-${space}
-            role-template-references:
-              - $XSAPPNAME.admin
+        role-collections: []
   - type: org.cloudfoundry.managed-service
     name: Monitor_Facturas-service-db
     parameters:

@@ -1,33 +1,7 @@
 {
-  "scopes": [
-    {
-      "name": "$XSAPPNAME.ordencompra_user",
-      "description": "ordencompra_user"
-    },
-    {
-      "name": "$XSAPPNAME.admin",
-      "description": "admin"
-    }
-  ],
+  "scopes": [],
   "attributes": [],
-  "role-templates": [
-    {
-      "name": "ordencompra_user",
-      "description": "generated",
-      "scope-references": [
-        "$XSAPPNAME.ordencompra_user"
-      ],
-      "attribute-references": []
-    },
-    {
-      "name": "admin",
-      "description": "generated",
-      "scope-references": [
-        "$XSAPPNAME.admin"
-      ],
-      "attribute-references": []
-    }
-  ],
+  "role-templates": [],
   "xsappname": "Monitor_Facturas",
   "tenant-mode": "dedicated"
 }
